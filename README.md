@@ -1,1 +1,1 @@
-shopping with friends
+Shopping with Friends
