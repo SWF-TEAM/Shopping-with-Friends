@@ -32,7 +32,7 @@ public class Person5 {
 	private String calc(String input) {
       String front = input.subString(0, 2);
       String output = input.subString(2).concat(front);
-	  return null;
+	  return output;
 	}
 
 	/**
