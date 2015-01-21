@@ -1,11 +1,4 @@
-app/build
-.idea/
-*.iml
-*.iws
-*.properties
-*~
-*.lock
-*.DS_Store
-*.swp
-*.out
-*.class
+/app/build
+/.idea
+/.iml
+/.properties
