@@ -30,8 +30,8 @@ public class Person5 {
 	 * @return the modified string
 	 */
 	private String calc(String input) {
-      String front = input.subString(0, 2);
-      String output = input.subString(2).concat(front);
+      String front = input.substring(0, 2);
+      String output = input.substring(2).concat(front);
       return output;
 	}
 
