@@ -1,6 +1,10 @@
-app/build
-.idea/
-*.iml
+**/build
+**/bin/
+**/gen/
+**/.gradle
+**/local.properties
+**/.idea/workspace.xml
+**/.idea/tasks.xml
 *.iws
 *.properties
 *~
@@ -9,3 +13,8 @@ app/build
 *.swp
 *.out
 *.class
+*.apk
+*.ap_
+*Thumbs.db
+*.classpath
+*.project
