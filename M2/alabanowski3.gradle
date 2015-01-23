@@ -1,0 +1,11 @@
+apply plugin: 'java'
+
+dependencies {
+    compile files('lib/resources.jar')
+}
+
+jar {
+    baseName = 'gs-gradle'
+    version = '0.3a'
+}
+
