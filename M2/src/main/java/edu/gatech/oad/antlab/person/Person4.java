@@ -1,5 +1,8 @@
 package edu.gatech.oad.antlab.person;
 
+import java.lang.String;
+import java.util.ArrayList;
+
 /**
  *  A simple class for person 4
  *  returns their name and a
@@ -30,8 +33,12 @@ public class Person4 {
      * @return the modified string
      */
     private String calc(String input) {
-      //Person 4 put your implementation here
-      return null;
+      char[] chars = input.toCharArray();
+      for(int i=0;i<chars.length;i++){
+        chars[i] = (char)((int)chars[i]+1);
+      }
+      String output = new String(chars);
+      return output;
     }
     
     /**
