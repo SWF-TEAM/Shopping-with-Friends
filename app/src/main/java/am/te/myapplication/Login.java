@@ -6,7 +6,9 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +55,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Toast mLoginStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,6 +248,12 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         mEmailView.setAdapter(adapter);
     }
 
+    private void proceedToHome(View view) {
+        Intent intent = new Intent(this, Homepage.class);
+        startActivity(intent);
+
+    }
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -278,7 +288,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             }
 
             // TODO: register the new account here.
-            return true;
+            return false;
         }
 
         @Override
@@ -287,9 +297,11 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
+                View homeview = new View(getApplicationContext());
+                proceedToHome(homeview);
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError("Invalid password or username.");
                 mPasswordView.requestFocus();
             }
         }

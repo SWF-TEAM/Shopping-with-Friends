@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_homepage">Homepage</string>
+
+    <!-- Strings related to the Homepage -->
+    <string name="description">This is a placeholder page. The homepage will be here.</string>
+    <string name="strings_homepage" />
+
+
+</resources>
