@@ -14,7 +14,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:onClick="openLogin" />
+        android:onClick="openLogin"
+        android:nestedScrollingEnabled="false" />
 
     <Button
         android:layout_width="225dp"
@@ -36,6 +37,9 @@
         android:layout_marginTop="83dp"
         android:textSize="32dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"
+        android:phoneNumber="false"
+        android:elegantTextHeight="false" />
 
 </RelativeLayout>
