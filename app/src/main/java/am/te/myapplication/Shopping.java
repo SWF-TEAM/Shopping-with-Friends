@@ -1,7 +1,7 @@
 package am.te.myapplication;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,7 +13,6 @@ public class Shopping extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,5 +34,9 @@ public class Shopping extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openLogin() {
+        setContentView(R.layout.login);
     }
 }
