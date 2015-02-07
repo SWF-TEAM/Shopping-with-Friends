@@ -7,15 +7,20 @@ import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.database.Cursor;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +30,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private EditText mPasswordView2;
     private View mProgressView;
     private View mLoginFormView;
     private Toast mLoginStatus;
@@ -39,8 +45,42 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
         setContentView(R.layout.activity_register);
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.reg_email);
         populateAutoComplete();
+
+        mPasswordView = (EditText) findViewById(R.id.reg_pass1);
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                    attemptRegister();
+                    return true;
+                }
+                return false;
+            }
+        });
+        mPasswordView2 = (EditText) findViewById(R.id.reg_pass2);
+        mPasswordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                    attemptRegister();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        Button mEmailSignInButton = (Button) findViewById(R.id.reg_register);
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptRegister();
+            }
+        });
+
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
     }
 
 
@@ -71,10 +111,12 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
+        mPasswordView2.setError(null);
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String password2 = mPasswordView2.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -97,7 +139,18 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
             focusView = mEmailView;
             cancel = true;
         }
+        // Check for same passwords
+        boolean passSame = Validation.arePasswordsSame(password,password2);
+        if (passSame) {
+            //
+        } else {
+            Context context = getApplicationContext();
+            CharSequence text = "Passwords don't match!";
+            int duration = Toast.LENGTH_SHORT;
 
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
