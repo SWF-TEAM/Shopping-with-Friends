@@ -42,4 +42,9 @@ public class Shopping extends ActionBarActivity {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
+
+    public void openRegister(View view) {
+        Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
+    }
 }
