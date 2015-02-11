@@ -1,7 +1,9 @@
 package am.te.myapplication;
 
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
@@ -35,6 +37,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
     private View mLoginFormView;
     private Toast mLoginStatus;
 
+    private static Toast regMsgToast = null;
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
     }
@@ -147,18 +150,36 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
             Context context = getApplicationContext();
             CharSequence text = "Passwords don't match!";
             int duration = Toast.LENGTH_SHORT;
-
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
+            cancel = true;
         }
+
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
+            focusView = mPasswordView;
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-
+            User newUser = new User(email, password);
+            boolean registrationSuccess = RegistrationModel.addUser(newUser);
+            if (registrationSuccess) {
+                if (regMsgToast != null) { //get rid of the failed registration toast if it exists
+                    regMsgToast.cancel();
+                }
+                regMsgToast = Toast.makeText(getApplicationContext(), "Registration Success", Toast.LENGTH_SHORT);
+                regMsgToast.getView().setBackgroundColor(Color.BLACK);
+                regMsgToast.setDuration(Toast.LENGTH_SHORT);
+                regMsgToast.show();
+                Intent shoppingIntent = new Intent(this, Shopping.class);
+                startActivity(shoppingIntent);
+            } else {
+                regMsgToast = Toast.makeText(getApplicationContext(), email + " is already in use. Choose another username", Toast.LENGTH_LONG);
+                regMsgToast.getView().setBackgroundColor(Color.RED);
+                regMsgToast.setDuration(Toast.LENGTH_LONG);
+                regMsgToast.show();
+            }
         }
     }
 

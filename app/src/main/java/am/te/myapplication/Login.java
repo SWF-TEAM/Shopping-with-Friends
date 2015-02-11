@@ -135,6 +135,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -142,7 +143,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
@@ -272,6 +272,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+            /*
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -287,8 +288,11 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                 }
             }
 
-            // TODO: register the new account here.
-            return false;
+            */
+
+           // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
+            User userToAuthenticate = new User(mEmail, mPassword);
+            return RegistrationModel.getUsers().contains(userToAuthenticate);
         }
 
         @Override
