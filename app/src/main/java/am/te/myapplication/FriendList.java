@@ -18,6 +18,7 @@ public class FriendList extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle saveInstanceState) {
+        super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_friend_list);
 
         lv = (ListView) findViewById(R.id.friend_listView);
@@ -49,6 +50,7 @@ public class FriendList extends ActionBarActivity {
                 your_array_list );
 
         lv.setAdapter(arrayAdapter);
+
     }
 
 
