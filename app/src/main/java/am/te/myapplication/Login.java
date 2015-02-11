@@ -43,7 +43,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+            "user:pass"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -135,6 +135,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -142,7 +143,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
@@ -150,12 +150,12 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     /**
@@ -272,6 +272,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+            /*
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -287,8 +288,11 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                 }
             }
 
-            // TODO: register the new account here.
-            return false;
+            */
+
+           // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
+            User userToAuthenticate = new User(mEmail, mPassword);
+            return RegistrationModel.getUsers().contains(userToAuthenticate);
         }
 
         @Override

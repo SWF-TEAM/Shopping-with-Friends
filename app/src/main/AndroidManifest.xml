@@ -34,6 +34,11 @@
             android:name=".FriendList"
             android:label="@string/title_activity_friend_list" >
         </activity>
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register" >
+        </activity>
+        </activity>
     </application>
 
 </manifest>
