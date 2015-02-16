@@ -305,7 +305,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
         }
         protected boolean isInSystem(String user) {
             String TAG = Register.class.getSimpleName();
-            String link = "http://sandbox.artineer.com/getuser.php?username=" +user;
+            String link = "http://sandbox.artineer.com/getuserregister.php?username=" +user;
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();

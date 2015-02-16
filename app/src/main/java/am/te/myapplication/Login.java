@@ -308,7 +308,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         }
         protected boolean isInSystem(String user, String pass) {
             String TAG = Register.class.getSimpleName();
-            String link = "http://sandbox.artineer.com/getuser.php?username=" + user + "&password=" + pass;
+            String link = "http://sandbox.artineer.com/getuserlogin.php?username=" + user + "&password=" + pass;
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
