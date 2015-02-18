@@ -1,14 +1,18 @@
 package am.te.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,19 +44,16 @@ public class AddFriend extends ActionBarActivity {
 //        your_array_list.add("Dog Man XI");
 //        your_array_list.add("Dog Man XII");
 //        your_array_list.add("Dog Man XIV");
-        List<User> your_array_list = new ArrayList<User>();
+        List<User> users = new ArrayList<User>();
         User user1 = new User("Dog Man L", "woofwoof");
-        your_array_list.add(user1);
+        users.add(user1);
 
 
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(
-                this,
-                android.R.layout.simple_list_item_1,
-                your_array_list );
+        ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, users);
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,4 +86,27 @@ public class AddFriend extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public class UsersAdapter extends ArrayAdapter<User> {
+        public UsersAdapter(Context context, ArrayList<User> users) {
+            super(context, 0, users);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            User user = getItem(position);
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_user, parent, false);
+            }
+            // Lookup view for data population
+            TextView userName = (TextView) convertView.findViewById(R.id.username);
+            // Populate the data into the template view using the data object
+            userName.setText(user.getUsername());
+            // Return the completed view to render on screen
+            return convertView;
+        }
+    }
+
 }
