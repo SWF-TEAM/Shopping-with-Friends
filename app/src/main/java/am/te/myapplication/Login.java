@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -290,11 +300,36 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
             */
 
-           // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-            User userToAuthenticate = new User(mEmail, mPassword);
-            return RegistrationModel.getUsers().contains(userToAuthenticate);
-        }
+            // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
+            //User userToAuthenticate = new User(mEmail, mPassword);
+            //return RegistrationModel.getUsers().contains(userToAuthenticate);
+            return isInSystem(mEmail, mPassword);
 
+        }
+        protected boolean isInSystem(String user, String pass) {
+            String TAG = Register.class.getSimpleName();
+            String link = "http://sandbox.artineer.com/getuserlogin.php?username=" + user + "&password=" + pass;
+            try {
+                URL url = new URL(link);
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(link));
+                HttpResponse response = client.execute(request);
+                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer sb = new StringBuffer("");
+                String line="";
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                in.close();
+                Log.e(TAG, sb.toString());
+                return !sb.toString().equals("*NOSUCHUSER");
+            }catch(Exception e){
+                Log.e(TAG, "EXCEPTION>>>>", e);
+                return false;
+            }
+        }
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;

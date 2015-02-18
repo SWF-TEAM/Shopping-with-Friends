@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -31,8 +33,16 @@
             android:label="Home" >
         </activity>
         <activity
+            android:name=".FriendList"
+            android:label="@string/title_activity_friend_list" >
+        </activity>
+        <activity
             android:name=".Register"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name=".AddFriend"
+            android:label="@string/title_activity_add_friend" >
         </activity>
     </application>
 
