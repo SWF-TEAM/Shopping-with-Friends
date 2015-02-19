@@ -49,6 +49,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
     private View mProgressView;
     private View mLoginFormView;
     private Toast mLoginStatus;
+    private final String server_url = "http://artineer.com/sandbox";
 
     private static Toast regMsgToast = null;
     private void populateAutoComplete() {
@@ -309,13 +310,9 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
         }
         protected boolean isInSystem(String user) {
             String TAG = Register.class.getSimpleName();
-<<<<<<< HEAD
-            String link = "http://sandbox.artineer.com/getuserregister.php?username=" +user;
-            try {
-=======
-            String link = "http://artineer.com/sandbox/getuserregister.php?username=" +user;
+
+            String link = server_url + "/getuserregister.php?username=" +user;
             try {//kek
->>>>>>> select-add-friend
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();
@@ -338,11 +335,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
         }
         protected boolean registerUser(String user, String pass) {
             String TAG = Register.class.getSimpleName();
-<<<<<<< HEAD
-            String link = "http://sandbox.artineer.com/adduser.php?username=" +mEmail+"&password="+mPassword;
-=======
-            String link = "http://artineer.com/sandbox/adduser.php?username=" +mEmail+"&password="+mPassword;
->>>>>>> select-add-friend
+
+            String link = server_url + "/adduser.php?username=" +mEmail+"&password="+mPassword;
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
