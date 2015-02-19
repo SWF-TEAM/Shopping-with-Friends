@@ -62,10 +62,10 @@ public class User {
     }
 
     public User getFriend(User user) {
-        return isFriend(user) ? friendList.get(friendList.indexOf(user)) : null;
+        return isFriendsWith(user) ? friendList.get(friendList.indexOf(user)) : null;
     }
 
-    public boolean isFriend(User user) {
+    public boolean isFriendsWith(User user) {
         return friendList.contains(user);
     }
 

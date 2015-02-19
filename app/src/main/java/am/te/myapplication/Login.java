@@ -272,16 +272,16 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
         private final String mEmail;
         private final String mPassword;
-
+        private User userToAuthenticate;
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+            userToAuthenticate = new User(mEmail, mPassword);
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             if (State.local) {
-                User userToAuthenticate = new User(mEmail, mPassword);
                 return RegistrationModel.getUsers().contains(userToAuthenticate);
             } else {
                 //attempt authentication against a network service.
@@ -341,7 +341,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 View homeview = new View(getApplicationContext());
                 proceedToHome(homeview);
-                User.loggedIn = new User(mEmail, mPassword);
+                User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
                 finish();
             } else {
                 mPasswordView.setError("Invalid password or username.");

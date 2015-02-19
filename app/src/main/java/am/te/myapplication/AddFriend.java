@@ -22,7 +22,7 @@ import java.util.List;
 
 public class AddFriend extends ActionBarActivity {
     private ListView lv;
-    protected List<User> users = new ArrayList<User>();
+    protected List<User> possibleFriends = new ArrayList<User>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,20 +30,28 @@ public class AddFriend extends ActionBarActivity {
         lv = (ListView) findViewById(R.id.add_friend_listView);
 
         // Instantiating an array list
-        users = new ArrayList<User>();
+        possibleFriends = new ArrayList<User>();
 
         if (State.local) {
-            User user1 = new User("Dog Man L", "woofwoof");
-            users.add(user1);
-            users.add(new User("frog", ""));
+            ArrayList<User> toAdd = new ArrayList<>();
+            toAdd.add(new User("Dog Man L", "woofwoof"));
+            toAdd.add(new User("frog", ""));
+            toAdd.add(new User("toad", ""));
+            toAdd.add(new User("cricket", ""));
 
+            for (User possibleFriend: toAdd) {
+                if (!User.loggedIn.isFriendsWith(possibleFriend)) {
+
+                    possibleFriends.add(possibleFriend);
+                }
+            }
         }
 
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        final ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, users);
+        final ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, possibleFriends);
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -53,8 +61,8 @@ public class AddFriend extends ActionBarActivity {
                 Log.d(AddFriend.class.getSimpleName(), "position" + position + " id" + id);
                 //local
                 if (State.local) {
-                    RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).addFriend(users.get(position));
-                    users.remove(position);
+                    User.loggedIn.addFriend(possibleFriends.get(position));
+                    possibleFriends.remove(position);
                     arrayAdapter.notifyDataSetChanged();
                 } else {
 
