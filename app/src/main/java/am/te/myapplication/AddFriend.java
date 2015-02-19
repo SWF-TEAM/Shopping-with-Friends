@@ -36,13 +36,14 @@ public class AddFriend extends ActionBarActivity {
             User user1 = new User("Dog Man L", "woofwoof");
             users.add(user1);
             users.add(new User("frog", ""));
+
         }
 
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, users);
+        final ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, users);
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -53,6 +54,8 @@ public class AddFriend extends ActionBarActivity {
                 //local
                 if (State.local) {
                     RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).addFriend(users.get(position));
+                    users.remove(position);
+                    arrayAdapter.notifyDataSetChanged();
                 } else {
 
                 }
