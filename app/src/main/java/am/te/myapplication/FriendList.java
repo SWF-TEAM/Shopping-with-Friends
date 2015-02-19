@@ -1,5 +1,6 @@
 package am.te.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.util.Log;
 
 public class FriendList extends ActionBarActivity {
 
@@ -20,39 +21,30 @@ public class FriendList extends ActionBarActivity {
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_friend_list);
+    }
+    @Override
+    public void onStart() {
 
-        lv = (ListView) findViewById(R.id.friend_listView);
+        lv = (ListView) findViewById(R.id.add_friend_listView);
+        List<User> friends = new ArrayList<User>();
+        //local
 
-        // Instanciating an array list (you don't need to do this,
-        // you already have yours).
-        List<String> your_array_list = new ArrayList<String>();
-        your_array_list.add("Dog Man I");
-        your_array_list.add("Dog Man II");
-        your_array_list.add("Dog Man III");
-        your_array_list.add("Dog Man IV");
-        your_array_list.add("Dog Man V");
-        your_array_list.add("Dog Man VI");
-        your_array_list.add("Dog Man VII");
-        your_array_list.add("Dog Man IIX");
-        your_array_list.add("Dog Man IX");
-        your_array_list.add("Dog Man X");
-        your_array_list.add("Dog Man XI");
-        your_array_list.add("Dog Man XII");
-        your_array_list.add("Dog Man XIV");
+        if (State.local) {
+            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
+        } else {
 
-
+        }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(
                 this,
                 android.R.layout.simple_list_item_1,
-                your_array_list );
+                friends);
 
         lv.setAdapter(arrayAdapter);
-
+        super.onStart();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,16 +55,21 @@ public class FriendList extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // Handle presses on the action bar
+        // Opens the friends menu if the user presses the 'friends' button
+        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
+        switch (item.getItemId()) {
+            case R.id.friend_menu:
+                openAddFriends();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    public void openAddFriends() {
+        Intent intent = new Intent(this, AddFriend.class);
+        startActivity(intent);
+    }
+
 }

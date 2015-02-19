@@ -272,43 +272,46 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
         private final String mEmail;
         private final String mPassword;
-
+        private User userToAuthenticate;
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+            userToAuthenticate = new User(mEmail, mPassword);
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            /*
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+            if (State.local) {
+                return RegistrationModel.getUsers().contains(userToAuthenticate);
+            } else {
+                //attempt authentication against a network service.
+                /*
+                try {
+                    // Simulate network access.
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    return false;
                 }
+
+                for (String credential : DUMMY_CREDENTIALS) {
+                    String[] pieces = credential.split(":");
+                    if (pieces[0].equals(mEmail)) {
+                        // Account exists, return true if the password matches.
+                        return pieces[1].equals(mPassword);
+                    }
+                }
+
+                */
+
+                // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
+                //User userToAuthenticate = new User(mEmail, mPassword);
+                //return RegistrationModel.getUsers().contains(userToAuthenticate);
+                return isInSystem(mEmail, mPassword);
             }
-
-            */
-
-            // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-            //User userToAuthenticate = new User(mEmail, mPassword);
-            //return RegistrationModel.getUsers().contains(userToAuthenticate);
-            return isInSystem(mEmail, mPassword);
-
         }
         protected boolean isInSystem(String user, String pass) {
             String TAG = Register.class.getSimpleName();
-            String link = "http://sandbox.artineer.com/getuserlogin.php?username=" + user + "&password=" + pass;
+            String link = "http://artineer.com/sandbox/getuserlogin.php?username=" + user + "&password=" + pass;
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
@@ -338,6 +341,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 View homeview = new View(getApplicationContext());
                 proceedToHome(homeview);
+                User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
                 finish();
             } else {
                 mPasswordView.setError("Invalid password or username.");

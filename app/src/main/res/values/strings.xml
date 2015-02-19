@@ -10,4 +10,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_register_short">Register</string>
     <string name="prompt_username">Username</string>
+    <string name="title_activity_add_friend">Add Friend</string>
+
+
 </resources>

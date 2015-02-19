@@ -267,20 +267,24 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
             mEmail = email;
             mPassword = password;
         }
-
         @Override
         protected Boolean doInBackground(Void... params) {
-            // authentication against a network service.
-            // check if user is in system
-            // register user if not in system
-            if (!isInSystem(mEmail)) {
-                boolean registered = registerUser(mEmail, mPassword);
-                String TAG = Register.class.getSimpleName();
-                Log.d(TAG, "registered user");
-                return registered; //indicate registration success or failure
+            if (State.local) {
+                //local
+                RegistrationModel.addUser(new User(mEmail, mPassword));
+                return true;
+            } else {
+                // authentication against a network service.
+                // check if user is in system
+                // register user if not in system
+                if (!isInSystem(mEmail)) {
+                    boolean registered = registerUser(mEmail, mPassword);
+                    String TAG = Register.class.getSimpleName();
+                    Log.d(TAG, "registered user");
+                    return registered; //indicate registration success or failure
+                }
+                return false; //already in system
             }
-            return false; //already in system
-
             /*
             try {
                 // Simulate network access.
@@ -305,8 +309,13 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
         }
         protected boolean isInSystem(String user) {
             String TAG = Register.class.getSimpleName();
+<<<<<<< HEAD
             String link = "http://sandbox.artineer.com/getuserregister.php?username=" +user;
             try {
+=======
+            String link = "http://artineer.com/sandbox/getuserregister.php?username=" +user;
+            try {//kek
+>>>>>>> select-add-friend
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();
@@ -329,7 +338,11 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
         }
         protected boolean registerUser(String user, String pass) {
             String TAG = Register.class.getSimpleName();
+<<<<<<< HEAD
             String link = "http://sandbox.artineer.com/adduser.php?username=" +mEmail+"&password="+mPassword;
+=======
+            String link = "http://artineer.com/sandbox/adduser.php?username=" +mEmail+"&password="+mPassword;
+>>>>>>> select-add-friend
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
