@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.util.Log;
 
 public class FriendList extends ActionBarActivity {
 
@@ -22,27 +22,31 @@ public class FriendList extends ActionBarActivity {
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_friend_list);
+
+    }
+    @Override
+    public void onStart() {
+
         lv = (ListView) findViewById(R.id.add_friend_listView);
+        List<User> friends = new ArrayList<User>();
+        //local
 
-        // Instanciating an array list (you don't need to do this,
-        // you already have yours).
-        List<String> your_array_list = new ArrayList<String>();
+        if (State.local) {
+            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
+        } else {
 
-
-
+        }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(
                 this,
                 android.R.layout.simple_list_item_1,
-                your_array_list );
+                friends);
 
         lv.setAdapter(arrayAdapter);
-
-
+        super.onStart();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

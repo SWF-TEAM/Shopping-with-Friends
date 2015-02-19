@@ -1,14 +1,20 @@
 package am.te.myapplication;
 
+import java.util.ArrayList;
+
 /**
  * Created by elimonent on 2/9/15.
  */
 public class User {
+    public static User loggedIn;
     private String username;
     private String password;
+    private ArrayList<User> friendList;
+
     public User(String username, String password) {
         setUsername(username);
         setPassword(password);
+        friendList = new ArrayList<>();
     }
     public String getUsername() {
         return username;
@@ -45,6 +51,26 @@ public class User {
     @Override
     public String toString() {
         return getUsername();
+    }
+
+    public boolean addFriend(User newFriend) {
+        if (!friendList.contains(newFriend)) {
+            friendList.add(newFriend);
+            return true;
+        }
+        return false;
+    }
+
+    public User getFriend(User user) {
+        return isFriend(user) ? friendList.get(friendList.indexOf(user)) : null;
+    }
+
+    public boolean isFriend(User user) {
+        return friendList.contains(user);
+    }
+
+    public ArrayList<User> getFriends() {
+        return friendList;
     }
 }
 
