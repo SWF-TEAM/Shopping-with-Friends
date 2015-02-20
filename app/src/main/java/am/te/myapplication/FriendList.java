@@ -29,7 +29,7 @@ public class FriendList extends ActionBarActivity {
         List<User> friends = new ArrayList<User>();
         //local
 
-        if (State.local) {
+        if (State.local && User.loggedIn != null && User.loggedIn.hasFriends()) {
             friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
         } else {
 
@@ -62,13 +62,28 @@ public class FriendList extends ActionBarActivity {
             case R.id.friend_menu:
                 openAddFriends();
                 return true;
+            case R.id.search_friend:
+                openSearchFriends();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    @Override
+    public boolean onSearchRequested() {
+        Intent intent = new Intent(this, SearchFriends.class);
+        startActivity(intent);
+        return true;
+    }
+
     public void openAddFriends() {
         Intent intent = new Intent(this, AddFriend.class);
+        startActivity(intent);
+    }
+
+    public void openSearchFriends() {
+        Intent intent = new Intent(this, SearchFriends.class);
         startActivity(intent);
     }
 
