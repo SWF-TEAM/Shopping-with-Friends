@@ -49,10 +49,12 @@ public class SearchFriends extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //add friend to friend list here
-                Log.d(AddFriend.class.getSimpleName(), "position" + position + " id" + id);
+                Log.d(SearchFriends.class.getSimpleName(), "position" + position + " id" + id);
                 //local
                 if (State.local) {
+                    System.out.println("adding friend " + matches.get(position));
                     User.loggedIn.addFriend(matches.get(position));
+                    System.out.println(User.loggedIn.hasFriends());
                     matches.remove(position);
                     arrayAdapter.notifyDataSetChanged();
                 } else {
@@ -99,12 +101,12 @@ public class SearchFriends extends Activity {
             curr = iter.next();
             System.out.println("User is:" + curr.getUsername());
             if (email) {
-                if (curr != null && query.equals(curr.getEmail())) {
+                if (curr != null && !User.loggedIn.isFriendsWith(curr) && query.equals(curr.getEmail())) {
                     System.out.println("Found a match");
                     matches.add(curr);
                 }
             } else {
-                if (curr != null && query.equals(curr.getUsername())) {
+                if (curr != null && !User.loggedIn.isFriendsWith(curr) && query.equals(curr.getUsername())) {
                     System.out.println("Found a match");
                     matches.add(curr);
                 }
@@ -114,7 +116,6 @@ public class SearchFriends extends Activity {
         arrayAdapter.clear();
         arrayAdapter.addAll(matches);
         arrayAdapter.notifyDataSetChanged();
-
     }
 
     /**
@@ -142,6 +143,12 @@ public class SearchFriends extends Activity {
         }
 
         return users;
+    }
+
+    @Override
+    public void onResume() {
+        registeredUsers = populateUsers();
+        super.onResume();
     }
 
     @Override

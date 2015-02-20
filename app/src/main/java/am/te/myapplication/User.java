@@ -42,7 +42,7 @@ public class User {
     }
 
     public boolean hasFriends() {
-        return (friendList == null);
+        return !friendList.isEmpty();
     }
 
     public void setPassword(String pass) {
