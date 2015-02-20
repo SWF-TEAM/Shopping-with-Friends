@@ -16,6 +16,7 @@ public class FriendList extends ActionBarActivity {
 
     // Creates the listview to hold the users.
     private ListView lv;
+    private ArrayAdapter<User> arrayAdapter;
 
     @Override
     public void onCreate(Bundle saveInstanceState) {
@@ -29,7 +30,7 @@ public class FriendList extends ActionBarActivity {
         List<User> friends = new ArrayList<User>();
         //local
 
-        if (State.local) {
+        if (State.local && User.loggedIn != null && User.loggedIn.hasFriends()) {
             friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
         } else {
 
@@ -37,7 +38,7 @@ public class FriendList extends ActionBarActivity {
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(
+        arrayAdapter = new ArrayAdapter<User>(
                 this,
                 android.R.layout.simple_list_item_1,
                 friends);
@@ -61,14 +62,41 @@ public class FriendList extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.friend_menu:
                 openAddFriends();
+                //arrayAdapter.clear();
+                //arrayAdapter.addAll(User.loggedIn.getFriends());
+                arrayAdapter.notifyDataSetChanged();
+                return true;
+            case R.id.search_friend:
+                openSearchFriends();
+                //arrayAdapter.clear();
+                //arrayAdapter.addAll(User.loggedIn.getFriends());
+                arrayAdapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    @Override
+    public void onResume() {
+        arrayAdapter.notifyDataSetChanged();
+        super.onResume();
+    }
+
+    @Override
+    public boolean onSearchRequested() {
+        Intent intent = new Intent(this, SearchFriends.class);
+        startActivity(intent);
+        return true;
+    }
+
     public void openAddFriends() {
         Intent intent = new Intent(this, AddFriend.class);
+        startActivity(intent);
+    }
+
+    public void openSearchFriends() {
+        Intent intent = new Intent(this, SearchFriends.class);
         startActivity(intent);
     }
 

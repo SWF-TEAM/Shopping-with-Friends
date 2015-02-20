@@ -3,30 +3,58 @@ package am.te.myapplication;
 import java.util.ArrayList;
 
 /**
- * Created by elimonent on 2/9/15.
+ * The user class represents a user in the app.
+ *
+ * @author Mike Adkison, Mitchell Manguno
+ * @since 2015 February 19
  */
 public class User {
+
     public static User loggedIn;
     private String username;
     private String password;
+    private String email;
     private ArrayList<User> friendList;
 
-    public User(String username, String password) {
-        setUsername(username);
-        setPassword(password);
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
         friendList = new ArrayList<>();
     }
+
+
+    public User(String username, String password) {
+        this(username, password, null);
+    }
+
+
     public String getUsername() {
         return username;
     }
+
     public String getPassword() {
         return password;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean hasFriends() {
+        return !friendList.isEmpty();
+    }
+
     public void setPassword(String pass) {
         this.password = pass;
     }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

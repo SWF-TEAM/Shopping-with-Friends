@@ -29,23 +29,7 @@ public class AddFriend extends ActionBarActivity {
         setContentView(R.layout.activity_add_friend);
         lv = (ListView) findViewById(R.id.add_friend_listView);
 
-        // Instantiating an array list
-        possibleFriends = new ArrayList<User>();
-
-        if (State.local) {
-            ArrayList<User> toAdd = new ArrayList<>();
-            toAdd.add(new User("Dog Man L", "woofwoof"));
-            toAdd.add(new User("frog", ""));
-            toAdd.add(new User("toad", ""));
-            toAdd.add(new User("cricket", ""));
-
-            for (User possibleFriend: toAdd) {
-                if (!User.loggedIn.isFriendsWith(possibleFriend)) {
-
-                    possibleFriends.add(possibleFriend);
-                }
-            }
-        }
+        populate();
 
 
         // This is the array adapter, it takes the context of the activity as a
@@ -71,6 +55,31 @@ public class AddFriend extends ActionBarActivity {
         });
     }
 
+    private void populate() {
+        // Instantiating an array list
+        possibleFriends = new ArrayList<User>();
+
+        if (State.local) {
+            ArrayList<User> toAdd = new ArrayList<>();
+            toAdd.add(new User("Dog Man L", "woofwoof", "dog@man.com"));
+            toAdd.add(new User("frog", "qwrg", "frog@leg.biz"));
+            toAdd.add(new User("toad", "xfsdf", "collin@126.xxx"));
+            toAdd.add(new User("cricket", "asrgh", "ypres@wat.ru"));
+
+            for (User possibleFriend: toAdd) {
+                if (!User.loggedIn.isFriendsWith(possibleFriend)) {
+
+                    possibleFriends.add(possibleFriend);
+                }
+            }
+        }
+    }
+
+    //@Override
+    //public void onResume() {
+    //    populate();
+    //    super.onResume();
+    //}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
