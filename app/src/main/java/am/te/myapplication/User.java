@@ -1,6 +1,7 @@
 package am.te.myapplication;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The user class represents a user in the app.
@@ -15,11 +16,16 @@ public class User {
     private String password;
     private String email;
     private ArrayList<User> friendList;
+    private int rating;
+    private int salesReports;
 
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
+        Random rand = new Random();
+        this.rating = rand.nextInt(10);
+        this.salesReports = rand.nextInt(1000);
         friendList = new ArrayList<>();
     }
 
@@ -94,11 +100,40 @@ public class User {
     }
 
     public boolean isFriendsWith(User user) {
+        if(user == null) { System.out.println("ITS NULL, BITCH");}
         return friendList.contains(user);
     }
 
     public ArrayList<User> getFriends() {
         return friendList;
     }
+
+    public String getDetails() {
+        return username + '\n' + email;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public int getSalesReports(){
+        return salesReports;
+    }
+
+    public User getFriend(String username) {
+        for (User friend: friendList) {
+            if (username.equals(friend.username)) {
+                System.out.println("Name");
+                return friend;
+            }
+        }
+        return null;
+    }
+    
+    public void removeFriend(User user) {
+        friendList.remove(user);
+    }
+
+
 }
 
