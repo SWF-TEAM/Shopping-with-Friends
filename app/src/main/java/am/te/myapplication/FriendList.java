@@ -5,18 +5,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
+import android.widget.Toast;
 
 public class FriendList extends ActionBarActivity {
 
     // Creates the listview to hold the users.
     private ListView lv;
     private ArrayAdapter<User> arrayAdapter;
+    List<User> friends = new ArrayList<User>();
 
     @Override
     public void onCreate(Bundle saveInstanceState) {
@@ -27,7 +31,7 @@ public class FriendList extends ActionBarActivity {
     public void onStart() {
 
         lv = (ListView) findViewById(R.id.add_friend_listView);
-        List<User> friends = new ArrayList<User>();
+
         //local
 
         if (State.local && User.loggedIn != null && User.loggedIn.hasFriends()) {
@@ -44,6 +48,17 @@ public class FriendList extends ActionBarActivity {
                 friends);
 
         lv.setAdapter(arrayAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //CREATE A POPUP HERE
+                //Toast.makeText(getApplicationContext(), friends.get(position).getDetails(), Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), FriendDetails.class);
+                i.putExtra("username",friends.get(position).getUsername());
+                startActivity(i);
+
+            }
+        });
         super.onStart();
     }
 
