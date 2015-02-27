@@ -51,8 +51,7 @@ public class FriendList extends ActionBarActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //CREATE A POPUP HERE
-                //Toast.makeText(getApplicationContext(), friends.get(position).getDetails(), Toast.LENGTH_SHORT).show();
+                //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(), FriendDetails.class);
                 i.putExtra("username",friends.get(position).getUsername());
                 startActivity(i);

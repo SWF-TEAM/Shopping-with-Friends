@@ -19,12 +19,11 @@ import android.widget.Toast;
 
 
 /**
- * The homepage class acts as a springboard to other areas of the app.
- * It displays a list of deals the user is shopping for.
+ * This displays the details of your friend that you clicked on
  *
- * @author Mitchell Manguno
+ * @author Collin Caldwell
  * @version 1.0
- * @since 2015 - February - 09
+ * @since 2015 - February - 26
  */
 public class FriendDetails extends Activity {
     User currentUser;
@@ -55,36 +54,13 @@ public class FriendDetails extends Activity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_homepage, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar
-        // Opens the friends menu if the user presses the 'friends' button
-        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
-        switch (item.getItemId()) {
-            case R.id.friend_menu:
-                openFriends();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public void openFriends() {
-        Intent intent = new Intent(this, FriendList.class);
-        startActivity(intent);
-    }
-
+    /**
+     * Removes your friends while in details view
+     *
+     * @param view
+     */
     public void removeFriend(View view) {
+
         User.loggedIn.removeFriend(currentUser);
         finish();
     }
