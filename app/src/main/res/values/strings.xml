@@ -13,5 +13,8 @@
     <string name="title_activity_add_friend">Add Friend</string>
     <string name="search_hint">Enter a Name or Email Address</string>
     <string name="title_activity_search_friends">SearchFriends</string>
+    <string name="title_activity_add_product">Add Product</string>
+    <string name="add_product_name_hint">Enter Product Name</string>
+    <string name="add_product_price_hint">Enter Desired Price</string>
 
 </resources>
