@@ -102,12 +102,12 @@ public class SearchFriends extends Activity {
             System.out.println("User is:" + curr.getUsername());
             if (email) {
                 if (curr != null && !User.loggedIn.isFriendsWith(curr) && query.equals(curr.getEmail())) {
-                    System.out.println("Found a match");
+                    //System.out.println("Found a match");
                     matches.add(curr);
                 }
             } else {
                 if (curr != null && !User.loggedIn.isFriendsWith(curr) && query.equals(curr.getUsername())) {
-                    System.out.println("Found a match");
+                    //System.out.println("Found a match");
                     matches.add(curr);
                 }
             }

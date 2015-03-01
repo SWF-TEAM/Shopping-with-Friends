@@ -1,12 +1,14 @@
 package am.te.myapplication;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The user class represents a user in the app.
  *
  * @author Mike Adkison, Mitchell Manguno
- * @since 2015 February 19
+ * @since 2015 March 01
+ * @version 1.2
  */
 public class User {
 
@@ -14,13 +16,15 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private ArrayList<User> friendList;
+    private List<User> friendList;
+    private List<Product> itemList;
 
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
         friendList = new ArrayList<>();
+        itemList = new ArrayList<>();
     }
 
 
@@ -28,7 +32,7 @@ public class User {
         this(username, password, null);
     }
 
-
+    /* Getters and Setters */
     public String getUsername() {
         return username;
     }
@@ -41,8 +45,12 @@ public class User {
         return email;
     }
 
-    public boolean hasFriends() {
-        return !friendList.isEmpty();
+    public List<User> getFriends() {
+        return friendList;
+    }
+
+    public List<Product> getItemList() {
+        return itemList;
     }
 
     public void setPassword(String pass) {
@@ -57,6 +65,59 @@ public class User {
         this.email = email;
     }
 
+    public void setFriendList(List friendList) {
+        this.friendList = friendList;
+    }
+
+    public void setItemList(List itemList) {
+        this.itemList = itemList;
+    }
+
+    /* Friend List Operations */
+    public boolean hasFriends() {
+        return !friendList.isEmpty();
+    }
+
+    public boolean addFriend(User newFriend) {
+        if (!friendList.contains(newFriend)) {
+            friendList.add(newFriend);
+            return true;
+        }
+        return false;
+    }
+
+    public User getFriend(User user) {
+        return isFriendsWith(user) ? friendList.get(friendList.indexOf(user)) : null;
+    }
+
+
+    public boolean isFriendsWith(User user) {
+        return friendList.contains(user);
+    }
+
+    /* Item List Operations */
+    public boolean hasItems() {
+        return !itemList.isEmpty();
+    }
+
+    public boolean addItem(Product newProduct) {
+        if (!itemList.contains(newProduct)) {
+            itemList.add(newProduct);
+            return true;
+        }
+        return false;
+    }
+
+    public Product getProduct(Product product) {
+        return hasItem(product) ? itemList.get(itemList.indexOf(product)) : null;
+    }
+
+
+    public boolean hasItem(Product product) {
+        return itemList.contains(product);
+    }
+
+    /* Object Overrides */
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof User)) {
@@ -81,24 +142,4 @@ public class User {
         return getUsername();
     }
 
-    public boolean addFriend(User newFriend) {
-        if (!friendList.contains(newFriend)) {
-            friendList.add(newFriend);
-            return true;
-        }
-        return false;
-    }
-
-    public User getFriend(User user) {
-        return isFriendsWith(user) ? friendList.get(friendList.indexOf(user)) : null;
-    }
-
-    public boolean isFriendsWith(User user) {
-        return friendList.contains(user);
-    }
-
-    public ArrayList<User> getFriends() {
-        return friendList;
-    }
 }
-

@@ -59,8 +59,8 @@ public class Product {
 
         Product o = (Product) other;
 
-        return o.name.equals(o.name) && o.desiredPrice == o.desiredPrice
-            && o.additionalInfo.equals(o.additionalInfo);
+        return o.name.equals(this.name) && o.desiredPrice == this.desiredPrice
+            && o.additionalInfo.equals(this.additionalInfo);
     }
 
     @Override
