@@ -66,7 +66,7 @@ public class AddProduct extends ActionBarActivity {
         String additionalInfo = additionalInfoView.getText().toString();
 
         if (!cancel) {
-            Product newProduct = new Product(name, price, additionalInfo);
+            Listing newProduct = new Listing(name, price, additionalInfo);
             System.out.println(User.loggedIn.addItem(newProduct));
             System.out.println("Added new item: " + newProduct);
             System.out.println("User items is now " + User.loggedIn.getItemList());

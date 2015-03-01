@@ -7,19 +7,20 @@ package am.te.myapplication;
  * @since 2015 February 23
  */
 
-public class Product {
+public class Listing {
 
-    public String name;
-    public double desiredPrice;
-    public String additionalInfo;
+    private String name;
+    private double desiredPrice;
+    private String additionalInfo;
+    private int productID;
 
-    public Product(String name, double desiredPrice, String additionalInfo) {
+    public Listing(String name, double desiredPrice, String additionalInfo) {
         this.name = name;
         this.desiredPrice = desiredPrice;
         this.additionalInfo = additionalInfo;
     }
 
-    public Product(String name, double desiredPrice) {
+    public Listing(String name, double desiredPrice) {
         this(name, desiredPrice, null);
     }
 
@@ -53,11 +54,11 @@ public class Product {
             return true;
         }
 
-        if (!(other instanceof Product)) {
+        if (!(other instanceof Listing)) {
             return false;
         }
 
-        Product o = (Product) other;
+        Listing o = (Listing) other;
 
         return o.name.equals(this.name) && o.desiredPrice == this.desiredPrice
             && o.additionalInfo.equals(this.additionalInfo);

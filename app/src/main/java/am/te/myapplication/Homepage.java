@@ -37,7 +37,7 @@ public class Homepage extends ActionBarActivity {
     public void onStart() {
 
         lv = (ListView) findViewById(R.id.product_listView);
-        List<Product> products = new ArrayList<Product>();
+        List<Listing> products = new ArrayList<Listing>();
         //local
 
         if (State.local && User.loggedIn != null && User.loggedIn.hasItems()) {
@@ -48,7 +48,7 @@ public class Homepage extends ActionBarActivity {
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        arrayAdapter = new ArrayAdapter<Product>(
+        arrayAdapter = new ArrayAdapter<Listing>(
                 this,
                 android.R.layout.simple_list_item_1,
                 products);

@@ -46,7 +46,7 @@
         <activity
             android:name=".FriendList"
             android:label="@string/title_activity_friend_list" >
-
+           g 
             <!--
                 <meta-data android:name="android.app.default_searchable"
                        android:value=".SearchFriends" />
@@ -63,6 +63,14 @@
         <activity
             android:name=".AddProduct"
             android:label="@string/title_activity_add_product" >
+        </activity>
+        <activity
+            android:name=".FriendDetails"
+            android:label="Friend Details" >
+        </activity>
+        <activity
+            android:name=".ProductDetails"
+            android:label="@string/title_activity_product_details" >
         </activity>
     </application>
 

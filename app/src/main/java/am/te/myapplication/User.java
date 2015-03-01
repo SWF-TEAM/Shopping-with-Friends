@@ -2,6 +2,7 @@ package am.te.myapplication;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The user class represents a user in the app.
@@ -17,12 +18,17 @@ public class User {
     private String password;
     private String email;
     private List<User> friendList;
-    private List<Product> itemList;
+    private List<Listing> itemList;
+    private int rating;
+    private int salesReports;
 
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
+        /*Random rand = new Random();
+        this.rating = rand.nextInt(10);
+        this.salesReports = rand.nextInt(1000);*/
         friendList = new ArrayList<>();
         itemList = new ArrayList<>();
     }
@@ -49,8 +55,16 @@ public class User {
         return friendList;
     }
 
-    public List<Product> getItemList() {
+    public List<Listing> getItemList() {
         return itemList;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public int getSalesReports() {
+        return salesReports;
     }
 
     public void setPassword(String pass) {
@@ -71,6 +85,14 @@ public class User {
 
     public void setItemList(List itemList) {
         this.itemList = itemList;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setSalesReports(int salesReports) {
+        this.salesReports = salesReports;
     }
 
     /* Friend List Operations */
@@ -95,12 +117,26 @@ public class User {
         return friendList.contains(user);
     }
 
+    public User getFriend(String username) {
+        for (User friend: friendList) {
+            if (username.equals(friend.username)) {
+                System.out.println("Name");
+                return friend;
+            }
+        }
+        return null;
+    }
+
+    public void removeFriend(User user) {
+        friendList.remove(user);
+    }
+
     /* Item List Operations */
     public boolean hasItems() {
         return !itemList.isEmpty();
     }
 
-    public boolean addItem(Product newProduct) {
+    public boolean addItem(Listing newProduct) {
         if (!itemList.contains(newProduct)) {
             itemList.add(newProduct);
             return true;
@@ -108,12 +144,12 @@ public class User {
         return false;
     }
 
-    public Product getProduct(Product product) {
+    public Listing getProduct(Listing product) {
         return hasItem(product) ? itemList.get(itemList.indexOf(product)) : null;
     }
 
 
-    public boolean hasItem(Product product) {
+    public boolean hasItem(Listing product) {
         return itemList.contains(product);
     }
 
@@ -128,7 +164,8 @@ public class User {
             return true;
         }
         User theOther = (User) other;
-        return theOther.getUsername().equals(this.getUsername()) && theOther.getPassword().equals(this.getPassword());
+        return theOther.getUsername().equals(this.getUsername()) &&
+            theOther.getPassword().equals(this.getPassword());
     }
     @Override
     public int hashCode() {
