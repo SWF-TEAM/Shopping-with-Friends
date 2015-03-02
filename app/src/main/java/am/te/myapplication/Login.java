@@ -48,16 +48,7 @@ import java.util.List;
  */
 public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+    protected static String usernameCurrentlyLoggedIn = null;
     private UserLoginTask mAuthTask = null;
 
     // UI references.
@@ -272,13 +263,13 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String mUsername;
         private final String mPassword;
         private User userToAuthenticate;
         UserLoginTask(String email, String password) {
-            mEmail = email;
+            mUsername = email;
             mPassword = password;
-            userToAuthenticate = new User(mEmail, mPassword);
+            userToAuthenticate = new User(mUsername, mPassword);
         }
 
         @Override
@@ -297,7 +288,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
                 for (String credential : DUMMY_CREDENTIALS) {
                     String[] pieces = credential.split(":");
-                    if (pieces[0].equals(mEmail)) {
+                    if (pieces[0].equals(mUsername)) {
                         // Account exists, return true if the password matches.
                         return pieces[1].equals(mPassword);
                     }
@@ -306,9 +297,9 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                 */
 
                 // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-                //User userToAuthenticate = new User(mEmail, mPassword);
+                //User userToAuthenticate = new User(mUsername, mPassword);
                 //return RegistrationModel.getUsers().contains(userToAuthenticate);
-                return isInSystem(mEmail, mPassword);
+                return isInSystem(mUsername, mPassword);
             }
         }
         protected boolean isInSystem(String user, String pass) {
@@ -343,7 +334,11 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 View homeview = new View(getApplicationContext());
                 proceedToHome(homeview);
-                User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
+                if (State.local) {
+                    User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
+                } else {
+                    usernameCurrentlyLoggedIn = mUsername;
+                }
                 finish();
             } else {
                 mPasswordView.setError("Invalid password or username.");

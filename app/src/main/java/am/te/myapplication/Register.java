@@ -188,25 +188,6 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
             mAuthTask = new UserRegisterTask(email, password);
             mAuthTask.execute((Void) null);
 
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //User newUser = new User(email, password);
-     /*       boolean registrationSuccess = true;//RegistrationModel.addUser(newUser);
-            if (registrationSuccess) {
-                if (regMsgToast != null) { //get rid of the failed registration toast if it exists
-                    regMsgToast.cancel();
-                }
-                regMsgToast = Toast.makeText(getApplicationContext(), "Registration Success", Toast.LENGTH_SHORT);
-                regMsgToast.getView().setBackgroundColor(Color.BLACK);
-                regMsgToast.setDuration(Toast.LENGTH_SHORT);
-                regMsgToast.show();
-                Intent shoppingIntent = new Intent(this, Shopping.class);
-                startActivity(shoppingIntent);
-            } else {
-                regMsgToast = Toast.makeText(getApplicationContext(), email + " is already in use. Choose another username", Toast.LENGTH_LONG);
-                regMsgToast.getView().setBackgroundColor(Color.RED);
-                regMsgToast.setDuration(Toast.LENGTH_LONG);
-                regMsgToast.show();
-            }*/
         }
     }
 
