@@ -258,7 +258,7 @@ public class SearchFriends extends Activity {
                 client.execute(request);
                 return true;
             } catch(Exception e) {
-                Log.e(TAG, "EXCEPTION while getting friends from database>>>", e);
+                Log.e(TAG, "EXCEPTION while getting possible friends from database>>>", e);
                 return false;
             }
         }

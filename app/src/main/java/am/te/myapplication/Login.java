@@ -299,10 +299,10 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                 // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
                 //User userToAuthenticate = new User(mUsername, mPassword);
                 //return RegistrationModel.getUsers().contains(userToAuthenticate);
-                return isInSystem(mUsername, mPassword);
+                return mayLogIn(mUsername, mPassword);
             }
         }
-        protected boolean isInSystem(String user, String pass) {
+        protected boolean mayLogIn(String user, String pass) {
             String TAG = Register.class.getSimpleName();
             String link = "http://artineer.com/sandbox/getuserlogin.php?username=" + user + "&password=" + pass;
             try {
@@ -320,7 +320,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                 }
                 in.close();
                 Log.e(TAG, sb.toString());
-                return !sb.toString().equals("*NOSUCHUSER");
+                return sb.toString().equals(mUsername);
             }catch(Exception e){
                 Log.e(TAG, "EXCEPTION>>>>", e);
                 return false;
