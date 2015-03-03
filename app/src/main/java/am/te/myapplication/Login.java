@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,9 +72,11 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
+        RegistrationModel.addUser(new User("m", "mmmm"));
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -135,6 +147,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -142,7 +155,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
@@ -262,35 +274,67 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
         private final String mEmail;
         private final String mPassword;
-
+        private User userToAuthenticate;
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+            userToAuthenticate = new User(mEmail, mPassword);
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            if (State.local) {
+                return RegistrationModel.getUsers().contains(userToAuthenticate);
+            } else {
+                //attempt authentication against a network service.
+                /*
+                try {
+                    // Simulate network access.
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    return false;
+                }
 
+                for (String credential : DUMMY_CREDENTIALS) {
+                    String[] pieces = credential.split(":");
+                    if (pieces[0].equals(mEmail)) {
+                        // Account exists, return true if the password matches.
+                        return pieces[1].equals(mPassword);
+                    }
+                }
+
+                */
+
+                // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
+                //User userToAuthenticate = new User(mEmail, mPassword);
+                //return RegistrationModel.getUsers().contains(userToAuthenticate);
+                return isInSystem(mEmail, mPassword);
+            }
+        }
+        protected boolean isInSystem(String user, String pass) {
+            String TAG = Register.class.getSimpleName();
+            String link = "http://artineer.com/sandbox/getuserlogin.php?username=" + user + "&password=" + pass;
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                URL url = new URL(link);
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(link));
+                HttpResponse response = client.execute(request);
+                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer sb = new StringBuffer("");
+                String line="";
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                in.close();
+                Log.e(TAG, sb.toString());
+                return !sb.toString().equals("*NOSUCHUSER");
+            }catch(Exception e){
+                Log.e(TAG, "EXCEPTION>>>>", e);
                 return false;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return false;
         }
-
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
@@ -299,6 +343,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 View homeview = new View(getApplicationContext());
                 proceedToHome(homeview);
+                User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
                 finish();
             } else {
                 mPasswordView.setError("Invalid password or username.");

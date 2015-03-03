@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SearchFriends" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <!--<meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            -->
+        </activity>
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
@@ -31,8 +43,23 @@
             android:label="Home" >
         </activity>
         <activity
+            android:name=".FriendList"
+            android:label="@string/title_activity_friend_list" >
+            <!--<meta-data android:name="android.app.default_searchable"
+                       android:value=".SearchFriends" />
+            -->
+        </activity>
+        <activity
             android:name=".Register"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name=".AddFriend"
+            android:label="@string/title_activity_add_friend" >
+        </activity>
+        <activity
+            android:name=".FriendDetails"
+            android:label="Friend Details" >
         </activity>
     </application>
 
