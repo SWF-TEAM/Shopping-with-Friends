@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 
-public class AddProduct extends ActionBarActivity {
+public class AddListing extends ActionBarActivity {
 
     private EditText nameView;
     private EditText priceView;

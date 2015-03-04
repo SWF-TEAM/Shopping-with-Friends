@@ -1,13 +1,13 @@
 package am.te.myapplication;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -26,6 +26,7 @@ public class Homepage extends ActionBarActivity {
 
     private ListView lv;
     private ArrayAdapter arrayAdapter;
+    List<Listing> products = new ArrayList<Listing>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class Homepage extends ActionBarActivity {
     public void onStart() {
 
         lv = (ListView) findViewById(R.id.product_listView);
-        List<Listing> products = new ArrayList<Listing>();
+
         //local
 
         if (State.local && User.loggedIn != null && User.loggedIn.hasItems()) {
@@ -54,6 +55,16 @@ public class Homepage extends ActionBarActivity {
                 products);
 
         lv.setAdapter(arrayAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Pass user clicked on to new Friend Details Page
+                Intent i = new Intent(getApplicationContext(), ListingDetails.class);
+                i.putExtra("products", products.get(position).getName());
+                startActivity(i);
+
+            }
+        });
         super.onStart();
     }
 
@@ -95,7 +106,7 @@ public class Homepage extends ActionBarActivity {
     }
 
     public void addProduct() {
-        Intent intent = new Intent(this, AddProduct.class);
+        Intent intent = new Intent(this, AddListing.class);
         startActivity(intent);
         //arrayAdapter.clear();
         //arrayAdapter.addAll(User.loggedIn.getItemList());
