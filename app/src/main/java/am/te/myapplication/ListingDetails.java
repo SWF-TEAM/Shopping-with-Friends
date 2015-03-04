@@ -31,15 +31,4 @@ public class ListingDetails extends Activity {
 
 
     }
-
-    /**
-     * Removes your friends while in details view
-     *
-     * @param view
-     */
-    public void removeFriend(View view) {
-
-        User.loggedIn.removeFriend(currentUser);
-        finish();
-    }
 }
