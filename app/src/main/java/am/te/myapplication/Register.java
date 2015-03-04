@@ -312,7 +312,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
                     break;
                 }
                 in.close();
-                return true;
+                Log.d(TAG, sb.toString());
+                return !sb.toString().contains("failed") && !sb.toString().contains("already in use");
             }catch(Exception e){
                 Log.e(TAG, "EXCEPTION>>>>", e);
                 return false;
@@ -328,7 +329,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
                 finish();
             } else {
                 //database says this username already exists
-                mEmailView.setError("Try a different username");
+                mEmailView.setError("Try a different username or email");
                 mEmailView.requestFocus();
             }
         }
