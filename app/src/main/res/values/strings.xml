@@ -13,5 +13,5 @@
     <string name="title_activity_add_friend">Add Friend</string>
     <string name="search_hint">Enter a Name or Email Address</string>
     <string name="title_activity_search_friends">SearchFriends</string>
-
+    <string name="prompt_name">Name</string>
 </resources>

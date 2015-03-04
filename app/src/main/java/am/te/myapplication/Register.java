@@ -44,6 +44,8 @@ import java.net.URL;
 public class Register extends ActionBarActivity implements LoaderCallbacks<Cursor> {
 
     private AutoCompleteTextView mEmailView;
+    private EditText mUsernameView;
+    private EditText mNameView;
     private EditText mPasswordView;
     private EditText mPasswordView2;
     private View mProgressView;
@@ -66,6 +68,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.reg_email);
+        mUsernameView = (EditText) findViewById(R.id.reg_username);
+        mNameView = (EditText) findViewById(R.id.reg_name);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.reg_pass1);
@@ -140,6 +144,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
+        String username = mUsernameView.getText().toString();
+        String name = mNameView.getText().toString();
         String password = mPasswordView.getText().toString();
         String password2 = mPasswordView2.getText().toString();
 
@@ -185,7 +191,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
             focusView.requestFocus();
         } else {
             /////////////////////////////////////////////////////begin database interaction//////////////////////////////////////////////////////////////////
-            mAuthTask = new UserRegisterTask(email, password);
+            mAuthTask = new UserRegisterTask(username, name, email, password);
             mAuthTask.execute((Void) null);
 
         }
@@ -239,15 +245,18 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
 
     }
 
-
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
+        private final String mUsername;
+        private final String mName;
 
-        public UserRegisterTask(String email, String password) {
+        public UserRegisterTask(String username, String name, String email, String password) {
             mEmail = email;
             mPassword = password;
+            mUsername = username;
+            mName = name;
         }
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -259,13 +268,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
                 // authentication against a network service.
                 // check if user is in system
                 // register user if not in system
-                if (!isInSystem(mEmail)) {
-                    boolean registered = registerUser(mEmail, mPassword);
-                    String TAG = Register.class.getSimpleName();
-                    Log.d(TAG, "registered user");
-                    return registered; //indicate registration success or failure
-                }
-                return false; //already in system
+                return registerUser();
+               //already in system
             }
             /*
             try {
@@ -289,35 +293,11 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
             /*User userToAuthenticate = new User(mEmail, mPassword);
             return RegistrationModel.getUsers().contains(userToAuthenticate);*/
         }
-        protected boolean isInSystem(String user) {
+
+        protected boolean registerUser() {
             String TAG = Register.class.getSimpleName();
 
-            String link = server_url + "/getuserregister.php?username=" +user;
-            try {//kek
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line="";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                Log.e(TAG, sb.toString());
-                return !sb.toString().equals("*NOSUCHUSER");
-            }catch(Exception e){
-                Log.e(TAG, "EXCEPTION>>>>", e);
-                return false;
-            }
-        }
-        protected boolean registerUser(String user, String pass) {
-            String TAG = Register.class.getSimpleName();
-
-            String link = server_url + "/adduser.php?username=" +mEmail+"&password="+mPassword;
+            String link = server_url + "/adduser.php?username=" + mUsername +"&password=" + mPassword + "&email=" + mEmail +"&name=" + mName;
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
