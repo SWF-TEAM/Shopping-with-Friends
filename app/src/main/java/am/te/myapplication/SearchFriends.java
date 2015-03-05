@@ -191,7 +191,7 @@ public class SearchFriends extends Activity {
             //DATABASE SHIT (get a list of possible friends from database)
             Set<User> users = new HashSet<User>();
             String TAG = Register.class.getSimpleName();
-            String link = server_url + "/getpossiblefriends.php?username=" + Login.usernameCurrentlyLoggedIn;
+            String link = server_url + "/getpossiblefriends.php?username=";
             try {//kek
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
@@ -246,7 +246,7 @@ public class SearchFriends extends Activity {
         protected Boolean doInBackground(Void... params) {
             String TAG = Register.class.getSimpleName();
 
-            String adder = Login.usernameCurrentlyLoggedIn;
+            String adder = "";
             String addee = mUsernameOfFriendToAdd;
 
             String link = server_url + "/addfriend.php?adder=" + adder + "&addee=" + addee;
