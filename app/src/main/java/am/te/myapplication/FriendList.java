@@ -141,7 +141,7 @@ public class FriendList extends ActionBarActivity {
             //DATABASE SHIT (get a list of possible friends from database)
             ArrayList<User> friends = new ArrayList<>();
             String TAG = Register.class.getSimpleName();
-            String link = server_url + "/getfriendsof.php?username=";
+            String link = server_url + "/getfriendsof.php?UID=" + Login.uniqueIDofCurrentlyLoggedIn;
             try {//kek
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
