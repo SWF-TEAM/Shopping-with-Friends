@@ -139,7 +139,7 @@ public class FriendList extends ActionBarActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             //DATABASE SHIT (get a list of possible friends from database)
-            ArrayList<User> friends = new ArrayList<>();
+            ArrayList<User> theFriends = new ArrayList<>();
             String TAG = Register.class.getSimpleName();
             String link = server_url + "/getfriendsof.php?UID=" + Login.uniqueIDofCurrentlyLoggedIn;
             try {//kek
@@ -156,22 +156,10 @@ public class FriendList extends ActionBarActivity {
                     break;
                 }
                 in.close();
-                String result = sb.toString();
-                JSONObject jsonResults = new JSONObject(result);
+                String result = sb.toString();;
                 //now need to populate users with the users in jsonResults
-                JSONArray jArray = jsonResults.getJSONArray("AccountHolders");
-                for (int i = 0; i < jArray.length(); i++) {
-                    try {
-                        JSONObject currentObject = jArray.getJSONObject(i);
-                        String username = currentObject.getString("username");
-                        String email = currentObject.getString("email");
-                        User toAdd = new User(username, "", email);
-                        friends.add(toAdd);
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-                }
-                friends = friends; //populates list of possible friends
+
+                friends = theFriends; //populates list of possible friends
                 return true;
             } catch (Exception e) {
                 Log.e(TAG, "EXCEPTION while getting friends from database>>>", e);
