@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Shopping"
+            android:name=".Welcome"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,8 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
-            <!--<meta-data
+            <!--
+                <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
             -->
@@ -45,7 +46,9 @@
         <activity
             android:name=".FriendList"
             android:label="@string/title_activity_friend_list" >
-            <!--<meta-data android:name="android.app.default_searchable"
+           g 
+            <!--
+                <meta-data android:name="android.app.default_searchable"
                        android:value=".SearchFriends" />
             -->
         </activity>
@@ -58,8 +61,16 @@
             android:label="@string/title_activity_add_friend" >
         </activity>
         <activity
+            android:name=".AddListing"
+            android:label="@string/title_activity_add_product" >
+        </activity>
+        <activity
             android:name=".FriendDetails"
             android:label="Friend Details" >
+        </activity>
+        <activity
+            android:name=".ListingDetails"
+            android:label="@string/title_activity_product_details" >
         </activity>
     </application>
 

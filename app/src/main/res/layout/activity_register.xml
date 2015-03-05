@@ -22,7 +22,8 @@
             <AutoCompleteTextView android:id="@+id/reg_email" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress" android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionNext"/>
 
             <EditText android:id="@+id/reg_username"
                 android:layout_width="match_parent"
@@ -34,21 +35,21 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_name" />
 
-            <EditText android:id="@+id/reg_pass1" android:layout_width="match_parent"
+
+            <AutoCompleteTextView android:id="@+id/reg_pass1" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:hint="@string/prompt_password"
                 android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified" android:inputType="textPassword"
+                android:imeOptions="actionNext" android:inputType="textPassword"
                 android:maxLines="1" android:singleLine="true" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/reg_pass2"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:hint="Enter Password Again"
                 android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
+                android:imeActionLabel="@string/action_register"
+                android:imeOptions="actionSend"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />

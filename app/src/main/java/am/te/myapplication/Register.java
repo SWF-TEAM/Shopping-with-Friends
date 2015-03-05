@@ -3,7 +3,6 @@ package am.te.myapplication;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
@@ -24,7 +23,6 @@ import android.widget.Toast;
 import android.database.Cursor;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
-import android.content.Intent;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -131,7 +129,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
     }
 
     private void proceedToShoppingPage() {
-        Intent shoppingIntent = new Intent(this, Shopping.class);
+        Intent shoppingIntent = new Intent(this, Welcome.class);
         startActivity(shoppingIntent);
 
     }

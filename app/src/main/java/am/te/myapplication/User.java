@@ -1,13 +1,15 @@
 package am.te.myapplication;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * The user class represents a user in the app.
  *
  * @author Mike Adkison, Mitchell Manguno
- * @since 2015 February 19
+ * @since 2015 March 01
+ * @version 1.2
  */
 public class User {
 
@@ -15,7 +17,8 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private ArrayList<User> friendList;
+    private List<User> friendList;
+    private List<Listing> itemList;
     private int rating;
     private int salesReports;
 
@@ -23,10 +26,11 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        Random rand = new Random();
+        /*Random rand = new Random();
         this.rating = rand.nextInt(10);
-        this.salesReports = rand.nextInt(1000);
+        this.salesReports = rand.nextInt(1000);*/
         friendList = new ArrayList<>();
+        itemList = new ArrayList<>();
     }
 
 
@@ -34,7 +38,7 @@ public class User {
         this(username, password, null);
     }
 
-
+    /* Getters and Setters */
     public String getUsername() {
         return username;
     }
@@ -47,8 +51,20 @@ public class User {
         return email;
     }
 
-    public boolean hasFriends() {
-        return !friendList.isEmpty();
+    public List<User> getFriends() {
+        return friendList;
+    }
+
+    public List<Listing> getItemList() {
+        return itemList;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public int getSalesReports() {
+        return salesReports;
     }
 
     public void setPassword(String pass) {
@@ -63,28 +79,25 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof User)) {
-            return false;
-        }
+    public void setFriendList(List friendList) {
+        this.friendList = friendList;
+    }
 
-        if (other == this) {
-            return true;
-        }
-        User theOther = (User) other;
-        return theOther.getUsername().equals(this.getUsername()) && theOther.getPassword().equals(this.getPassword());
+    public void setItemList(List itemList) {
+        this.itemList = itemList;
     }
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash += 37 * hash + getUsername().hashCode();
-        hash += 37 * hash + getPassword().hashCode();
-        return hash;
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
-    @Override
-    public String toString() {
-        return getUsername();
+
+    public void setSalesReports(int salesReports) {
+        this.salesReports = salesReports;
+    }
+
+    /* Friend List Operations */
+    public boolean hasFriends() {
+        return !friendList.isEmpty();
     }
 
     public boolean addFriend(User newFriend) {
@@ -99,25 +112,9 @@ public class User {
         return isFriendsWith(user) ? friendList.get(friendList.indexOf(user)) : null;
     }
 
+
     public boolean isFriendsWith(User user) {
-        if(user == null) { System.out.println("ITS NULL, BITCH");}
         return friendList.contains(user);
-    }
-
-    public ArrayList<User> getFriends() {
-        return friendList;
-    }
-
-    public String getDetails() {
-        return username + '\n' + email;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public int getSalesReports(){
-        return salesReports;
     }
 
     public User getFriend(String username) {
@@ -129,11 +126,57 @@ public class User {
         }
         return null;
     }
-    
+
     public void removeFriend(User user) {
         friendList.remove(user);
     }
 
+    /* Item List Operations */
+    public boolean hasItems() {
+        return !itemList.isEmpty();
+    }
+
+    public boolean addItem(Listing newProduct) {
+        if (!itemList.contains(newProduct)) {
+            itemList.add(newProduct);
+            return true;
+        }
+        return false;
+    }
+
+    public Listing getProduct(Listing product) {
+        return hasItem(product) ? itemList.get(itemList.indexOf(product)) : null;
+    }
+
+
+    public boolean hasItem(Listing product) {
+        return itemList.contains(product);
+    }
+
+    /* Object Overrides */
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof User)) {
+            return false;
+        }
+
+        if (other == this) {
+            return true;
+        }
+        User theOther = (User) other;
+        return theOther.getUsername().equals(this.getUsername()) &&
+            theOther.getPassword().equals(this.getPassword());
+    }
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash += 37 * hash + getUsername().hashCode();
+        hash += 37 * hash + getPassword().hashCode();
+        return hash;
+    }
+    @Override
+    public String toString() {
+        return getUsername();
+    }
 
 }
-
