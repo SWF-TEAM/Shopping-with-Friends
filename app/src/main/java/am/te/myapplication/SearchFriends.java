@@ -36,48 +36,17 @@ import java.util.HashSet;
 public class SearchFriends extends Activity {
 
     private static Set<User> registeredUsers;
-    private EditText queryView;
-    private List<User> matches;
-    private ListView lv;
-    private ArrayAdapter<User> arrayAdapter;
+    private EditText mNameView;
+    private EditText mEmailView;
+    private UserAddTask mUserAddTask;
     private final String server_url = "http://artineer.com/sandbox";
-    private UserGetPossibleFriendsTask mGetPossibleFriendsTask = null;
-    private UserAddFriendTask mAddFriendTask = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_friends);
-        lv = (ListView) findViewById(R.id.search_friend_listview);
-        queryView = (EditText) findViewById(R.id.search_editText);
-        matches = new ArrayList<User>();
-        populateUsers(); //fills up registeredUsers
-        arrayAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, matches);
-        lv.setAdapter(arrayAdapter);
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //add friend to friend list here
-                Log.d(SearchFriends.class.getSimpleName(), "position" + position + " id" + id);
-
-                System.out.println("adding friend " + matches.get(position));
-                User toAdd = matches.get(position);
-                System.out.println(User.loggedIn.hasFriends());
-                matches.remove(position);
-                arrayAdapter.notifyDataSetChanged();
-
-                if(State.local) { //add friend locally
-                    User.loggedIn.addFriend(toAdd);
-                } else { //add friend in database asynchronously
-
-                    mAddFriendTask = new UserAddFriendTask(toAdd.getUsername());
-                    mAddFriendTask.execute();
-                }
-            }
-        });
+        mNameView = (EditText) findViewById(R.id.name);
+        mEmailView = (EditText) findViewById(R.id.email);
 
         super.onStart();
     }
@@ -90,9 +59,10 @@ public class SearchFriends extends Activity {
      * @param view Not really sure what this is for
      */
     public void search(View view) {
-        matches = new ArrayList<User>();
-        String query = queryView.getText().toString();
-        search(query);
+        String name = mNameView.getText().toString();
+        String email = mEmailView.getText().toString();
+        mUserAddTask = new UserAddTask(name, email);
+        mUserAddTask.execute();
     }
 
 
@@ -103,67 +73,9 @@ public class SearchFriends extends Activity {
         return true;
     }
 
-    /**
-     * Searches through the registered users. Currently, it is a set of Users.
-     *
-     * @param query the String query that we will search with
-     */
-    private void search(String query) {
-        matches = new ArrayList<User>();
-        Iterator<User> iter = registeredUsers.iterator();
-        User curr = null;
-        boolean email = query.contains("@");
-        while (iter.hasNext()) {
-            curr = iter.next();
-            System.out.println("User is:" + curr.getUsername());
-            if (email) {
-                if (curr != null && !User.loggedIn.isFriendsWith(curr) && query.equals(curr.getEmail())) {
-                    //System.out.println("Found a match");
-                    matches.add(curr);
-                }
-            } else {
-                if (curr != null && !User.loggedIn.isFriendsWith(curr) && query.equals(curr.getUsername())) {
-                    //System.out.println("Found a match");
-                    matches.add(curr);
-                }
-            }
-        }
-
-        arrayAdapter.clear();
-        arrayAdapter.addAll(matches);
-        arrayAdapter.notifyDataSetChanged();
-    }
-
-    /**
-     * Polls whatever powers that be to populate the Registered Users set
-     *
-     * @return a set of all registered users who are not your friends
-     */
-    private void populateUsers() {
-        Set<User> users = new HashSet<User>();
-        if (State.local) {
-            ArrayList<User> toAdd = new ArrayList<>();
-            toAdd.add(new User("Dog Man L", "woofwoof", "dog@man.com"));
-            toAdd.add(new User("frog", "qwrg", "frog@leg.biz"));
-            toAdd.add(new User("toad", "xfsdf", "collin@126.xxx"));
-            toAdd.add(new User("cricket", "asrgh", "ypres@wat.ru"));
-
-            for (User possibleFriend: toAdd) {
-                if (!User.loggedIn.isFriendsWith(possibleFriend)) {
-
-                    users.add(possibleFriend);
-                }
-            }
-            registeredUsers = users;
-        } else { //DATABASE SHIT (get a list of possible friends from database)
-            mGetPossibleFriendsTask = new UserGetPossibleFriendsTask();
-            mGetPossibleFriendsTask.execute();
-        }
-    }
 
     @Override
     public void onResume() {
-        populateUsers();
         super.onResume();
     }
 
@@ -184,15 +96,89 @@ public class SearchFriends extends Activity {
 
 
 
-    public class UserGetPossibleFriendsTask extends AsyncTask<Void, Void, Boolean> {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public class UserAddTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mName;
+        private final String mEmail;
+        private User userToAuthenticate;
+        UserAddTask(String name, String email) {
+            mName = name;
+            mEmail = email;
+        }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            //DATABASE SHIT (get a list of possible friends from database)
-            Set<User> users = new HashSet<User>();
+            if (State.local) {
+                //oh no y r u not using database
+                return true;
+            } else {
+                //attempt authentication against a network service.
+                /*
+                try {
+                    // Simulate network access.
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    return false;
+                }
+
+                for (String credential : DUMMY_CREDENTIALS) {
+                    String[] pieces = credential.split(":");
+                    if (pieces[0].equals(mUsername)) {
+                        // Account exists, return true if the password matches.
+                        return pieces[1].equals(mPassword);
+                    }
+                }
+
+                */
+
+                // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
+                //User userToAuthenticate = new User(mUsername, mPassword);
+                //return RegistrationModel.getUsers().contains(userToAuthenticate);
+                String userToAddKey = getUserKey();
+                if (!userToAddKey.equals("*NOSUCHUSER")) {
+                    System.out.println("ADDING USER");
+                    String link = server_url + "/addfriend.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn + "&friendID=" + userToAddKey;
+                    try {
+                        URL url = new URL(link);
+                        HttpClient client = new DefaultHttpClient();
+                        HttpGet request = new HttpGet();
+                        request.setURI(new URI(link));
+                        HttpResponse response = client.execute(request);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                        StringBuffer sb = new StringBuffer("");
+                        String line="";
+                        while ((line = in.readLine()) != null) {
+                            sb.append(line);
+                            break;
+                        }
+                        in.close();
+
+                        return sb.toString().equals("success"); //whether or not user has become friends with the other in database
+                    }catch(Exception e){
+                        return false;
+                    }
+                }
+                return false;
+            }
+        }
+        protected String getUserKey() {
             String TAG = Register.class.getSimpleName();
-            String link = server_url + "/getpossiblefriends.php?username=";
-            try {//kek
+            String link = "http://artineer.com/sandbox/getuser.php?name=" + mName + "&email=" + mEmail;
+            try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();
@@ -200,74 +186,41 @@ public class SearchFriends extends Activity {
                 HttpResponse response = client.execute(request);
                 BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuffer sb = new StringBuffer("");
-                String line = "";
+                String line="";
                 while ((line = in.readLine()) != null) {
                     sb.append(line);
                     break;
                 }
                 in.close();
-                String result = sb.toString();
-                JSONObject jsonResults = new JSONObject(result);
-                //now need to populate users with the users in jsonResults
-                JSONArray jArray = jsonResults.getJSONArray("AccountHolders");
-                for (int i = 0; i < jArray.length(); i++) {
-                    try {
-                        JSONObject currentObject = jArray.getJSONObject(i);
-                        String username = currentObject.getString("username");
-                        String email = currentObject.getString("email");
-                        User toAdd = new User(username, "", email);
-                        users.add(toAdd);
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-                }
-                registeredUsers = users; //populates list of possible friends
-                return true;
-            } catch (Exception e) {
-                Log.e(TAG, "EXCEPTION while getting friends from database>>>", e);
-                return false;
+                Log.e(TAG, sb.toString());
+
+                return sb.toString();
+            }catch(Exception e){
+                Log.e(TAG, "EXCEPTION>>>>", e);
+                return "";
+            }
+        }
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mUserAddTask = null;
+
+            if (success) {
+                finish();
+            } else {
+                mEmailView.setError("try a different user");
             }
         }
 
-
         @Override
         protected void onCancelled() {
-            mGetPossibleFriendsTask = null;
+            mUserAddTask = null;
         }
     }
 
-    public class UserAddFriendTask extends AsyncTask<Void, Void, Boolean> {
-
-        private String mUsernameOfFriendToAdd;
-        public UserAddFriendTask(String usernameOfFriendToAdd) {
-            mUsernameOfFriendToAdd = usernameOfFriendToAdd;
-        }
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            String TAG = Register.class.getSimpleName();
-
-            String adder = "";
-            String addee = mUsernameOfFriendToAdd;
-
-            String link = server_url + "/addfriend.php?adder=" + adder + "&addee=" + addee;
-            try {//kek
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                client.execute(request);
-                return true;
-            } catch(Exception e) {
-                Log.e(TAG, "EXCEPTION while getting possible friends from database>>>", e);
-                return false;
-            }
-        }
 
 
-        @Override
-        protected void onCancelled() {
-            mAddFriendTask = null;
-        }
-    }
+
+
 
 }
+
