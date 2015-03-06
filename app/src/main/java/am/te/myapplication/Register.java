@@ -296,8 +296,9 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         protected boolean registerUser() {
             String TAG = Register.class.getSimpleName();
 
-            String link = server_url + "/adduser.php?username=" + mUsername +"&password=" + mPassword + "&email=" + mEmail +"&name=" + mName;
+
             try {
+                String link = server_url + "/adduser.php?username=" + mUsername +"&password=" + mPassword + "&email=" + mEmail +"&name=" + Encoder.encode(mName);
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();

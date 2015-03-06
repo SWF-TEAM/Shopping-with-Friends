@@ -145,7 +145,7 @@ public class Homepage extends ActionBarActivity {
         protected Boolean doInBackground(Void... params) {
             //DATABASE SHIT (get a list of possible friends from database)
             ArrayList<Listing> theListings = new ArrayList<>();
-            String TAG = FriendList.class.getSimpleName();
+            String TAG = Homepage.class.getSimpleName();
             String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
             try {//kek
                 URL url = new URL(link);
@@ -188,7 +188,7 @@ public class Homepage extends ActionBarActivity {
                 });
                 return true;
             } catch (Exception e) {
-                Log.e(TAG, "EXCEPTION while getting friends from database>>>", e);
+                Log.e(TAG, "EXCEPTION on homepage>>>", e);
                 return false;
             }
 

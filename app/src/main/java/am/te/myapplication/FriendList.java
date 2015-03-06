@@ -48,7 +48,9 @@ public class FriendList extends ActionBarActivity {
     }
     @Override
     public void onStart() {
-
+        if (arrayAdapter != null) {
+            arrayAdapter.notifyDataSetChanged();
+        }
         lv = (ListView) findViewById(R.id.add_friend_listView);
 
         //local
