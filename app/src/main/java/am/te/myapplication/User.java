@@ -112,7 +112,6 @@ public class User {
         return isFriendsWith(user) ? friendList.get(friendList.indexOf(user)) : null;
     }
 
-
     public boolean isFriendsWith(User user) {
         return friendList.contains(user);
     }
@@ -144,8 +143,13 @@ public class User {
         return false;
     }
 
-    public Listing getProduct(Listing product) {
-        return hasItem(product) ? itemList.get(itemList.indexOf(product)) : null;
+    public Listing getListing(String product) {
+        for (Listing listing: itemList) {
+            if (product.equals(listing.getName())) {
+                return listing;
+            }
+        }
+        return null;
     }
 
 

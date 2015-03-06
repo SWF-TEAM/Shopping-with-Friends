@@ -25,10 +25,27 @@ public class ListingDetails extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             // grab the listing here.
-            currentListing = null;
+            currentListing = User.loggedIn.getListing(extras.getString("listing"));
         }
         /// this is where we'd grab the details to display on screen. Look at friend details for a better hint of what we're trying to do.
+        TextView listingName = (TextView) findViewById(R.id.Name);
+        listingName.setText(currentListing.getName());
 
+        TextView desiredPrice = (TextView) findViewById(R.id.DesiredPrice);
+        desiredPrice.setText(String.valueOf(currentListing.getDesiredPrice()));
 
+        TextView additionalInfo = (TextView) findViewById(R.id.AdditionalInfo);
+        additionalInfo.setText(currentListing.getAdditionalInfo());
+    }
+
+    /**
+     * Claims an item
+     *
+     * @param view
+     */
+    public void claimItem(View view) {
+
+       /// ????
+        finish();
     }
 }

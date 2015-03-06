@@ -85,7 +85,7 @@ public class AddListing extends ActionBarActivity {
                 System.out.println("Added new item: " + newProduct);
                 System.out.println("User items is now " + User.loggedIn.getItemList());
             } else {
-                //databasey stuff kek
+                //databasey stuff 
                 mRegisterProductTask = new UserRegisterProductTask(name, price, additionalInfo);
                 mRegisterProductTask.execute();
             }

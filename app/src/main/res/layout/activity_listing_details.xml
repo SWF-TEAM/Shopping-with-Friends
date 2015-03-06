@@ -40,9 +40,9 @@
         android:layout_alignEnd="@+id/Name" />
 
     <Button
+        android:text="Claim Item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Claim Item"
         android:id="@+id/button4"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
