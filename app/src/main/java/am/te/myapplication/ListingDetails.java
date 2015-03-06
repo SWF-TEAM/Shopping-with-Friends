@@ -23,9 +23,13 @@ public class ListingDetails extends Activity {
 
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            // grab the listing here.
-            currentListing = User.loggedIn.getListing(extras.getString("listing"));
+        if (State.local) {
+            if (extras != null) {
+                // grab the listing here.
+                currentListing = User.loggedIn.getListing(extras.getString("listing"));
+            }
+        } else { //database access
+            currentListing = Homepage.selectedListing;
         }
         /// this is where we'd grab the details to display on screen. Look at friend details for a better hint of what we're trying to do.
         TextView listingName = (TextView) findViewById(R.id.Name);

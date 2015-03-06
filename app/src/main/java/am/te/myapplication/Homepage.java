@@ -1,8 +1,10 @@
 package am.te.myapplication;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,6 +13,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +38,8 @@ public class Homepage extends ActionBarActivity {
     private ListView lv;
     private ArrayAdapter arrayAdapter;
     List<Listing> products = new ArrayList<Listing>();
-
+    private PopulateProductsTask mPopulateProductsTask;
+    static Listing selectedListing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +57,8 @@ public class Homepage extends ActionBarActivity {
             products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getItemList();
         } else {
             /* Get products from the database. */
+            mPopulateProductsTask = new PopulateProductsTask();
+            mPopulateProductsTask.execute();
         }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -60,7 +74,11 @@ public class Homepage extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(), ListingDetails.class);
-                i.putExtra("products", products.get(position).getName());
+                if (State.local) {
+                    i.putExtra("products", products.get(position).getName());
+                } else {
+                    selectedListing = products.get(position);
+                }
                 startActivity(i);
 
             }
@@ -111,5 +129,75 @@ public class Homepage extends ActionBarActivity {
         //arrayAdapter.clear();
         //arrayAdapter.addAll(User.loggedIn.getItemList());
         arrayAdapter.notifyDataSetChanged();
+    }
+
+
+
+
+
+
+
+
+
+    public class PopulateProductsTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            //DATABASE SHIT (get a list of possible friends from database)
+            ArrayList<Listing> theListings = new ArrayList<>();
+            String TAG = FriendList.class.getSimpleName();
+            String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            try {//kek
+                URL url = new URL(link);
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(link));
+                HttpResponse response = client.execute(request);
+                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer sb = new StringBuffer("");
+                String line = "";
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                in.close();
+                String result = sb.toString();
+                //now need to populate friends with users from result of database query
+                if (result.equals("0 results")) {
+                    Log.d(TAG, result);
+                    return false;
+                }
+                String[] resultLines = result.split("<br>");
+                for(int i = 0; i < resultLines.length; i++) {
+                    String[] fields = resultLines[i].split("~");
+                    String title = fields[0];
+                    String price = fields[1];
+                    String description = fields[2];
+
+                    Listing newListing = new Listing(title, Double.parseDouble(price), description);
+                    theListings.add(newListing);
+                }
+                products.clear();
+                products.addAll(theListings);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                       arrayAdapter.notifyDataSetChanged();
+                    }
+                });
+                return true;
+            } catch (Exception e) {
+                Log.e(TAG, "EXCEPTION while getting friends from database>>>", e);
+                return false;
+            }
+
+        }
+
+
+        @Override
+        protected void onCancelled() {
+            mPopulateProductsTask = null;
+        }
     }
 }

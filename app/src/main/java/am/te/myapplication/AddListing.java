@@ -150,9 +150,9 @@ public class AddListing extends Activity {
         }
 
         protected boolean registerProduct() {
-            String TAG = Register.class.getSimpleName();
+            String TAG = AddListing.class.getSimpleName();
 
-            String link = server_url + "/addlisting.php?title=" + mName + "&description=" + mDescription + "&price=" + mPrice;
+            String link = server_url + "/addlisting.php?title=" + mName + "&description=" + mDescription + "&price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
