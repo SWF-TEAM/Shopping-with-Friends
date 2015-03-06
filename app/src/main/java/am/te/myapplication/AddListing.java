@@ -17,8 +17,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 
 public class AddListing extends Activity {
@@ -151,8 +154,12 @@ public class AddListing extends Activity {
 
         protected boolean registerProduct() {
             String TAG = AddListing.class.getSimpleName();
-
-            String link = server_url + "/addlisting.php?title=" + mName + "&description=" + mDescription + "&price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            String link = null;
+            try {
+                link = server_url + "/addlisting.php?title=" + Encoder.encode(mName) + "&description=" + Encoder.encode(mDescription) + "&price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            } catch(UnsupportedEncodingException e){
+                Log.e(TAG, "url encoding failed");
+            }
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
@@ -191,5 +198,6 @@ public class AddListing extends Activity {
         protected void onCancelled() {
             mRegisterProductTask= null;
         }
+
     }
 }

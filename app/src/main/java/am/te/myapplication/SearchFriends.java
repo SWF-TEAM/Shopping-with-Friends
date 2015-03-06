@@ -174,8 +174,9 @@ public class SearchFriends extends Activity {
         }
         protected String getUserKey() {
             String TAG = Register.class.getSimpleName();
-            String link = "http://artineer.com/sandbox/getuser.php?name=" + mName + "&email=" + mEmail;
+
             try {
+                String link = "http://artineer.com/sandbox/getuser.php?name=" + Encoder.encode(mName) + "&email=" + Encoder.encode(mEmail);
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();
