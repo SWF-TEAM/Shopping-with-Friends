@@ -1,5 +1,6 @@
 package am.te.myapplication;
 
+import android.app.Activity;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -39,7 +40,7 @@ import java.io.BufferedReader;
 import java.net.URI;
 import java.net.URL;
 
-public class Register extends ActionBarActivity implements LoaderCallbacks<Cursor> {
+public class Register extends Activity implements LoaderCallbacks<Cursor> {
 
     private AutoCompleteTextView mEmailView;
     private EditText mUsernameView;

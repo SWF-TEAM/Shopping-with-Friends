@@ -14,39 +14,51 @@
 
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="172dp"
-        android:layout_weight="0.26">
+        android:layout_weight="0.62">
 
         <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical">
 
-            <AutoCompleteTextView android:id="@+id/reg_email" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress" android:maxLines="1"
+            <AutoCompleteTextView android:id="@+id/reg_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
                 android:singleLine="true"
                 android:imeOptions="actionNext"/>
 
-            <EditText android:id="@+id/reg_username"
+            <AutoCompleteTextView android:id="@+id/reg_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_username" />
+                android:hint="@string/prompt_username"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:maxLines="1"/>
 
-            <EditText android:id="@+id/reg_name"
+            <AutoCompleteTextView android:id="@+id/reg_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_name" />
+                android:hint="@string/prompt_name"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:singleLine="true"/>
 
 
-            <AutoCompleteTextView android:id="@+id/reg_pass1" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:hint="@string/prompt_password"
+            <AutoCompleteTextView android:id="@+id/reg_pass1"
+                android:hint="@string/prompt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:imeActionId="@+id/login"
-                android:imeOptions="actionNext" android:inputType="textPassword"
-                android:maxLines="1" android:singleLine="true" />
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
 
-            <AutoCompleteTextView
-                android:id="@+id/reg_pass2"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
+            <AutoCompleteTextView android:id="@+id/reg_pass2"
                 android:hint="Enter Password Again"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_register"
                 android:imeOptions="actionSend"
@@ -54,16 +66,15 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
+            <Button android:id="@+id/reg_register" style="?android:textAppearanceSmall"
+                android:layout_width="353dp" android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" android:text="@string/action_register_short"
+                android:textStyle="bold"
+                android:onClick="attemptLogin"
+                android:nestedScrollingEnabled="false" />
+
         </LinearLayout>
     </ScrollView>
-
-    <Button android:id="@+id/reg_register" style="?android:textAppearanceSmall"
-        android:layout_width="170dp" android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" android:text="@string/action_register_short"
-        android:textStyle="bold"
-        android:onClick="attemptLogin"
-        android:nestedScrollingEnabled="false"
-        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
 

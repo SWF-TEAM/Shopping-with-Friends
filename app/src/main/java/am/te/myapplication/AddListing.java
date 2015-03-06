@@ -1,5 +1,6 @@
 package am.te.myapplication;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import java.net.URI;
 import java.net.URL;
 
 
-public class AddListing extends ActionBarActivity {
+public class AddListing extends Activity {
 
     private EditText nameView;
     private EditText priceView;
@@ -30,7 +31,7 @@ public class AddListing extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_product);
+        setContentView(R.layout.activity_add_listing);
         nameView = (EditText) findViewById(R.id.add_product_name);
         priceView = (EditText) findViewById(R.id.add_product_price);
         additionalInfoView = (EditText) findViewById(R.id.add_product_additionalInfo);
