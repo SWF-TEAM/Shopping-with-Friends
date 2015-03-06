@@ -61,10 +61,10 @@ public class AddFriend extends ActionBarActivity {
 
         if (State.local) {
             ArrayList<User> toAdd = new ArrayList<>();
-            toAdd.add(new User("Dog Man L", "woofwoof", "dog@man.com"));
-            toAdd.add(new User("frog", "qwrg", "frog@leg.biz"));
-            toAdd.add(new User("toad", "xfsdf", "collin@126.xxx"));
-            toAdd.add(new User("cricket", "asrgh", "ypres@wat.ru"));
+            toAdd.add(new User("Dog Man L", "woofwoof", "dog@man.com", null, null, null));
+            toAdd.add(new User("frog", "qwrg", "frog@leg.biz", null, null, null));
+            toAdd.add(new User("toad", "xfsdf", "collin@126.xxx", null, null, null));
+            toAdd.add(new User("cricket", "asrgh", "ypres@wat.ru", null, null, null));
 
             for (User possibleFriend: toAdd) {
                 if (!User.loggedIn.isFriendsWith(possibleFriend)) {

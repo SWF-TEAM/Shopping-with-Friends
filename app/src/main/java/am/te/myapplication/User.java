@@ -21,11 +21,17 @@ public class User {
     private List<Listing> itemList;
     private int rating;
     private int salesReports;
+    private String id;
+    private String description;
+    private String name;
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, String id, String description, String name) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.id = id;
+        this.description = description;
+        this.name = name;
         /*Random rand = new Random();
         this.rating = rand.nextInt(10);
         this.salesReports = rand.nextInt(1000);*/
@@ -35,7 +41,7 @@ public class User {
 
 
     public User(String username, String password) {
-        this(username, password, null);
+        this(username, password, null, null, null, null);
     }
 
     /* Getters and Setters */
@@ -43,9 +49,17 @@ public class User {
         return username;
     }
 
+    public String getId() {
+        return id;
+    }
+    public String getDescription() {
+        return description;
+    }
     public String getPassword() {
         return password;
     }
+
+    public String getName() {return name;}
 
     public String getEmail() {
         return email;
@@ -65,6 +79,10 @@ public class User {
 
     public int getSalesReports() {
         return salesReports;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPassword(String pass) {
@@ -93,6 +111,13 @@ public class User {
 
     public void setSalesReports(int salesReports) {
         this.salesReports = salesReports;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 
     /* Friend List Operations */

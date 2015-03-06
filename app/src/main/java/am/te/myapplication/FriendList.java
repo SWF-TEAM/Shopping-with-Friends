@@ -37,12 +37,13 @@ public class FriendList extends ActionBarActivity {
     private ListView lv;
     private ArrayAdapter<User> arrayAdapter;
     List<User> friends = new ArrayList<User>();
-
+    static User selectedFriend;
     private final String server_url = "http://artineer.com/sandbox";
     UserPopulateFriendsTask mUserPopulateFriendsTask = null;
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
+        String TAG = Register.class.getSimpleName();
         setContentView(R.layout.activity_friend_list);
     }
     @Override
@@ -55,8 +56,10 @@ public class FriendList extends ActionBarActivity {
         if (State.local && User.loggedIn != null && User.loggedIn.hasFriends()) {
             friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
         } else { //database
+
             mUserPopulateFriendsTask = new UserPopulateFriendsTask();
             mUserPopulateFriendsTask.execute();
+
         }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -72,7 +75,12 @@ public class FriendList extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(), FriendDetails.class);
-                i.putExtra("username", friends.get(position).getUsername());
+                if (State.local) {
+                    i.putExtra("username", friends.get(position).getUsername());
+                    i.putExtra("email", friends.get(position).getEmail());
+                } else { //derterbers
+                    selectedFriend = friends.get(position);
+                }
                 startActivity(i);
 
             }
@@ -133,15 +141,17 @@ public class FriendList extends ActionBarActivity {
         startActivity(intent);
     }
 
-
+    public void refreshArrayAdapter() {
+        arrayAdapter.notifyDataSetChanged();
+    }
     public class UserPopulateFriendsTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
             //DATABASE SHIT (get a list of possible friends from database)
             ArrayList<User> theFriends = new ArrayList<>();
-            String TAG = Register.class.getSimpleName();
-            String link = server_url + "/getfriendsof.php?UID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            String TAG = FriendList.class.getSimpleName();
+            String link = server_url + "/listfriends.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
             try {//kek
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
@@ -156,15 +166,39 @@ public class FriendList extends ActionBarActivity {
                     break;
                 }
                 in.close();
-                String result = sb.toString();;
-                //now need to populate users with the users in jsonResults
+                String result = sb.toString();
+                //now need to populate friends with users from result of database query
+                if (result.equals("0 results")) {
+                    Log.d(TAG, result);
+                    return false;
+                }
+                String[] resultLines = result.split("<br>");
+                for(int i = 0; i < resultLines.length; i++) {
+                    String[] fields = resultLines[i].split("~");
+                    String id = fields[0];
+                    String email = fields[1];
+                    String name = fields[2];
+                    String description = fields[3];
+                    String username = fields[4];
+                    User friend = new User(username, "", email, id, description, name);
+                    theFriends.add(friend);
+                }
+                friends.clear();
+                friends.addAll(theFriends);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                friends = theFriends; //populates list of possible friends
+                        refreshArrayAdapter();
+                    }
+                });
+
                 return true;
             } catch (Exception e) {
                 Log.e(TAG, "EXCEPTION while getting friends from database>>>", e);
                 return false;
             }
+
         }
 
 

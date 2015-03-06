@@ -144,10 +144,7 @@ public class SearchFriends extends Activity {
                 }
 
                 */
-
-                // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-                //User userToAuthenticate = new User(mUsername, mPassword);
-                //return RegistrationModel.getUsers().contains(userToAuthenticate);
+                //database stuff
                 String userToAddKey = getUserKey();
                 if (!userToAddKey.equals("*NOSUCHUSER")) {
                     System.out.println("ADDING USER");
