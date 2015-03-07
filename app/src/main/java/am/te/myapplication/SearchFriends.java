@@ -39,7 +39,6 @@ public class SearchFriends extends Activity {
     private EditText mNameView;
     private EditText mEmailView;
     private UserAddTask mUserAddTask;
-    private final String server_url = "http://artineer.com/sandbox";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,7 +121,7 @@ public class SearchFriends extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if (State.local) {
+            if (getResources().getString(R.string.state).equals("local")) {
                 //oh no y r u not using database
                 return true;
             } else {
@@ -148,7 +147,7 @@ public class SearchFriends extends Activity {
                 String userToAddKey = getUserKey();
                 if (!userToAddKey.equals("*NOSUCHUSER")) {
                     System.out.println("ADDING USER");
-                    String link = server_url + "/addfriend.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn + "&friendID=" + userToAddKey;
+                    String link = getResources().getString(R.string.server_url) + "/addfriend.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn + "&friendID=" + userToAddKey;
                     try {
                         URL url = new URL(link);
                         HttpClient client = new DefaultHttpClient();

@@ -235,7 +235,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if (State.local) {
+            if (getResources().getString(R.string.state).equals("local")) {
                 return RegistrationModel.getUsers().contains(userToAuthenticate);
             } else {
                 //attempt authentication against a network service.
@@ -301,7 +301,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 View homeview = new View(getApplicationContext());
                 proceedToHome(homeview);
-                if (State.local) {
+                if (getResources().getString(R.string.state).equals("local")) {
                     User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
                 } else {
                 }

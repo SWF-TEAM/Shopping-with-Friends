@@ -47,7 +47,7 @@ public class FriendDetails extends Activity {
 
 
         Bundle extras = getIntent().getExtras();
-        if (State.local && extras != null) {
+        if (getResources().getString(R.string.state).equals("local") && extras != null) {
             currentUser = User.loggedIn.getFriend(extras.getString("username"));
         } else { //if using database PLEASE USE THE DATABASE PLS
             currentUser = FriendList.selectedFriend;
@@ -75,7 +75,7 @@ public class FriendDetails extends Activity {
      */
     public void removeFriend(View view) {
 
-        if (State.local) {
+        if (getResources().getString(R.string.state).equals("local")) {
             User.loggedIn.removeFriend(currentUser);
         } else {
             mRemoveFriendTask = new RemoveFriendTask(currentUser.getId());
@@ -106,7 +106,7 @@ public class FriendDetails extends Activity {
         }
         @Override
         protected Boolean doInBackground(Void... params) {
-            if (State.local) {
+            if (getResources().getString(R.string.state).equals("local")) {
                 //local
                 //dont be local
                 return true;

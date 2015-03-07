@@ -38,7 +38,7 @@ public class FriendList extends ActionBarActivity {
     private ArrayAdapter<User> arrayAdapter;
     List<User> friends = new ArrayList<User>();
     static User selectedFriend;
-    private final String server_url = "http://artineer.com/sandbox";
+
     UserPopulateFriendsTask mUserPopulateFriendsTask = null;
     @Override
     public void onCreate(Bundle saveInstanceState) {
@@ -55,7 +55,7 @@ public class FriendList extends ActionBarActivity {
 
         //local
 
-        if (State.local && User.loggedIn != null && User.loggedIn.hasFriends()) {
+        if (getResources().getString(R.string.state).equals("local") && User.loggedIn != null && User.loggedIn.hasFriends()) {
             friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
         } else { //database
 
@@ -77,7 +77,7 @@ public class FriendList extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(), FriendDetails.class);
-                if (State.local) {
+                if (getResources().getString(R.string.state).equals("local")) {
                     i.putExtra("username", friends.get(position).getUsername());
                     i.putExtra("email", friends.get(position).getEmail());
                 } else { //derterbers
@@ -153,7 +153,7 @@ public class FriendList extends ActionBarActivity {
             //DATABASE SHIT (get a list of possible friends from database)
             ArrayList<User> theFriends = new ArrayList<>();
             String TAG = FriendList.class.getSimpleName();
-            String link = server_url + "/listfriends.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            String link = getResources().getString(R.string.server_url) + "/listfriends.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
             try {//kek
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();

@@ -23,7 +23,7 @@ public class ListingDetails extends Activity {
 
 
         Bundle extras = getIntent().getExtras();
-        if (State.local) {
+        if (getResources().getString(R.string.state).equals("local")) {
             if (extras != null) {
                 // grab the listing here.
                 currentListing = User.loggedIn.getListing(extras.getString("listing"));

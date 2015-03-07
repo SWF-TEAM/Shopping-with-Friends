@@ -30,7 +30,6 @@ public class AddListing extends Activity {
     private EditText priceView;
     private EditText additionalInfoView;
     private UserRegisterProductTask mRegisterProductTask = null;
-    private final String server_url = "http://artineer.com/sandbox";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +82,7 @@ public class AddListing extends Activity {
         String additionalInfo = additionalInfoView.getText().toString();
 
         if (!cancel) {
-            if (State.local) {
+            if (getResources().getString(R.string.state).equals("local")) {
                 Listing newProduct = new Listing(name, price, additionalInfo);
                 System.out.println(User.loggedIn.addItem(newProduct));
                 System.out.println("Added new item: " + newProduct);
@@ -119,7 +118,7 @@ public class AddListing extends Activity {
         }
         @Override
         protected Boolean doInBackground(Void... params) {
-            if (State.local) {
+            if (getResources().getString(R.string.state).equals("local")) {
                 //lol pls no local
                 return false;
             } else {
@@ -156,7 +155,7 @@ public class AddListing extends Activity {
             String TAG = AddListing.class.getSimpleName();
             String link = null;
             try {
-                link = server_url + "/addlisting.php?title=" + Encoder.encode(mName) + "&description=" + Encoder.encode(mDescription) + "&price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+                link = getResources().getString(R.string.server_url) + "/addlisting.php?title=" + Encoder.encode(mName) + "&description=" + Encoder.encode(mDescription) + "&price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
             } catch(UnsupportedEncodingException e){
                 Log.e(TAG, "url encoding failed");
             }

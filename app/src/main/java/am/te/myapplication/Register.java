@@ -50,7 +50,6 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
     private View mProgressView;
     private View mLoginFormView;
     private Toast mLoginStatus;
-    private final String server_url = "http://artineer.com/sandbox";
 
     private static Toast regMsgToast = null;
     private void populateAutoComplete() {
@@ -259,7 +258,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         }
         @Override
         protected Boolean doInBackground(Void... params) {
-            if (State.local) {
+            if (getResources().getString(R.string.state).equals("local")) {
                 //local
                 RegistrationModel.addUser(new User(mEmail, mPassword));
                 return true;
@@ -298,7 +297,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
 
 
             try {
-                String link = server_url + "/adduser.php?username=" + mUsername +"&password=" + mPassword + "&email=" + mEmail +"&name=" + Encoder.encode(mName);
+                String link = getResources().getString(R.string.server_url) + "/adduser.php?username=" + mUsername +"&password=" + mPassword + "&email=" + mEmail +"&name=" + Encoder.encode(mName);
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();

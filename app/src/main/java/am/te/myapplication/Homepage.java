@@ -17,6 +17,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -53,7 +56,7 @@ public class Homepage extends ActionBarActivity {
 
         //local
 
-        if (State.local && User.loggedIn != null && User.loggedIn.hasItems()) {
+        if (getResources().getString(R.string.state).equals("local") && User.loggedIn != null && User.loggedIn.hasItems()) {
             products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getItemList();
         } else {
             /* Get products from the database. */
@@ -74,7 +77,7 @@ public class Homepage extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(), ListingDetails.class);
-                if (State.local) {
+                if (getResources().getString(R.string.state).equals("local")) {
                     i.putExtra("products", products.get(position).getName());
                 } else {
                     selectedListing = products.get(position);
@@ -166,6 +169,20 @@ public class Homepage extends ActionBarActivity {
                 if (result.equals("0 results")) {
                     Log.d(TAG, result);
                     return false;
+                }
+                JSONArray results = new JSONArray(result);
+                for (int i = 0; i < results.length(); i++) {
+                    try {
+                        JSONObject anObject = results.getJSONObject(i);
+                        String title = anObject.getString("Title");
+                        String price = anObject.getString("Price");
+                        String description = anObject.getString("Description");
+
+                        Listing newListing = new Listing(title, Double.parseDouble(price), description);
+                        theListings.add(newListing);
+                    } catch (JSONException e) {
+
+                    }
                 }
                 String[] resultLines = result.split("<br>");
                 for(int i = 0; i < resultLines.length; i++) {
