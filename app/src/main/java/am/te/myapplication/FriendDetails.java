@@ -1,23 +1,11 @@
 package am.te.myapplication;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.app.Activity;
-import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -28,6 +16,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
+
+import am.te.myapplication.Model.User;
 
 
 /**
@@ -44,7 +34,6 @@ public class FriendDetails extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friend_details);
-
 
         Bundle extras = getIntent().getExtras();
         if (State.local && extras != null) {
@@ -64,8 +53,6 @@ public class FriendDetails extends Activity {
         // Put the email onto the details screen
         TextView salesText = (TextView) findViewById(R.id.salesReports);
         salesText.setText("Sales Reports: "+String.valueOf(currentUser.getSalesReports()));
-
-
     }
 
     /**
@@ -83,21 +70,6 @@ public class FriendDetails extends Activity {
         }
         finish();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public class RemoveFriendTask extends AsyncTask<Void, Void, Boolean> {
         String idOfFriend;
@@ -117,27 +89,6 @@ public class FriendDetails extends Activity {
                 return removeFriend();
                 //already in system
             }
-            /*
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            */
-
-            // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-            /*User userToAuthenticate = new User(mEmail, mPassword);
-            return RegistrationModel.getUsers().contains(userToAuthenticate);*/
         }
 
         protected boolean removeFriend() {

@@ -1,6 +1,8 @@
 package am.te.myapplication;
 import java.util.ArrayList;
 
+import am.te.myapplication.Model.User;
+
 
 /**
  * Created by Mike Adkison on 2/9/15.

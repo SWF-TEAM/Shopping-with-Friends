@@ -16,20 +16,16 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import am.te.myapplication.Model.User;
 
 public class FriendList extends ActionBarActivity {
 
@@ -84,7 +80,6 @@ public class FriendList extends ActionBarActivity {
                     selectedFriend = friends.get(position);
                 }
                 startActivity(i);
-
             }
         });
         super.onStart();

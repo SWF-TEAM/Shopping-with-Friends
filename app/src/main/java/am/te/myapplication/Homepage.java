@@ -25,6 +25,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.Model.Listing;
+import am.te.myapplication.Model.User;
+
 /**
  * The homepage class acts as a springboard to other areas of the app.
  * It displays a list of deals the user is shopping for.
@@ -130,14 +133,6 @@ public class Homepage extends ActionBarActivity {
         //arrayAdapter.addAll(User.loggedIn.getItemList());
         arrayAdapter.notifyDataSetChanged();
     }
-
-
-
-
-
-
-
-
 
     public class PopulateProductsTask extends AsyncTask<Void, Void, Boolean> {
 

@@ -2,7 +2,6 @@ package am.te.myapplication;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,8 +19,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
+
+import am.te.myapplication.Model.Listing;
+import am.te.myapplication.Model.User;
 
 
 public class AddListing extends Activity {
@@ -39,7 +39,6 @@ public class AddListing extends Activity {
         priceView = (EditText) findViewById(R.id.add_product_price);
         additionalInfoView = (EditText) findViewById(R.id.add_product_additionalInfo);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,7 +63,6 @@ public class AddListing extends Activity {
     }
 
     public void addProduct(View view) {
-
 
         boolean cancel = false; /* If an error occurs, cancel the operation */
         String name = nameView.getText().toString();
@@ -96,15 +94,6 @@ public class AddListing extends Activity {
             finish();
         }
     }
-
-
-
-
-
-
-
-
-
 
     public class UserRegisterProductTask extends AsyncTask<Void, Void, Boolean> {
 

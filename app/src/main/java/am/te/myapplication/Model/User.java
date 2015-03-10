@@ -1,8 +1,7 @@
-package am.te.myapplication;
+package am.te.myapplication.Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * The user class represents a user in the app.

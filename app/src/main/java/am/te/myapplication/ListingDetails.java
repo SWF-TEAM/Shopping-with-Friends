@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import am.te.myapplication.Model.Listing;
+import am.te.myapplication.Model.User;
+
 
 /**
  * This displays the details of your friend that you clicked on
