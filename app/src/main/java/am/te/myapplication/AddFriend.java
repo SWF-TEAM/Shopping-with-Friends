@@ -44,7 +44,7 @@ public class AddFriend extends ActionBarActivity {
                 //add friend to friend list here
                 Log.d(AddFriend.class.getSimpleName(), "position" + position + " id" + id);
                 //local
-                if (State.local) {
+                if (getResources().getString(R.string.state).equals("local")) {
                     User.loggedIn.addFriend(possibleFriends.get(position));
                     possibleFriends.remove(position);
                     arrayAdapter.notifyDataSetChanged();
@@ -59,12 +59,12 @@ public class AddFriend extends ActionBarActivity {
         // Instantiating an array list
         possibleFriends = new ArrayList<User>();
 
-        if (State.local) {
+        if (getResources().getString(R.string.state).equals("local")) {
             ArrayList<User> toAdd = new ArrayList<>();
-            toAdd.add(new User("Dog Man L", "woofwoof", "dog@man.com"));
-            toAdd.add(new User("frog", "qwrg", "frog@leg.biz"));
-            toAdd.add(new User("toad", "xfsdf", "collin@126.xxx"));
-            toAdd.add(new User("cricket", "asrgh", "ypres@wat.ru"));
+            toAdd.add(new User("Dog Man L", "woofwoof", "dog@man.com", null, null, null));
+            toAdd.add(new User("frog", "qwrg", "frog@leg.biz", null, null, null));
+            toAdd.add(new User("toad", "xfsdf", "collin@126.xxx", null, null, null));
+            toAdd.add(new User("cricket", "asrgh", "ypres@wat.ru", null, null, null));
 
             for (User possibleFriend: toAdd) {
                 if (!User.loggedIn.isFriendsWith(possibleFriend)) {
@@ -81,12 +81,7 @@ public class AddFriend extends ActionBarActivity {
     //    super.onResume();
     //}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_friend, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

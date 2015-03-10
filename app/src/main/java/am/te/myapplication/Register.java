@@ -1,9 +1,9 @@
 package am.te.myapplication;
 
+import android.app.Activity;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
@@ -24,7 +24,6 @@ import android.widget.Toast;
 import android.database.Cursor;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
-import android.content.Intent;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -41,15 +40,16 @@ import java.io.BufferedReader;
 import java.net.URI;
 import java.net.URL;
 
-public class Register extends ActionBarActivity implements LoaderCallbacks<Cursor> {
+public class Register extends Activity implements LoaderCallbacks<Cursor> {
 
     private AutoCompleteTextView mEmailView;
+    private EditText mUsernameView;
+    private EditText mNameView;
     private EditText mPasswordView;
     private EditText mPasswordView2;
     private View mProgressView;
     private View mLoginFormView;
     private Toast mLoginStatus;
-    private final String server_url = "http://artineer.com/sandbox";
 
     private static Toast regMsgToast = null;
     private void populateAutoComplete() {
@@ -66,6 +66,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.reg_email);
+        mUsernameView = (EditText) findViewById(R.id.reg_username);
+        mNameView = (EditText) findViewById(R.id.reg_name);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.reg_pass1);
@@ -127,7 +129,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
     }
 
     private void proceedToShoppingPage() {
-        Intent shoppingIntent = new Intent(this, Shopping.class);
+        Intent shoppingIntent = new Intent(this, Welcome.class);
         startActivity(shoppingIntent);
 
     }
@@ -140,6 +142,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
+        String username = mUsernameView.getText().toString();
+        String name = mNameView.getText().toString();
         String password = mPasswordView.getText().toString();
         String password2 = mPasswordView2.getText().toString();
 
@@ -185,28 +189,9 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
             focusView.requestFocus();
         } else {
             /////////////////////////////////////////////////////begin database interaction//////////////////////////////////////////////////////////////////
-            mAuthTask = new UserRegisterTask(email, password);
+            mAuthTask = new UserRegisterTask(username, name, email, password);
             mAuthTask.execute((Void) null);
 
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //User newUser = new User(email, password);
-     /*       boolean registrationSuccess = true;//RegistrationModel.addUser(newUser);
-            if (registrationSuccess) {
-                if (regMsgToast != null) { //get rid of the failed registration toast if it exists
-                    regMsgToast.cancel();
-                }
-                regMsgToast = Toast.makeText(getApplicationContext(), "Registration Success", Toast.LENGTH_SHORT);
-                regMsgToast.getView().setBackgroundColor(Color.BLACK);
-                regMsgToast.setDuration(Toast.LENGTH_SHORT);
-                regMsgToast.show();
-                Intent shoppingIntent = new Intent(this, Shopping.class);
-                startActivity(shoppingIntent);
-            } else {
-                regMsgToast = Toast.makeText(getApplicationContext(), email + " is already in use. Choose another username", Toast.LENGTH_LONG);
-                regMsgToast.getView().setBackgroundColor(Color.RED);
-                regMsgToast.setDuration(Toast.LENGTH_LONG);
-                regMsgToast.show();
-            }*/
         }
     }
 
@@ -258,19 +243,22 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
 
     }
 
-
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
+        private final String mUsername;
+        private final String mName;
 
-        public UserRegisterTask(String email, String password) {
+        public UserRegisterTask(String username, String name, String email, String password) {
             mEmail = email;
             mPassword = password;
+            mUsername = username;
+            mName = name;
         }
         @Override
         protected Boolean doInBackground(Void... params) {
-            if (State.local) {
+            if (getResources().getString(R.string.state).equals("local")) {
                 //local
                 RegistrationModel.addUser(new User(mEmail, mPassword));
                 return true;
@@ -278,13 +266,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
                 // authentication against a network service.
                 // check if user is in system
                 // register user if not in system
-                if (!isInSystem(mEmail)) {
-                    boolean registered = registerUser(mEmail, mPassword);
-                    String TAG = Register.class.getSimpleName();
-                    Log.d(TAG, "registered user");
-                    return registered; //indicate registration success or failure
-                }
-                return false; //already in system
+                return registerUser();
+               //already in system
             }
             /*
             try {
@@ -308,36 +291,13 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
             /*User userToAuthenticate = new User(mEmail, mPassword);
             return RegistrationModel.getUsers().contains(userToAuthenticate);*/
         }
-        protected boolean isInSystem(String user) {
+
+        protected boolean registerUser() {
             String TAG = Register.class.getSimpleName();
 
-            String link = server_url + "/getuserregister.php?username=" +user;
-            try {//kek
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line="";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                Log.e(TAG, sb.toString());
-                return !sb.toString().equals("*NOSUCHUSER");
-            }catch(Exception e){
-                Log.e(TAG, "EXCEPTION>>>>", e);
-                return false;
-            }
-        }
-        protected boolean registerUser(String user, String pass) {
-            String TAG = Register.class.getSimpleName();
 
-            String link = server_url + "/adduser.php?username=" +mEmail+"&password="+mPassword;
             try {
+                String link = getResources().getString(R.string.server_url) + "/adduser.php?username=" + mUsername +"&password=" + mPassword + "&email=" + mEmail +"&name=" + Encoder.encode(mName);
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();
@@ -351,7 +311,8 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
                     break;
                 }
                 in.close();
-                return true;
+                Log.d(TAG, sb.toString());
+                return !sb.toString().contains("failed") && !sb.toString().contains("already in use");
             }catch(Exception e){
                 Log.e(TAG, "EXCEPTION>>>>", e);
                 return false;
@@ -367,7 +328,7 @@ public class Register extends ActionBarActivity implements LoaderCallbacks<Curso
                 finish();
             } else {
                 //database says this username already exists
-                mEmailView.setError("Try a different username");
+                mEmailView.setError("Try a different username or email");
                 mEmailView.requestFocus();
             }
         }

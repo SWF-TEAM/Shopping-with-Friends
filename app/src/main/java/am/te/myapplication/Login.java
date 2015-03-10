@@ -44,24 +44,15 @@ import java.util.List;
 
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+    protected static String uniqueIDofCurrentlyLoggedIn;
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private EditText mUsernameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -74,7 +65,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mUsernameView = (EditText) findViewById(R.id.login_username);
         populateAutoComplete();
         RegistrationModel.addUser(new User("m", "mmmm"));
 
@@ -90,8 +81,8 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button musernameSignInButton = (Button) findViewById(R.id.username_sign_in_button);
+        musernameSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -109,7 +100,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
     /**
      * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
+     * If there are form errors (invalid username, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
@@ -118,11 +109,11 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         // Reset errors.
-        mEmailView.setError(null);
+        mUsernameView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -136,14 +127,14 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+        // Check for a valid username address.
+        if (TextUtils.isEmpty(username)) {
+            mUsernameView.setError(getString(R.string.error_field_required));
+            focusView = mUsernameView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+        } else if (!isUsernameValid(username)) {
+            mUsernameView.setError("invalid username");
+            focusView = mUsernameView;
             cancel = true;
         }
 
@@ -155,12 +146,12 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
         }
     }
 
-    private boolean isEmailValid(String email) {
+    private boolean isUsernameValid(String username) {
         //TODO: Replace this with your own logic
         return true;
     }
@@ -206,63 +197,24 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-                // Select only email addresses.
-                ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
-
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<String>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
-        }
-
-        addEmailsToAutoComplete(emails);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(Login.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }
-
     private void proceedToHome(View view) {
         Intent intent = new Intent(this, Homepage.class);
         startActivity(intent);
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 
@@ -272,18 +224,18 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String mUsername;
         private final String mPassword;
         private User userToAuthenticate;
-        UserLoginTask(String email, String password) {
-            mEmail = email;
+        UserLoginTask(String username, String password) {
+            mUsername = username;
             mPassword = password;
-            userToAuthenticate = new User(mEmail, mPassword);
+            userToAuthenticate = new User(mUsername, mPassword);
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if (State.local) {
+            if (getResources().getString(R.string.state).equals("local")) {
                 return RegistrationModel.getUsers().contains(userToAuthenticate);
             } else {
                 //attempt authentication against a network service.
@@ -297,7 +249,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
                 for (String credential : DUMMY_CREDENTIALS) {
                     String[] pieces = credential.split(":");
-                    if (pieces[0].equals(mEmail)) {
+                    if (pieces[0].equals(mUsername)) {
                         // Account exists, return true if the password matches.
                         return pieces[1].equals(mPassword);
                     }
@@ -306,14 +258,19 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                 */
 
                 // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-                //User userToAuthenticate = new User(mEmail, mPassword);
+                //User userToAuthenticate = new User(mUsername, mPassword);
                 //return RegistrationModel.getUsers().contains(userToAuthenticate);
-                return isInSystem(mEmail, mPassword);
+                String loginKey = getLoginKey();
+                if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals("") || loginKey == null)) {
+                    uniqueIDofCurrentlyLoggedIn = loginKey;
+                    return true;
+                }
+                return false;
             }
         }
-        protected boolean isInSystem(String user, String pass) {
+        protected String getLoginKey() {
             String TAG = Register.class.getSimpleName();
-            String link = "http://artineer.com/sandbox/getuserlogin.php?username=" + user + "&password=" + pass;
+            String link = "http://artineer.com/sandbox/getuserlogin.php?username=" + mUsername + "&password=" + mPassword;
             try {
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
@@ -329,10 +286,11 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                 }
                 in.close();
                 Log.e(TAG, sb.toString());
-                return !sb.toString().equals("*NOSUCHUSER");
+
+                return sb.toString();
             }catch(Exception e){
                 Log.e(TAG, "EXCEPTION>>>>", e);
-                return false;
+                return "";
             }
         }
         @Override
@@ -343,7 +301,10 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 View homeview = new View(getApplicationContext());
                 proceedToHome(homeview);
-                User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
+                if (getResources().getString(R.string.state).equals("local")) {
+                    User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
+                } else {
+                }
                 finish();
             } else {
                 mPasswordView.setError("Invalid password or username.");

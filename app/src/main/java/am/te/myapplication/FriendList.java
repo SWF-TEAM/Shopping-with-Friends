@@ -1,6 +1,7 @@
 package am.te.myapplication;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,10 +11,25 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import android.util.Log;
 import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class FriendList extends ActionBarActivity {
 
@@ -21,22 +37,30 @@ public class FriendList extends ActionBarActivity {
     private ListView lv;
     private ArrayAdapter<User> arrayAdapter;
     List<User> friends = new ArrayList<User>();
+    static User selectedFriend;
 
+    UserPopulateFriendsTask mUserPopulateFriendsTask = null;
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
+        String TAG = Register.class.getSimpleName();
         setContentView(R.layout.activity_friend_list);
     }
     @Override
     public void onStart() {
-
+        if (arrayAdapter != null) {
+            arrayAdapter.notifyDataSetChanged();
+        }
         lv = (ListView) findViewById(R.id.add_friend_listView);
 
         //local
 
-        if (State.local && User.loggedIn != null && User.loggedIn.hasFriends()) {
+        if (getResources().getString(R.string.state).equals("local") && User.loggedIn != null && User.loggedIn.hasFriends()) {
             friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
-        } else {
+        } else { //database
+
+            mUserPopulateFriendsTask = new UserPopulateFriendsTask();
+            mUserPopulateFriendsTask.execute();
 
         }
         // This is the array adapter, it takes the context of the activity as a
@@ -53,7 +77,12 @@ public class FriendList extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(), FriendDetails.class);
-                i.putExtra("username",friends.get(position).getUsername());
+                if (getResources().getString(R.string.state).equals("local")) {
+                    i.putExtra("username", friends.get(position).getUsername());
+                    i.putExtra("email", friends.get(position).getEmail());
+                } else { //derterbers
+                    selectedFriend = friends.get(position);
+                }
                 startActivity(i);
 
             }
@@ -114,4 +143,74 @@ public class FriendList extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void refreshArrayAdapter() {
+        arrayAdapter.notifyDataSetChanged();
+    }
+    public class UserPopulateFriendsTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            //DATABASE SHIT (get a list of possible friends from database)
+            ArrayList<User> theFriends = new ArrayList<>();
+            String TAG = FriendList.class.getSimpleName();
+            String link = getResources().getString(R.string.server_url) + "/listfriends.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            try {//kek
+                URL url = new URL(link);
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(link));
+                HttpResponse response = client.execute(request);
+                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer sb = new StringBuffer("");
+                String line = "";
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                in.close();
+                String result = sb.toString();
+                //now need to populate friends with users from result of database query
+                if (result.equals("0 results")) {
+                    Log.d(TAG, result);
+                    return false;
+                }
+                JSONArray results = new JSONArray(result);
+                for (int i = 0; i < results.length(); i++) {
+                    try {
+                        JSONObject anObject = results.getJSONObject(i);
+                        String id = anObject.getString("id");
+                        String email = anObject.getString("email");
+                        String name = anObject.getString("name");
+                        String description = anObject.getString("description");
+                        String username = anObject.getString("username");
+                        User friend = new User(username, "", email, id, description, name);
+                        theFriends.add(friend);
+                    } catch (JSONException e) {
+
+                    }
+                }
+                friends.clear();
+                friends.addAll(theFriends);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        refreshArrayAdapter();
+                    }
+                });
+
+                return true;
+            } catch (Exception e) {
+                Log.e(TAG, "EXCEPTION while getting friends from database>>>", e);
+                return false;
+            }
+
+        }
+
+
+        @Override
+        protected void onCancelled() {
+            mUserPopulateFriendsTask = null;
+        }
+    }
 }
