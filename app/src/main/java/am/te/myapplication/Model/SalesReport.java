@@ -40,5 +40,5 @@ public class SalesReport {
         this.location = location;
     }
 
-    
+
 }

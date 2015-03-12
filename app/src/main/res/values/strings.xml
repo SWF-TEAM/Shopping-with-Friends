@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Shopping With Friends</string>
     <string name="login_button">Login</string>
     <string name="register_button">Register</string>
@@ -16,4 +17,6 @@
     <string name="title_activity_add_product">Add Product</string>
     <string name="title_activity_product_details">Product Details</string>
     <string name="search">Search</string>
+    <string name="title_activity_deal_report">DealReport</string>
+
 </resources>
