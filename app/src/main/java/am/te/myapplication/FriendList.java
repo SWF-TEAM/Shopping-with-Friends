@@ -24,6 +24,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import am.te.myapplication.Model.User;
 
@@ -169,17 +172,33 @@ public class FriendList extends ActionBarActivity {
                     Log.d(TAG, result);
                     return false;
                 }
-                String[] resultLines = result.split("<br>");
-                for(int i = 0; i < resultLines.length; i++) {
-                    String[] fields = resultLines[i].split("~");
-                    String id = fields[0];
-                    String email = fields[1];
-                    String name = fields[2];
-                    String description = fields[3];
-                    String username = fields[4];
-                    User friend = new User(username, "", email, id, description, name);
-                    theFriends.add(friend);
+                Log.d(TAG, result);
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
+                        String id = lineOfArray.getString("userID");
+                        String email = lineOfArray.getString("email");
+                        String name = lineOfArray.getString("name");
+                        String description = lineOfArray.getString("description");
+                        String username = lineOfArray.getString("username");
+                        User friend = new User(username, "", email, id, description, name);
+                        theFriends.add(friend);
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getMessage());
+                    }
                 }
+//                String[] resultLines = result.split("<br>");
+//                for(int i = 0; i < resultLines.length; i++) {
+//                    String[] fields = resultLines[i].split("~");
+//                    String id = fields[0];
+//                    String email = fields[1];
+//                    String name = fields[2];
+//                    String description = fields[3];
+//                    String username = fields[4];
+//                    User friend = new User(username, "", email, id, description, name);
+//                    theFriends.add(friend);
+//                }
                 friends.clear();
                 friends.addAll(theFriends);
                 runOnUiThread(new Runnable() {

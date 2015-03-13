@@ -17,6 +17,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -176,15 +179,29 @@ public class Homepage extends ActionBarActivity {
                 }
                 String[] resultLines = result.split("<br>");
                 System.out.println(result);
-                for(int i = 0; i < resultLines.length; i++) {
-                    String[] fields = resultLines[i].split("~");
-                    String title = fields[0];
-                    String price = fields[1];
-                    String description = fields[2];
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
+                        String title = lineOfArray.getString("Title");
+                        String price = lineOfArray.getString("Price");
+                        String description = lineOfArray.getString("Description");
 
-                    Listing newListing = new Listing(title, Double.parseDouble(price), description);
-                    theListings.add(newListing);
+                        Listing newListing = new Listing(title, Double.parseDouble(price), description);
+                        theListings.add(newListing);
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getMessage());
+                    }
                 }
+//                for(int i = 0; i < resultLines.length; i++) {
+//                    String[] fields = resultLines[i].split("~");
+//                    String title = fields[0];
+//                    String price = fields[1];
+//                    String description = fields[2];
+//
+//                    Listing newListing = new Listing(title, Double.parseDouble(price), description);
+//                    theListings.add(newListing);
+//                }
                 products.clear();
                 products.addAll(theListings);
                 runOnUiThread(new Runnable() {
