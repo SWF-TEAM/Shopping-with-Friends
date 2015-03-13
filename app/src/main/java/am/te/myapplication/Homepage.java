@@ -189,11 +189,12 @@ public class Homepage extends ActionBarActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                        String title = lineOfArray.getString("Title");
-                        String price = lineOfArray.getString("Price");
-                        String description = lineOfArray.getString("Description");
+                        String title = lineOfArray.getString("title");
+                        String price = lineOfArray.getString("price");
+                        String description = lineOfArray.getString("description");
+                        String id = lineOfArray.getString("listingID");
 
-                        Listing newListing = new Listing(title, Double.parseDouble(price), description);
+                        Listing newListing = new Listing(title, Double.parseDouble(price), description, id);
                         theListings.add(newListing);
                     } catch (JSONException e) {
                         Log.e(TAG, e.getMessage());
