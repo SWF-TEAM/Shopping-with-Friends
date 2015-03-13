@@ -106,6 +106,11 @@ public class Homepage extends ActionBarActivity {
         System.out.println("Listing: " + products.size());
 
 
+        super.onStart();
+
+    }
+
+    public void checkDeals() {
         for (Deal deal : deals) {
             for (Listing listing : products) {
                 if (deal.getName().equals(listing.getName()) && deal.getDesiredPrice() < listing.getDesiredPrice()) {
@@ -117,9 +122,6 @@ public class Homepage extends ActionBarActivity {
                 }
             }
         }
-
-        super.onStart();
-
     }
 
     @Override
@@ -239,6 +241,9 @@ public class Homepage extends ActionBarActivity {
                     public void run() {
 
                        arrayAdapter.notifyDataSetChanged();
+                       System.out.println("deal size" + deals.size());
+                       System.out.println("list size" + products.size());
+                       checkDeals();
                     }
                 });
                 return true;
@@ -263,8 +268,9 @@ public class Homepage extends ActionBarActivity {
             //DATABASE SHIT (get a list of possible friends from database)
             ArrayList<Deal> theDeals = new ArrayList<>();
             String TAG = Homepage.class.getSimpleName();
-            String link = "http://artineer.com/sandbox" + "/getdeals.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            String link = "http://artineer.com/sandbox" + "/getdeals2.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
             try {//kek
+                Log.d(TAG, ">>>>>>>>>>>>>>>>>trying>>>>>");
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();
@@ -279,12 +285,13 @@ public class Homepage extends ActionBarActivity {
                 }
                 in.close();
                 String result = sb.toString();
-                //now need to populate friends with users from result of database query
                 if (result.equals("0 results")) {
                     Log.d(TAG, result);
+                    Log.d(TAG, "no results for getDeals");
+                    Log.d(TAG, Login.uniqueIDofCurrentlyLoggedIn);
                     return false;
                 }
-                String[] resultLines = result.split("<br>");
+                Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
                 System.out.println(result);
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -302,11 +309,15 @@ public class Homepage extends ActionBarActivity {
                 }
                 deals.clear();
                 deals.addAll(theDeals);
+                System.out.println("DEALS:  DDDDDDDDDDDDDDDDDDDDDDDD" + deals);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //needs to bbbe changed to whatever array adapter handles deals
                         arrayAdapter.notifyDataSetChanged();
+                        System.out.println("DEAL ASYNC deal size" + deals.size());
+                        System.out.println("list size" + products.size());
+                        checkDeals();
                     }
                 });
                 return true;
