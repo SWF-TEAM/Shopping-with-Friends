@@ -111,6 +111,9 @@ public class Homepage extends ActionBarActivity {
             case R.id.add_product:
                 addProduct();
                 return true;
+            case R.id.add_deal:
+                addDeal();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -129,6 +132,14 @@ public class Homepage extends ActionBarActivity {
 
     public void addProduct() {
         Intent intent = new Intent(this, AddListing.class);
+        startActivity(intent);
+        //arrayAdapter.clear();
+        //arrayAdapter.addAll(User.loggedIn.getItemList());
+        arrayAdapter.notifyDataSetChanged();
+    }
+
+    public void addDeal() {
+        Intent intent = new Intent(this, AddDeal.class);
         startActivity(intent);
         //arrayAdapter.clear();
         //arrayAdapter.addAll(User.loggedIn.getItemList());
@@ -164,7 +175,7 @@ public class Homepage extends ActionBarActivity {
                     return false;
                 }
                 String[] resultLines = result.split("<br>");
-                System.out.println(resultLines);
+                System.out.println(result);
                 for(int i = 0; i < resultLines.length; i++) {
                     String[] fields = resultLines[i].split("~");
                     String title = fields[0];

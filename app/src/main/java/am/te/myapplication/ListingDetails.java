@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import am.te.myapplication.Model.Listing;
@@ -32,7 +31,7 @@ public class ListingDetails extends Activity {
         if (State.local) {
             if (extras != null) {
                 // grab the listing here.
-                currentListing = User.loggedIn.getListing(extras.getString("listing"));
+                currentListing = User.loggedIn.getListing(extras.getString("products"));
             }
         } else { //database access
             currentListing = Homepage.selectedListing;
@@ -48,8 +47,8 @@ public class ListingDetails extends Activity {
         additionalInfo.setText(currentListing.getAdditionalInfo());
     }
 
-    public void addDeal(View view) {
-        Intent intent = new Intent(this, DealReport.class);
-        startActivity(intent);
+    public void expressIntrest(View view) {
+        finish();
     }
+
 }

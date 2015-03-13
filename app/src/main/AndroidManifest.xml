@@ -73,7 +73,7 @@
             android:label="@string/title_activity_product_details" >
         </activity>
         <activity
-            android:name=".DealReport"
+            android:name=".AddDeal"
             android:label="@string/title_activity_deal_report" >
         </activity>
     </application>
