@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 
@@ -44,7 +45,9 @@ public class Homepage extends ActionBarActivity {
     private ListView lv;
     private ArrayAdapter arrayAdapter;
     List<Listing> products = new ArrayList<Listing>();
+    List<Deal> deals = new ArrayList<>();
     private PopulateProductsTask mPopulateProductsTask;
+    private PopulateDealsTask mPopulateDealsTask;
     static Listing selectedListing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,9 @@ public class Homepage extends ActionBarActivity {
             /* Get products from the database. */
             mPopulateProductsTask = new PopulateProductsTask();
             mPopulateProductsTask.execute();
+            mPopulateDealsTask = new PopulateDealsTask();
+            mPopulateDealsTask.execute();
+
         }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -223,6 +229,90 @@ public class Homepage extends ActionBarActivity {
         @Override
         protected void onCancelled() {
             mPopulateProductsTask = null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public class PopulateDealsTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            //DATABASE SHIT (get a list of possible friends from database)
+            ArrayList<Deal> theDeals = new ArrayList<>();
+            String TAG = Homepage.class.getSimpleName();
+            String link = "http://artineer.com/sandbox" + "/getdeals.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            try {//kek
+                URL url = new URL(link);
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(link));
+                HttpResponse response = client.execute(request);
+                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer sb = new StringBuffer("");
+                String line = "";
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                in.close();
+                String result = sb.toString();
+                //now need to populate friends with users from result of database query
+                if (result.equals("0 results")) {
+                    Log.d(TAG, result);
+                    return false;
+                }
+                String[] resultLines = result.split("<br>");
+                System.out.println(result);
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
+                        String title = lineOfArray.getString("Title");
+                        String price = lineOfArray.getString("Price");
+                        String location = lineOfArray.getString("Location");
+
+                        Deal newDeal = new Deal(title, Double.parseDouble(price), location);
+                        theDeals.add(newDeal);
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
+                deals.clear();
+                deals.addAll(theDeals);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //needs to bbbe changed to whatever array adapter handles deals
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                });
+                return true;
+            } catch (Exception e) {
+                Log.e(TAG, "EXCEPTION on homepage>>>", e);
+                return false;
+            }
+
+        }
+
+
+        @Override
+        protected void onCancelled() {
+            mPopulateDealsTask = null;
         }
     }
 }
