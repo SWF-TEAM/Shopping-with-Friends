@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Model;
 
 /**
  * The product class represents a product that a user desires.

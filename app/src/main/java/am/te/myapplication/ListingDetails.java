@@ -1,9 +1,13 @@
 package am.te.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import am.te.myapplication.Model.Listing;
+import am.te.myapplication.Model.User;
 
 
 /**
@@ -16,6 +20,7 @@ import android.widget.TextView;
 public class ListingDetails extends Activity {
     Listing currentListing;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +31,7 @@ public class ListingDetails extends Activity {
         if (State.local) {
             if (extras != null) {
                 // grab the listing here.
-                currentListing = User.loggedIn.getListing(extras.getString("listing"));
+                currentListing = User.loggedIn.getListing(extras.getString("products"));
             }
         } else { //database access
             currentListing = Homepage.selectedListing;
@@ -42,14 +47,8 @@ public class ListingDetails extends Activity {
         additionalInfo.setText(currentListing.getAdditionalInfo());
     }
 
-    /**
-     * Claims an item
-     *
-     * @param view
-     */
-    public void claimItem(View view) {
-
-       /// ????
+    public void expressIntrest(View view) {
         finish();
     }
+
 }

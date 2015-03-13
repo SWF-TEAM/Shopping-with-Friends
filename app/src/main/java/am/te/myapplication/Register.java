@@ -7,7 +7,6 @@ import android.content.Loader;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -39,6 +38,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.net.URI;
 import java.net.URL;
+
+import am.te.myapplication.Model.User;
 
 public class Register extends Activity implements LoaderCallbacks<Cursor> {
 

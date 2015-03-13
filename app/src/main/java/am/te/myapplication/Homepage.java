@@ -25,6 +25,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.Model.Listing;
+import am.te.myapplication.Model.User;
+
 /**
  * The homepage class acts as a springboard to other areas of the app.
  * It displays a list of deals the user is shopping for.
@@ -84,6 +87,7 @@ public class Homepage extends ActionBarActivity {
             }
         });
         super.onStart();
+        arrayAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -106,6 +110,9 @@ public class Homepage extends ActionBarActivity {
                 return true;
             case R.id.add_product:
                 addProduct();
+                return true;
+            case R.id.add_deal:
+                addDeal();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -131,13 +138,13 @@ public class Homepage extends ActionBarActivity {
         arrayAdapter.notifyDataSetChanged();
     }
 
-
-
-
-
-
-
-
+    public void addDeal() {
+        Intent intent = new Intent(this, AddDeal.class);
+        startActivity(intent);
+        //arrayAdapter.clear();
+        //arrayAdapter.addAll(User.loggedIn.getItemList());
+        arrayAdapter.notifyDataSetChanged();
+    }
 
     public class PopulateProductsTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -168,6 +175,7 @@ public class Homepage extends ActionBarActivity {
                     return false;
                 }
                 String[] resultLines = result.split("<br>");
+                System.out.println(result);
                 for(int i = 0; i < resultLines.length; i++) {
                     String[] fields = resultLines[i].split("~");
                     String title = fields[0];
