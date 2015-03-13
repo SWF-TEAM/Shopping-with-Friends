@@ -22,5 +22,7 @@
     <string name="title_activity_deal_report">DealReport</string>
     <string name="add_deal">Add Deal</string>
     <string name="add_deal_title">Add New Deal</string>
+    <string name="title_activity_show_deal">ShowDeal</string>
+    <string name="title_activity_deal_details">DealDetails</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package am.te.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -95,8 +97,30 @@ public class Homepage extends ActionBarActivity {
 
             }
         });
-        super.onStart();
+
         arrayAdapter.notifyDataSetChanged();
+
+        boolean foundDeal = false;
+
+        for (Deal deal : deals) {
+            for (Listing listing : products) {
+                if (deal.getName().equals(listing.getName()) && deal.getDesiredPrice() < listing.getDesiredPrice()) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "The " + listing.getName() + " is available at " + deal.getLocation() + " for " + deal.getDesiredPrice();
+                    int duration = Toast.LENGTH_LONG;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+            }
+        }
+
+        if (foundDeal) {
+
+        }
+
+        super.onStart();
+
     }
 
     @Override
@@ -155,7 +179,7 @@ public class Homepage extends ActionBarActivity {
         arrayAdapter.notifyDataSetChanged();
     }
 
-    public class PopulateProductsTask extends AsyncTask<Void, Void, Boolean> {
+    private class PopulateProductsTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -232,23 +256,7 @@ public class Homepage extends ActionBarActivity {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public class PopulateDealsTask extends AsyncTask<Void, Void, Boolean> {
+    private class PopulateDealsTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
