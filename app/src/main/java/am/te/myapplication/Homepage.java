@@ -180,8 +180,15 @@ public class Homepage extends ActionBarActivity {
         arrayAdapter.notifyDataSetChanged();
     }
 
+
     private class PopulateProductsTask extends AsyncTask<Void, Void, Boolean> {
 
+        /**
+         * populates products ArrayList with info from database
+         *
+         * @param params
+         * @return true if products were populated from database successfully
+         */
         @Override
         protected Boolean doInBackground(Void... params) {
             //DATABASE SHIT (get a list of possible friends from database)
@@ -263,6 +270,12 @@ public class Homepage extends ActionBarActivity {
 
     private class PopulateDealsTask extends AsyncTask<Void, Void, Boolean> {
 
+        /**
+         * populates deals ArrayList with info from database
+         *
+         * @param params
+         * @return true if population was successful
+         */
         @Override
         protected Boolean doInBackground(Void... params) {
             //DATABASE SHIT (get a list of possible friends from database)
@@ -291,7 +304,6 @@ public class Homepage extends ActionBarActivity {
                     Log.d(TAG, Login.uniqueIDofCurrentlyLoggedIn);
                     return false;
                 }
-                Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
                 System.out.println(result);
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -309,7 +321,6 @@ public class Homepage extends ActionBarActivity {
                 }
                 deals.clear();
                 deals.addAll(theDeals);
-                System.out.println("DEALS:  DDDDDDDDDDDDDDDDDDDDDDDD" + deals);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

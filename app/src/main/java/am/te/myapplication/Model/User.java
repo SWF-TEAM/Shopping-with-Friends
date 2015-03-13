@@ -204,7 +204,7 @@ public class User {
     }
     @Override
     public String toString() {
-        return getUsername();
+        return getName();
     }
 
 }
