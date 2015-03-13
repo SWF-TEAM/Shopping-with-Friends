@@ -114,6 +114,8 @@ public class Homepage extends ActionBarActivity {
         for (Deal deal : deals) {
             for (Listing listing : products) {
                 if (deal.getName().equals(listing.getName()) && deal.getDesiredPrice() < listing.getDesiredPrice()) {
+                    System.out.println("deal price: " + deal.getDesiredPrice());
+                    System.out.println("listing price: " + listing.getDesiredPrice());
                     Context context = getApplicationContext();
                     CharSequence text = "The " + listing.getName() + " is available at " + deal.getLocation() + " for " + deal.getDesiredPrice();
                     int duration = Toast.LENGTH_LONG;

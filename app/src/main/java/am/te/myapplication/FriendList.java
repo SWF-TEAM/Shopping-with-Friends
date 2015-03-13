@@ -181,7 +181,7 @@ public class FriendList extends ActionBarActivity {
                         String email = lineOfArray.getString("email");
                         String name = lineOfArray.getString("name");
                         String description = lineOfArray.getString("description");
-                        String username = "";//lineOfArray.getString("username");
+                        String username = lineOfArray.getString("username");
                         User friend = new User(username, "", email, id, description, name);
                         theFriends.add(friend);
                     } catch (JSONException e) {
