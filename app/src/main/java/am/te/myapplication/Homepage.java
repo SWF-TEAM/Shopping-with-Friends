@@ -102,21 +102,20 @@ public class Homepage extends ActionBarActivity {
 
         boolean foundDeal = false;
 
+        System.out.println("DEals: " + deals.size());
+        System.out.println("Listing: " + products.size());
+
+
         for (Deal deal : deals) {
             for (Listing listing : products) {
                 if (deal.getName().equals(listing.getName()) && deal.getDesiredPrice() < listing.getDesiredPrice()) {
                     Context context = getApplicationContext();
                     CharSequence text = "The " + listing.getName() + " is available at " + deal.getLocation() + " for " + deal.getDesiredPrice();
                     int duration = Toast.LENGTH_LONG;
-
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
             }
-        }
-
-        if (foundDeal) {
-
         }
 
         super.onStart();

@@ -44,7 +44,6 @@ public class AddDeal extends Activity {
     }
 
 
-
     public void submitDeal(View view) {
 
 
@@ -67,7 +66,6 @@ public class AddDeal extends Activity {
         if (!cancel) {
             if (State.local) {
                 Deal newDeal = new Deal(name, price, location);
-
             } else {
                 //databasey stuff
                 mRegisterDealTask = new UserRegisterDealTask(name, price, location);
@@ -112,7 +110,7 @@ public class AddDeal extends Activity {
             String TAG = AddListing.class.getSimpleName();
             String link = null;
             try {
-                link = server_url + "/adddeal.php?Title=" + Encoder.encode(mName) + "&Location=" + Encoder.encode(mLocation) + "&Price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+                link = server_url + "/adddeal2.php?Title=" + Encoder.encode(mName) + "&Location=" + Encoder.encode(mLocation) + "&Price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
             } catch(UnsupportedEncodingException e){
                 Log.e(TAG, "url encoding failed");
             }
@@ -129,6 +127,7 @@ public class AddDeal extends Activity {
                     sb.append(line);
                     break;
                 }
+                System.out.println(sb.toString());
                 in.close();
                 Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 Log.d(TAG, sb.toString());

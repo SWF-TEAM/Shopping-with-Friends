@@ -22,6 +22,12 @@ public class Listing {
         this.id = id;
     }
 
+    public Listing(String name, double desiredPrice, String additionalInfo) {
+        this.name = name;
+        this.additionalInfo = additionalInfo;
+        this.desiredPrice = desiredPrice;
+    }
+
     public Listing(String name, double desiredPrice) {
         this(name, desiredPrice, null, null);
     }
