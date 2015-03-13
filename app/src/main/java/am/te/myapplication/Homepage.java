@@ -87,6 +87,7 @@ public class Homepage extends ActionBarActivity {
             }
         });
         super.onStart();
+        arrayAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -163,6 +164,7 @@ public class Homepage extends ActionBarActivity {
                     return false;
                 }
                 String[] resultLines = result.split("<br>");
+                System.out.println(resultLines);
                 for(int i = 0; i < resultLines.length; i++) {
                     String[] fields = resultLines[i].split("~");
                     String title = fields[0];

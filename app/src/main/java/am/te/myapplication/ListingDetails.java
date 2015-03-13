@@ -1,8 +1,10 @@
 package am.te.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import am.te.myapplication.Model.Listing;
@@ -18,6 +20,7 @@ import am.te.myapplication.Model.User;
  */
 public class ListingDetails extends Activity {
     Listing currentListing;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +48,8 @@ public class ListingDetails extends Activity {
         additionalInfo.setText(currentListing.getAdditionalInfo());
     }
 
-    /**
-     * Claims an item
-     *
-     * @param view
-     */
-    public void claimItem(View view) {
-
-       /// ????
-        finish();
+    public void addDeal(View view) {
+        Intent intent = new Intent(this, DealReport.class);
+        startActivity(intent);
     }
 }
