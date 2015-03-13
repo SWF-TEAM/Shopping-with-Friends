@@ -174,14 +174,14 @@ public class FriendList extends ActionBarActivity {
                 }
                 Log.d(TAG, result);
                 JSONArray jsonArray = new JSONArray(result);
-                for (int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length() - 1; i++) {
                     try {
                         JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                        String id = lineOfArray.getString("userID");
+                        String id = lineOfArray.getString("friendID");
                         String email = lineOfArray.getString("email");
                         String name = lineOfArray.getString("name");
                         String description = lineOfArray.getString("description");
-                        String username = lineOfArray.getString("username");
+                        String username = "";//lineOfArray.getString("username");
                         User friend = new User(username, "", email, id, description, name);
                         theFriends.add(friend);
                     } catch (JSONException e) {
