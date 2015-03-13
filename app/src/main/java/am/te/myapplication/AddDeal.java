@@ -63,7 +63,7 @@ public class AddDeal extends Activity {
         }
 
         String location = locationView.getText().toString();
-        finish();
+
         if (!cancel) {
             if (State.local) {
                 Deal newDeal = new Deal(name, price, location);
@@ -132,7 +132,7 @@ public class AddDeal extends Activity {
                 in.close();
                 Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 Log.d(TAG, sb.toString());
-                return sb.toString().equals("success");
+                return sb.toString().equals("Deal Values have been inserted successfully\\n");
             }catch(Exception e){
                 Log.e(TAG, "EXCEPTION>>>>", e);
                 return false;
