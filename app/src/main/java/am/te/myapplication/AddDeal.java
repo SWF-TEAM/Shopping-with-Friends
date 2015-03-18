@@ -1,7 +1,9 @@
 package am.te.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,53 +22,34 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
 
+import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 
 
-public class AddListing extends Activity {
+public class AddDeal extends Activity {
 
     private EditText nameView;
     private EditText priceView;
-    private EditText additionalInfoView;
-    private UserRegisterProductTask mRegisterProductTask = null;
+    private EditText locationView;
+    private UserRegisterDealTask mRegisterDealTask;
     private final String server_url = "http://artineer.com/sandbox";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_listing);
-        nameView = (EditText) findViewById(R.id.add_product_name);
-        priceView = (EditText) findViewById(R.id.add_product_price);
-        additionalInfoView = (EditText) findViewById(R.id.add_product_additionalInfo);
+        setContentView(R.layout.activity_add_deal);
+        nameView = (EditText) findViewById(R.id.add_deal_name);
+        priceView = (EditText) findViewById(R.id.add_price);
+        locationView = (EditText) findViewById(R.id.add_location);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_product, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void submitDeal(View view) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void addProduct(View view) {
 
         boolean cancel = false; /* If an error occurs, cancel the operation */
         String name = nameView.getText().toString();
-        Double price = 0.0;
+        double price = 0.0;
 
         try {
             price = Double.valueOf(priceView.getText().toString());
@@ -78,33 +61,37 @@ public class AddListing extends Activity {
             cancel = true;
         }
 
-        String additionalInfo = additionalInfoView.getText().toString();
+        String location = locationView.getText().toString();
 
         if (!cancel) {
             if (State.local) {
-                Listing newProduct = new Listing(name, price, additionalInfo);
-                System.out.println(User.loggedIn.addItem(newProduct));
-                System.out.println("Added new item: " + newProduct);
-                System.out.println("User items is now " + User.loggedIn.getItemList());
+                Deal newDeal = new Deal(name, price, location);
             } else {
-                //databasey stuff 
-                mRegisterProductTask = new UserRegisterProductTask(name, price, additionalInfo);
-                mRegisterProductTask.execute();
+                //databasey stuff
+                mRegisterDealTask = new UserRegisterDealTask(name, price, location);
+                mRegisterDealTask.execute();
+
             }
             finish();
         }
+
+
     }
 
-    public class UserRegisterProductTask extends AsyncTask<Void, Void, Boolean> {
+
+
+
+
+    public class UserRegisterDealTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mName;
         private final Double mPrice;
-        private final String mDescription;
+        private final String mLocation;
 
-        public UserRegisterProductTask(String name, Double price, String description) {
+        public UserRegisterDealTask(String name, Double price, String location) {
             mName = name;
             mPrice = price;
-            mDescription = description;
+            mLocation = location;
         }
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -116,36 +103,14 @@ public class AddListing extends Activity {
                 // check if user is in system
                 // register user if not in system
                 return registerProduct();
-                //already in system
             }
-            /*
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            */
-
-            // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-            /*User userToAuthenticate = new User(mEmail, mPassword);
-            return RegistrationModel.getUsers().contains(userToAuthenticate);*/
         }
 
         protected boolean registerProduct() {
             String TAG = AddListing.class.getSimpleName();
             String link = null;
             try {
-                link = server_url + "/addlisting.php?title=" + Encoder.encode(mName) + "&description=" + Encoder.encode(mDescription) + "&price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+                link = server_url + "/adddeal2.php?Title=" + Encoder.encode(mName) + "&Location=" + Encoder.encode(mLocation) + "&Price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
             } catch(UnsupportedEncodingException e){
                 Log.e(TAG, "url encoding failed");
             }
@@ -162,10 +127,11 @@ public class AddListing extends Activity {
                     sb.append(line);
                     break;
                 }
+                System.out.println(sb.toString());
                 in.close();
                 Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 Log.d(TAG, sb.toString());
-                return sb.toString().equals("success");
+                return sb.toString().equals("Deal Values have been inserted successfully\\n");
             }catch(Exception e){
                 Log.e(TAG, "EXCEPTION>>>>", e);
                 return false;
@@ -173,7 +139,7 @@ public class AddListing extends Activity {
         }
         @Override
         protected void onPostExecute(final Boolean success) {
-            mRegisterProductTask = null;
+            mRegisterDealTask = null;
             //showProgress(false);
 
             if (success) {
@@ -185,7 +151,7 @@ public class AddListing extends Activity {
 
         @Override
         protected void onCancelled() {
-            mRegisterProductTask= null;
+            mRegisterDealTask= null;
         }
 
     }

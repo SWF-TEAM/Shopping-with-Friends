@@ -6,6 +6,10 @@
         android:icon="@drawable/ic_menu_btn_add"
         android:title="@string/title_activity_add_product"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/add_deal"
+        android:icon="@drawable/ic_menu_allfriends"
+        android:title="@string/add_deal"
+        app:showAsAction="ifRoom"/>
     <item android:id="@+id/friend_menu"
         android:icon="@drawable/ic_menu_allfriends"
         android:title="@string/friend_menu"

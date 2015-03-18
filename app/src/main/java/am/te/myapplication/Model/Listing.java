@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Model;
 
 /**
  * The product class represents a product that a user desires.
@@ -13,15 +13,23 @@ public class Listing {
     private double desiredPrice;
     private String additionalInfo;
     private int productID;
+    public String id;
 
-    public Listing(String name, double desiredPrice, String additionalInfo) {
+    public Listing(String name, double desiredPrice, String additionalInfo, String id) {
         this.name = name;
         this.desiredPrice = desiredPrice;
         this.additionalInfo = additionalInfo;
+        this.id = id;
+    }
+
+    public Listing(String name, double desiredPrice, String additionalInfo) {
+        this.name = name;
+        this.additionalInfo = additionalInfo;
+        this.desiredPrice = desiredPrice;
     }
 
     public Listing(String name, double desiredPrice) {
-        this(name, desiredPrice, null);
+        this(name, desiredPrice, null, null);
     }
 
     public String getName() {
