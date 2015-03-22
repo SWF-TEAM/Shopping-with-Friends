@@ -1,27 +1,17 @@
 package am.te.myapplication;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URL;
-
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
+import am.te.myapplication.Service.RegisterListingTask;
 
 
 public class AddListing extends Activity {
@@ -29,15 +19,15 @@ public class AddListing extends Activity {
     private EditText nameView;
     private EditText priceView;
     private EditText additionalInfoView;
-    private UserRegisterProductTask mRegisterProductTask = null;
-    private final String server_url = "http://artineer.com/sandbox";
+    private RegisterListingTask mRegisterListingTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
         nameView = (EditText) findViewById(R.id.add_product_name);
         priceView = (EditText) findViewById(R.id.add_product_price);
-        additionalInfoView = (EditText) findViewById(R.id.add_product_additionalInfo);
+        additionalInfoView = (EditText) findViewById(
+                                               R.id.add_product_additionalInfo);
     }
 
     @Override
@@ -82,111 +72,16 @@ public class AddListing extends Activity {
 
         if (!cancel) {
             if (State.local) {
+                User current = Agent.getLoggedIn();
                 Listing newProduct = new Listing(name, price, additionalInfo);
-                System.out.println(User.loggedIn.addItem(newProduct));
-                System.out.println("Added new item: " + newProduct);
-                System.out.println("User items is now " + User.loggedIn.getItemList());
+                current.addItem(newProduct);
             } else {
-                //databasey stuff 
-                mRegisterProductTask = new UserRegisterProductTask(name, price, additionalInfo);
-                mRegisterProductTask.execute();
+                mRegisterListingTask = RegisterListingTask.getInstance(name,
+                                                   price, additionalInfo, this);
+                mRegisterListingTask.execute();
             }
             finish();
         }
     }
 
-    public class UserRegisterProductTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mName;
-        private final Double mPrice;
-        private final String mDescription;
-
-        public UserRegisterProductTask(String name, Double price, String description) {
-            mName = name;
-            mPrice = price;
-            mDescription = description;
-        }
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            if (State.local) {
-                //lol pls no local
-                return false;
-            } else {
-                // authentication against a network service.
-                // check if user is in system
-                // register user if not in system
-                return registerProduct();
-                //already in system
-            }
-            /*
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            */
-
-            // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-            /*User userToAuthenticate = new User(mEmail, mPassword);
-            return RegistrationModel.getUsers().contains(userToAuthenticate);*/
-        }
-
-        protected boolean registerProduct() {
-            String TAG = AddListing.class.getSimpleName();
-            String link = null;
-            try {
-                link = server_url + "/addlisting.php?title=" + Encoder.encode(mName) + "&description=" + Encoder.encode(mDescription) + "&price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
-            } catch(UnsupportedEncodingException e){
-                Log.e(TAG, "url encoding failed");
-            }
-            try {
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line="";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                Log.d(TAG, sb.toString());
-                return sb.toString().equals("success");
-            }catch(Exception e){
-                Log.e(TAG, "EXCEPTION>>>>", e);
-                return false;
-            }
-        }
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mRegisterProductTask = null;
-            //showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                //database says this product already exists
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mRegisterProductTask= null;
-        }
-
-    }
 }
