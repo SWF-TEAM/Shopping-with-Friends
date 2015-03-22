@@ -31,6 +31,11 @@ import am.te.myapplication.State;
  */
 public class RegisterDealTask extends UserTask {
 
+    protected static String mName;
+    protected static Double mPrice;
+    protected static String mLocation;
+    protected static Activity mActivity;
+
     private static volatile RegisterDealTask INSTANCE;
 
     /**
