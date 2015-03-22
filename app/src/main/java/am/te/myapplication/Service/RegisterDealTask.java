@@ -108,7 +108,8 @@ public class RegisterDealTask extends UserTask {
             HttpGet request = new HttpGet();
             request.setURI(new URI(link));
             HttpResponse response = client.execute(request);
-            BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                                            response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
             String line="";
             while ((line = in.readLine()) != null) {
