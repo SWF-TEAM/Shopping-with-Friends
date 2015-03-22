@@ -33,6 +33,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
 
 
@@ -41,7 +42,6 @@ import am.te.myapplication.Model.User;
  */
 public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
-    protected static String uniqueIDofCurrentlyLoggedIn;
     private UserLoginTask mAuthTask = null;
 
     // UI references.
@@ -233,7 +233,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             } else {
                 String loginKey = getLoginKey();
                 if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals("") || loginKey == null)) {
-                    uniqueIDofCurrentlyLoggedIn = loginKey;
+                    Agent.setUniqueIDofCurrentlyLoggedIn(loginKey);
                     return true;
                 }
                 return false;
@@ -273,7 +273,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                 View homeview = new View(getApplicationContext());
                 proceedToHome(homeview);
                 if (State.local) {
-                    User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
+                    Agent.setLoggedIn(RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate)));
                 } else {
                 }
                 finish();

@@ -10,6 +10,7 @@ package am.te.myapplication.Model;
 public abstract class Agent {
 
     private static User loggedIn;
+    private static String uniqueIDofCurrentlyLoggedIn;
     private String email;
     private String username;
     private String password;
@@ -17,12 +18,20 @@ public abstract class Agent {
     private String id;
     private boolean isBanned;
 
-    public User getLoggedIn() {
+    public static String getUniqueIDofCurrentlyLoggedIn() {
+        return uniqueIDofCurrentlyLoggedIn;
+    }
+
+    public static void setUniqueIDofCurrentlyLoggedIn(String param) {
+        uniqueIDofCurrentlyLoggedIn = param;
+    }
+
+    public static User getLoggedIn() {
         return loggedIn;
     }
 
-    public void setLoggedIn(User loggedIn) {
-        this.loggedIn = loggedIn;
+    public static void setLoggedIn(User loggedInParam) {
+        loggedIn = loggedInParam;
     }
 
     public String getEmail() {

@@ -55,7 +55,6 @@ public class AddFriend extends ActionBarActivity {
     }
 
     private void populate() {
-        // Instantiating an array list
         possibleFriends = new ArrayList<User>();
 
         if (State.local) {
