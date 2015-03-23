@@ -35,30 +35,30 @@ public class RegisterDealTask extends UserTask {
     private static String mLocation;
     private static Activity mActivity;
 
-    private static volatile RegisterDealTask INSTANCE;
-
-    /**
-     * Returns the RegisterDealTask instance, and resets the fields to
-     * accommodate new data being sent.
-     *
-     * @param name the name of the deal to send
-     * @param price the price of the deal to send
-     * @param location the location of the deal to send
-     * @param act the activity that calls this task
-     * @return the RegisterDealTask instance
-     */
-    public static RegisterDealTask getInstance(String name, Double price,
-                                           String location, Activity act) {
-        synchronized (RegisterDealTask.class) {
-            if (INSTANCE == null) {
-                INSTANCE = new RegisterDealTask(name, price, location, act);
-            } else {
-                sanitizeAndReset(name, price, location, act);
-            }
-        }
-
-        return INSTANCE;
-    }
+//    private static volatile RegisterDealTask INSTANCE;
+//
+//    /**
+//     * Returns the RegisterDealTask instance, and resets the fields to
+//     * accommodate new data being sent.
+//     *
+//     * @param name the name of the deal to send
+//     * @param price the price of the deal to send
+//     * @param location the location of the deal to send
+//     * @param act the activity that calls this task
+//     * @return the RegisterDealTask instance
+//     */
+//    public static RegisterDealTask getInstance(String name, Double price,
+//                                           String location, Activity act) {
+//        synchronized (RegisterDealTask.class) {
+//            if (INSTANCE == null) {
+//                INSTANCE = new RegisterDealTask(name, price, location, act);
+//            } else {
+//                sanitizeAndReset(name, price, location, act);
+//            }
+//        }
+//
+//        return INSTANCE;
+//    }
 
     /**
      * Creates the RegisterDealTask instance.
@@ -68,7 +68,7 @@ public class RegisterDealTask extends UserTask {
      * @param location the location of the initial deal to send
      * @param activity the initial activity that calls this task
      */
-    private RegisterDealTask(String name, Double price, String location,
+    public RegisterDealTask(String name, Double price, String location,
                             Activity activity) {
         mName = name;
         mPrice = price;

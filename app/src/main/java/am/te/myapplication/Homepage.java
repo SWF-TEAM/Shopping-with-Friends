@@ -30,6 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
@@ -64,8 +65,8 @@ public class Homepage extends ActionBarActivity {
 
         //local
 
-        if (State.local && User.loggedIn != null && User.loggedIn.hasItems()) {
-            products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getItemList();
+        if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasItems()) {
+            products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
         } else {
             /* Get products from the database. */
             mPopulateProductsTask = new PopulateProductsTask();
@@ -196,7 +197,7 @@ public class Homepage extends ActionBarActivity {
             //DATABASE SHIT (get a list of possible friends from database)
             ArrayList<Listing> theListings = new ArrayList<>();
             String TAG = Homepage.class.getSimpleName();
-            String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
             try {//kek
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
@@ -283,7 +284,7 @@ public class Homepage extends ActionBarActivity {
             //DATABASE SHIT (get a list of possible friends from database)
             ArrayList<Deal> theDeals = new ArrayList<>();
             String TAG = Homepage.class.getSimpleName();
-            String link = "http://artineer.com/sandbox" + "/getdeals2.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            String link = "http://artineer.com/sandbox" + "/getdeals2.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
             try {//kek
                 Log.d(TAG, ">>>>>>>>>>>>>>>>>trying>>>>>");
                 URL url = new URL(link);
@@ -303,7 +304,7 @@ public class Homepage extends ActionBarActivity {
                 if (result.equals("0 results")) {
                     Log.d(TAG, result);
                     Log.d(TAG, "no results for getDeals");
-                    Log.d(TAG, Login.uniqueIDofCurrentlyLoggedIn);
+                    Log.d(TAG, Agent.getUniqueIDofCurrentlyLoggedIn());
                     return false;
                 }
                 System.out.println(result);

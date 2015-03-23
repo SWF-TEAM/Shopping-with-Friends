@@ -48,7 +48,7 @@ public class AddDeal extends Activity {
             if (State.local) {
                 //Deal newDeal = new Deal(name, price, location);
             } else {
-                mRegisterDealTask = RegisterDealTask.getInstance(name, price,
+                mRegisterDealTask = new RegisterDealTask(name, price,
                                                                 location, this);
                 mRegisterDealTask.execute();
             }

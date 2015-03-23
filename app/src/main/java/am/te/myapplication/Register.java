@@ -199,7 +199,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         } else {
 
             /////////////////////////////////////////////////////begin database interaction//////////////////////////////////////////////////////////////////
-            mAuthTask = RegisterTask.getInstance(username, name, email, digest, this);
+            mAuthTask = new RegisterTask(username, name, email, digest, this);
             mAuthTask.execute((Void) null);
 
             if (mAuthTask.getSuccess()) {

@@ -37,26 +37,25 @@ public class RegisterTask extends UserTask {
     private static String mName;
     private static Activity mActivity;
 
-    private static volatile RegisterTask INSTANCE;
+    //private static volatile RegisterTask INSTANCE;
+    //public static RegisterTask getInstance(String username, String name,
+    //                                              String email, byte[] password,
+    //                                              Activity act) {
+    //
+    //    success = false;
+    //    synchronized (RegisterListingTask.class) {
+    //        if (INSTANCE == null) {
+    //            INSTANCE = new RegisterTask(username, name, email, password,
+    //                                                                       act);
+    //        } else {
+    //            sanitizeAndReset(username, name, email, password, act);
+    //        }
+    //    }
+    //
+    //    return INSTANCE;
+    //}
 
-    public static RegisterTask getInstance(String username, String name,
-                                                  String email, byte[] password,
-                                                  Activity act) {
-
-        success = false;
-        synchronized (RegisterListingTask.class) {
-            if (INSTANCE == null) {
-                INSTANCE = new RegisterTask(username, name, email, password,
-                                                                           act);
-            } else {
-                sanitizeAndReset(username, name, email, password, act);
-            }
-        }
-
-        return INSTANCE;
-    }
-
-    private RegisterTask(String username, String name, String email,
+    public RegisterTask(String username, String name, String email,
                                                 byte[] password, Activity act) {
         mUsername = username;
         mName = name;
@@ -64,6 +63,7 @@ public class RegisterTask extends UserTask {
         mPassword = password;
         mActivity = act;
     }
+
     @Override
     protected Boolean doInBackground(Void... params) {
         if (!State.local) {
@@ -95,6 +95,7 @@ public class RegisterTask extends UserTask {
                 sb.append(line);
                 break;
             }
+            success = true;
             in.close();
             Log.d(TAG, sb.toString());
             return !sb.toString().contains("failed")

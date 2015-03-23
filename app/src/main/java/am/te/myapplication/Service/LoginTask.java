@@ -16,8 +16,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
@@ -43,43 +46,43 @@ public class LoginTask extends UserTask {
     private static Activity mActivity;
 
 
-    private static volatile LoginTask INSTANCE;
+//    private static volatile LoginTask INSTANCE;
+//
+//    /**
+//     * Returns the RegisterListingTask instance, and resets the fields to
+//     * accommodate new data being sent.
+//     *
+//     * @param name the name of the user to login
+//     * @param password the price of the listing to login
+//     * @param act the activity that calls this task
+//     * @return the RegisterListingTask instance
+//     */
+//    public static LoginTask getInstance(String name, String password,
+//                                        View mLoginFormView, View mProgressView,
+//                                                                 Activity act) {
+//
+//        success = false;
+//        synchronized (LoginTask.class) {
+//            if (INSTANCE == null) {
+//                INSTANCE = new LoginTask(name, password, act, mLoginFormView,
+//                                                                 mProgressView);
+//            } else {
+//                sanitizeAndReset(name, password, act, mLoginFormView,
+//                                                                 mProgressView);
+//            }
+//        }
+//
+//        return INSTANCE;
+//    }
 
-    /**
-     * Returns the RegisterListingTask instance, and resets the fields to
-     * accommodate new data being sent.
-     *
-     * @param name the name of the user to login
-     * @param password the price of the listing to login
-     * @param act the activity that calls this task
-     * @return the RegisterListingTask instance
-     */
-    public static LoginTask getInstance(String name, String password,
-                                        View mLoginFormView, View mProgressView,
-                                                                 Activity act) {
-
-        success = false;
-        synchronized (LoginTask.class) {
-            if (INSTANCE == null) {
-                INSTANCE = new LoginTask(name, password, act, mLoginFormView,
-                                                                 mProgressView);
-            } else {
-                sanitizeAndReset(name, password, act, mLoginFormView,
-                                                                 mProgressView);
-            }
-        }
-
-        return INSTANCE;
-    }
-
-    private LoginTask(String username, String password, Activity act,
+    public LoginTask(String username, String password, Activity act,
                                      View loginFormView, View progressView) {
-        mUsername = username;
-        mPassword = password;
-        userToAuthenticate = new User(mUsername, mPassword);
-        mActivity = act;
-        mLoginFormView = loginFormView;
-        mProgressView = progressView;
+        this.mUsername = username;
+        this.mPassword = password;
+        this.userToAuthenticate = new User(mUsername, mPassword);
+        this.mActivity = act;
+        this.mLoginFormView = loginFormView;
+        this.mProgressView = progressView;
 
     }
 
@@ -92,15 +95,30 @@ public class LoginTask extends UserTask {
             if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals("")
                                                  || loginKey == null)) {
                 Agent.setUniqueIDofCurrentlyLoggedIn(loginKey);
+                success = true;
                 return true;
             }
             return false;
         }
     }
     protected String getLoginKey() {
+
+        byte[] digest = null;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(mPassword.getBytes("UTF-8")); //Change to "UTF-16" if needed
+            digest = md.digest();
+
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
+        } catch (UnsupportedEncodingException e) {
+            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
+        }
+
         String TAG = Register.class.getSimpleName();
         String link = server_url + "/getuserlogin.php?username=" + mUsername
-                                 + "&password=" + mPassword;
+                                 + "&password=" + digest;
         try {
             URL url = new URL(link);
             HttpClient client = new DefaultHttpClient();
@@ -117,7 +135,6 @@ public class LoginTask extends UserTask {
             }
             in.close();
             Log.e(TAG, sb.toString());
-
             return sb.toString();
         }catch(Exception e){
             Log.e(TAG, "EXCEPTION>>>>", e);
@@ -126,14 +143,13 @@ public class LoginTask extends UserTask {
     }
     @Override
     protected void onPostExecute(final Boolean success) {
-        sanitize();
-        showProgress(false);
+       showProgress(false);
     }
 
     @Override
     protected void onCancelled() {
-        sanitize();
         showProgress(false);
+
     }
 
     /**
@@ -180,6 +196,7 @@ public class LoginTask extends UserTask {
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            System.out.println(mActivity == null);
             int shortAnimTime = mActivity.getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);

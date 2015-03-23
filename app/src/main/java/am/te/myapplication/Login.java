@@ -8,6 +8,7 @@ import android.database.Cursor;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
@@ -45,7 +50,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         // Set up the login form.
         mUsernameView = (EditText) findViewById(R.id.login_username);
         populateAutoComplete();
-        RegistrationModel.addUser(new User("m", "mmmm"));
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -124,8 +128,8 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            mAuthTask = LoginTask.getInstance(username, password,
-                                           mLoginFormView, mProgressView, this);
+            mAuthTask = new LoginTask(username, password, this,
+                                           mLoginFormView, mProgressView);
             mAuthTask.execute((Void) null);
             if (LoginTask.getSuccess()) {
                 View homeview = new View(getApplicationContext());

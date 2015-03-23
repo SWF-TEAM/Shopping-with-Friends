@@ -50,7 +50,7 @@ public class SearchFriends extends Activity {
     public void search(View view) {
         String name = mNameView.getText().toString();
         String email = mEmailView.getText().toString();
-        mUserAddTask = AddFriendTask.getInstance(name, email, this);
+        mUserAddTask = new AddFriendTask(name, email, this);
         mUserAddTask.execute();
         if (mUserAddTask.getSuccess()) {
             finish();

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 
@@ -31,7 +32,7 @@ public class ListingDetails extends Activity {
         if (State.local) {
             if (extras != null) {
                 // grab the listing here.
-                currentListing = User.loggedIn.getListing(extras.getString("products"));
+                currentListing = Agent.getLoggedIn().getListing(extras.getString("products"));
             }
         } else { //database access
             currentListing = Homepage.selectedListing;

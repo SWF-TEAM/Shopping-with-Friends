@@ -56,7 +56,7 @@ public class FriendDetails extends Activity {
         if (State.local) {
             Agent.getLoggedIn().removeFriend(currentUser);
         } else {
-            mRemoveFriendTask = RemoveFriendTask.getInstance(currentUser.getId(), this);
+            mRemoveFriendTask = new RemoveFriendTask(currentUser.getId(), this);
             mRemoveFriendTask.execute();
         }
         finish();

@@ -34,21 +34,21 @@ public class AddFriendTask extends UserTask {
     private static String mEmail;
     private static Activity mActivity;
 
-    private static volatile AddFriendTask INSTANCE;
-
-    public static AddFriendTask getInstance(String name, String email,
-                                                                 Activity act) {
-        success = false;
-        synchronized (RegisterListingTask.class) {
-            if (INSTANCE == null) {
-                INSTANCE = new AddFriendTask(name, email, act);
-            } else {
-                sanitizeAndReset(name, email, act);
-            }
-        }
-
-        return INSTANCE;
-    }
+//    private static volatile AddFriendTask INSTANCE;
+//
+//    public static AddFriendTask getInstance(String name, String email,
+//                                                                 Activity act) {
+//        success = false;
+//        synchronized (RegisterListingTask.class) {
+//            if (INSTANCE == null) {
+//                INSTANCE = new AddFriendTask(name, email, act);
+//            } else {
+//                sanitizeAndReset(name, email, act);
+//            }
+//        }
+//
+//        return INSTANCE;
+//    }
 
     /**
      * Constructs the initial AddFriendTask.
@@ -57,7 +57,7 @@ public class AddFriendTask extends UserTask {
      * @param email the email of the initial friend to add
      * @param act the activity that called this task
      */
-    private AddFriendTask(String name, String email, Activity act) {
+    public AddFriendTask(String name, String email, Activity act) {
         mName = name;
         mEmail = email;
         mActivity = act;

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
 
 
@@ -44,7 +45,7 @@ public class AddFriend extends ActionBarActivity {
                 Log.d(AddFriend.class.getSimpleName(), "position" + position + " id" + id);
                 //local
                 if (State.local) {
-                    User.loggedIn.addFriend(possibleFriends.get(position));
+                    Agent.getLoggedIn().addFriend(possibleFriends.get(position));
                     possibleFriends.remove(position);
                     arrayAdapter.notifyDataSetChanged();
                 } else {
@@ -65,7 +66,7 @@ public class AddFriend extends ActionBarActivity {
             toAdd.add(new User("cricket", "asrgh", "ypres@wat.ru", null, null, null));
 
             for (User possibleFriend: toAdd) {
-                if (!User.loggedIn.isFriendsWith(possibleFriend)) {
+                if (!Agent.getLoggedIn().isFriendsWith(possibleFriend)) {
 
                     possibleFriends.add(possibleFriend);
                 }

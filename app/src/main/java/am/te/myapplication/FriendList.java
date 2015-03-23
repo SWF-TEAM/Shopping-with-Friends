@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
 
 public class FriendList extends ActionBarActivity {
@@ -54,8 +55,8 @@ public class FriendList extends ActionBarActivity {
 
         //local
 
-        if (State.local && User.loggedIn != null && User.loggedIn.hasFriends()) {
-            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
+        if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasFriends()) {
+            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getFriends();
         } else { //database
 
             mUserPopulateFriendsTask = new UserPopulateFriendsTask();
@@ -151,7 +152,7 @@ public class FriendList extends ActionBarActivity {
             //DATABASE SHIT (get a list of possible friends from database)
             ArrayList<User> theFriends = new ArrayList<>();
             String TAG = FriendList.class.getSimpleName();
-            String link = server_url + "/listfriends.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
+            String link = server_url + "/listfriends.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
             try {//kek
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();

@@ -76,7 +76,7 @@ public class AddListing extends Activity {
                 Listing newProduct = new Listing(name, price, additionalInfo);
                 current.addItem(newProduct);
             } else {
-                mRegisterListingTask = RegisterListingTask.getInstance(name,
+                mRegisterListingTask = new RegisterListingTask(name,
                                                    price, additionalInfo, this);
                 mRegisterListingTask.execute();
             }

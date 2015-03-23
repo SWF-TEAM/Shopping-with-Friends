@@ -32,30 +32,30 @@ public class RegisterListingTask extends UserTask {
     private static String mDescription;
     private static Activity mActivity;
 
-    private static volatile RegisterListingTask INSTANCE;
-
-    /**
-     * Returns the RegisterListingTask instance, and resets the fields to
-     * accommodate new data being sent.
-     *
-     * @param name the name of the listing to send
-     * @param price the price of the listing to send
-     * @param descript the description of the listing to send
-     * @param act the activity that calls this task
-     * @return the RegisterListingTask instance
-     */
-    public static RegisterListingTask getInstance(String name, Double price,
-                                                String descript, Activity act) {
-        synchronized (RegisterListingTask.class) {
-            if (INSTANCE == null) {
-                INSTANCE = new RegisterListingTask(name, price, descript, act);
-            } else {
-                sanitizeAndReset(name, price, descript, act);
-            }
-        }
-
-        return INSTANCE;
-    }
+//    private static volatile RegisterListingTask INSTANCE;
+//
+//    /**
+//     * Returns the RegisterListingTask instance, and resets the fields to
+//     * accommodate new data being sent.
+//     *
+//     * @param name the name of the listing to send
+//     * @param price the price of the listing to send
+//     * @param descript the description of the listing to send
+//     * @param act the activity that calls this task
+//     * @return the RegisterListingTask instance
+//     */
+//    public static RegisterListingTask getInstance(String name, Double price,
+//                                                String descript, Activity act) {
+//        synchronized (RegisterListingTask.class) {
+//            if (INSTANCE == null) {
+//                INSTANCE = new RegisterListingTask(name, price, descript, act);
+//            } else {
+//                sanitizeAndReset(name, price, descript, act);
+//            }
+//        }
+//
+//        return INSTANCE;
+//    }
 
     /**
      * Constructs the initial RegisterListingTask instance.
@@ -65,7 +65,7 @@ public class RegisterListingTask extends UserTask {
      * @param description the location of the initial listing to send
      * @param activity the activity that calls this task
      */
-    private RegisterListingTask(String name, Double price, String description,
+    public RegisterListingTask(String name, Double price, String description,
                                 Activity activity) {
         mName = name;
         mPrice = price;

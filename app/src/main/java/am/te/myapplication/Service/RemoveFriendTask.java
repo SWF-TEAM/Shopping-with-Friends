@@ -28,27 +28,27 @@ public class RemoveFriendTask extends UserTask {
     private static String idOfFriend;
     private static Activity mActivity;
 
-    private static volatile RemoveFriendTask INSTANCE;
-
-    /**
-     * Returns the RegisterDealTask instance, and resets the fields to
-     * accommodate new data being sent.
-     *
-     * @param id the id of the friend to remove
-     * @param act the activity that calls this task
-     * @return the RegisterDealTask instance
-     */
-    public static RemoveFriendTask getInstance(String id, Activity act) {
-        synchronized (RemoveFriendTask.class) {
-            if (INSTANCE == null) {
-                INSTANCE = new RemoveFriendTask(id, act);
-            } else {
-                sanitizeAndReset(id, act);
-            }
-        }
-
-        return INSTANCE;
-    }
+//    private static volatile RemoveFriendTask INSTANCE;
+//
+//    /**
+//     * Returns the RegisterDealTask instance, and resets the fields to
+//     * accommodate new data being sent.
+//     *
+//     * @param id the id of the friend to remove
+//     * @param act the activity that calls this task
+//     * @return the RegisterDealTask instance
+//     */
+//    public static RemoveFriendTask getInstance(String id, Activity act) {
+//        synchronized (RemoveFriendTask.class) {
+//            if (INSTANCE == null) {
+//                INSTANCE = new RemoveFriendTask(id, act);
+//            } else {
+//                sanitizeAndReset(id, act);
+//            }
+//        }
+//
+//        return INSTANCE;
+//    }
 
     /**
      * Creates the RemoveFriendTask instance.
@@ -56,7 +56,7 @@ public class RemoveFriendTask extends UserTask {
      * @param id the id of the initial friend to remove
      * @param activity the initial activity that calls this task
      */
-    private RemoveFriendTask(String id, Activity activity) {
+    public RemoveFriendTask(String id, Activity activity) {
         this.idOfFriend = id;
         this.mActivity = activity;
     }
