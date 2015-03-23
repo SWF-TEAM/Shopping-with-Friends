@@ -21,6 +21,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.AddFriendTask;
 

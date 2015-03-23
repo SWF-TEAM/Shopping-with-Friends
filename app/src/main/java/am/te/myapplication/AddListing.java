@@ -75,6 +75,7 @@ public class AddListing extends Activity {
                 User current = Agent.getLoggedIn();
                 Listing newProduct = new Listing(name, price, additionalInfo);
                 current.addItem(newProduct);
+
             } else {
                 mRegisterListingTask = new RegisterListingTask(name,
                                                    price, additionalInfo, this);

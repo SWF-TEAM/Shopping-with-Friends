@@ -2,10 +2,8 @@ package am.te.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,25 +13,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
-import am.te.myapplication.Model.User;
+import am.te.myapplication.Service.PopulateDealsTask;
+import am.te.myapplication.Service.PopulateProductsTask;
 
 /**
  * The homepage class acts as a springboard to other areas of the app.
@@ -69,10 +56,9 @@ public class Homepage extends ActionBarActivity {
             products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
         } else {
             /* Get products from the database. */
-            mPopulateProductsTask = new PopulateProductsTask();
+            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter);
             mPopulateProductsTask.execute();
-            mPopulateDealsTask = new PopulateDealsTask();
-            mPopulateDealsTask.execute();
+            checkDeals();
 
         }
         // This is the array adapter, it takes the context of the activity as a
@@ -183,169 +169,4 @@ public class Homepage extends ActionBarActivity {
         arrayAdapter.notifyDataSetChanged();
     }
 
-
-    private class PopulateProductsTask extends AsyncTask<Void, Void, Boolean> {
-
-        /**
-         * populates products ArrayList with info from database
-         *
-         * @param params
-         * @return true if products were populated from database successfully
-         */
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            //DATABASE SHIT (get a list of possible friends from database)
-            ArrayList<Listing> theListings = new ArrayList<>();
-            String TAG = Homepage.class.getSimpleName();
-            String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
-            try {//kek
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line = "";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                String result = sb.toString();
-                //now need to populate friends with users from result of database query
-                if (result.equals("0 results")) {
-                    Log.d(TAG, result);
-                    return false;
-                }
-                String[] resultLines = result.split("<br>");
-                System.out.println(result);
-                JSONArray jsonArray = new JSONArray(result);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    try {
-                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                        String title = lineOfArray.getString("title");
-                        String price = lineOfArray.getString("price");
-                        String description = lineOfArray.getString("description");
-                        String id = lineOfArray.getString("listingID");
-
-                        Listing newListing = new Listing(title, Double.parseDouble(price), description, id);
-                        theListings.add(newListing);
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-                }
-//                for(int i = 0; i < resultLines.length; i++) {
-//                    String[] fields = resultLines[i].split("~");
-//                    String title = fields[0];
-//                    String price = fields[1];
-//                    String description = fields[2];
-//
-//                    Listing newListing = new Listing(title, Double.parseDouble(price), description);
-//                    theListings.add(newListing);
-//                }
-                products.clear();
-                products.addAll(theListings);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                       arrayAdapter.notifyDataSetChanged();
-                       System.out.println("deal size" + deals.size());
-                       System.out.println("list size" + products.size());
-                       checkDeals();
-                    }
-                });
-                return true;
-            } catch (Exception e) {
-                Log.e(TAG, "EXCEPTION on homepage>>>", e);
-                return false;
-            }
-
-        }
-
-
-        @Override
-        protected void onCancelled() {
-            mPopulateProductsTask = null;
-        }
-    }
-
-    private class PopulateDealsTask extends AsyncTask<Void, Void, Boolean> {
-
-        /**
-         * populates deals ArrayList with info from database
-         *
-         * @param params
-         * @return true if population was successful
-         */
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            //DATABASE SHIT (get a list of possible friends from database)
-            ArrayList<Deal> theDeals = new ArrayList<>();
-            String TAG = Homepage.class.getSimpleName();
-            String link = "http://artineer.com/sandbox" + "/getdeals2.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
-            try {//kek
-                Log.d(TAG, ">>>>>>>>>>>>>>>>>trying>>>>>");
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line = "";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                String result = sb.toString();
-                if (result.equals("0 results")) {
-                    Log.d(TAG, result);
-                    Log.d(TAG, "no results for getDeals");
-                    Log.d(TAG, Agent.getUniqueIDofCurrentlyLoggedIn());
-                    return false;
-                }
-                System.out.println(result);
-                JSONArray jsonArray = new JSONArray(result);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    try {
-                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                        String title = lineOfArray.getString("Title");
-                        String price = lineOfArray.getString("Price");
-                        String location = lineOfArray.getString("Location");
-
-                        Deal newDeal = new Deal(title, Double.parseDouble(price), location);
-                        theDeals.add(newDeal);
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-                }
-                deals.clear();
-                deals.addAll(theDeals);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //needs to bbbe changed to whatever array adapter handles deals
-                        arrayAdapter.notifyDataSetChanged();
-                        System.out.println("DEAL ASYNC deal size" + deals.size());
-                        System.out.println("list size" + products.size());
-                        checkDeals();
-                    }
-                });
-                return true;
-            } catch (Exception e) {
-                Log.e(TAG, "EXCEPTION on homepage>>>", e);
-                return false;
-            }
-
-        }
-
-
-        @Override
-        protected void onCancelled() {
-            mPopulateDealsTask = null;
-        }
-    }
 }
