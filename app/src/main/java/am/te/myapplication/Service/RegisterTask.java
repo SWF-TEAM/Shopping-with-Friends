@@ -10,8 +10,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Register;
@@ -29,7 +32,7 @@ public class RegisterTask extends UserTask {
 
     private static boolean success;
     private static String mEmail;
-    private static String mPassword;
+    private static byte[] mPassword;
     private static String mUsername;
     private static String mName;
     private static Activity mActivity;
@@ -41,12 +44,27 @@ public class RegisterTask extends UserTask {
                                                   Activity act) {
 
         success = false;
+        byte[] digest = null;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes("UTF-8")); //Change to "UTF-16" if needed
+            digest = md.digest();
+
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
+            return null; //Crash and burn; this should never happen
+        } catch (UnsupportedEncodingException e) {
+            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
+            return null; //Crash and burn; this shouls never happen
+        }
+
         synchronized (RegisterListingTask.class) {
             if (INSTANCE == null) {
-                INSTANCE = new RegisterTask(username, name, email, password,
+                INSTANCE = new RegisterTask(username, name, email, digest,
                                                                            act);
             } else {
-                sanitizeAndReset(username, name, email, password, act);
+                sanitizeAndReset(username, name, email, digest, act);
             }
         }
 
@@ -54,7 +72,7 @@ public class RegisterTask extends UserTask {
     }
 
     private RegisterTask(String username, String name, String email,
-                                                String password, Activity act) {
+                                                byte[] password, Activity act) {
         mUsername = username;
         mName = name;
         mEmail = email;
@@ -63,17 +81,16 @@ public class RegisterTask extends UserTask {
     }
     @Override
     protected Boolean doInBackground(Void... params) {
-        if (State.local) {
-            RegistrationModel.addUser(new User(mEmail, mPassword));
-            return true;
-        } else {
+        if (!State.local) {
             return registerUser();
         }
+
+        sanitize();
+        return false;
     }
 
     protected boolean registerUser() {
         String TAG = Register.class.getSimpleName();
-
 
         try {
             String link = server_url + "/adduser.php?username=" + mUsername
@@ -124,7 +141,7 @@ public class RegisterTask extends UserTask {
      * @param act the activity that calls this task
      */
     private static void sanitizeAndReset(String username, String name,
-                                         String email, String password,
+                                         String email, byte[] password,
                                          Activity act) {
         sanitize();
         mUsername = username;
