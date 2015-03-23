@@ -129,16 +129,9 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             mAuthTask = new LoginTask(username, password, this,
-                                           mLoginFormView, mProgressView);
+                                  mLoginFormView, mProgressView, mPasswordView);
             mAuthTask.execute((Void) null);
-            if (LoginTask.getSuccess()) {
-                View homeView = new View(getApplicationContext());
-                proceedToHome(homeView);
-                finish();
-            } else {
-                mPasswordView.setError("Invalid password or username.");
-                mPasswordView.requestFocus();
-            }
+            mAuthTask = null;
         }
     }
 
@@ -152,7 +145,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         return password.length() >= 4;
     }
 
-    private void proceedToHome(View view) {
+    private void proceedToHome() {
         Intent intent = new Intent(this, Homepage.class);
         startActivity(intent);
 
@@ -171,6 +164,12 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    @Override
+    public void finish() {
+        proceedToHome();
+        super.finish();
     }
 }
 

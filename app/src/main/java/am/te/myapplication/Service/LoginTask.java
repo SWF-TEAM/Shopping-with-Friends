@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -37,13 +38,13 @@ import am.te.myapplication.State;
  */
 public class LoginTask extends UserTask {
 
-    private static boolean success;
     private static View mProgressView;
     private static View mLoginFormView;
     private static String mUsername;
     private static String mPassword;
     private static User userToAuthenticate;
     private static Activity mActivity;
+    private static EditText mPasswordView;
 
 
 //    private static volatile LoginTask INSTANCE;
@@ -76,13 +77,14 @@ public class LoginTask extends UserTask {
 //    }
 
     public LoginTask(String username, String password, Activity act,
-                                     View loginFormView, View progressView) {
+                View loginFormView, View progressView, EditText mPasswordView) {
         this.mUsername = username;
         this.mPassword = password;
         this.userToAuthenticate = new User(mUsername, mPassword);
         this.mActivity = act;
         this.mLoginFormView = loginFormView;
         this.mProgressView = progressView;
+        this.mPasswordView = mPasswordView;
 
     }
 
@@ -95,7 +97,6 @@ public class LoginTask extends UserTask {
             if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals("")
                                                  || loginKey == null)) {
                 Agent.setUniqueIDofCurrentlyLoggedIn(loginKey);
-                success = true;
                 return true;
             }
             return false;
@@ -120,8 +121,6 @@ public class LoginTask extends UserTask {
         String link = server_url + "/getuserlogin.php?username=" + mUsername
                                  + "&password=" + digest;
 
-        System.out.println("Username: " + mUsername);
-        System.out.println("Password: " + String.valueOf(digest));
         try {
             URL url = new URL(link);
             HttpClient client = new DefaultHttpClient();
@@ -147,13 +146,17 @@ public class LoginTask extends UserTask {
     @Override
     protected void onPostExecute(final Boolean success) {
        showProgress(false);
-        this.success = success;
+        if (success) {
+            mActivity.finish();
+        } else {
+            mPasswordView.setError("Invalid password or username.");
+            mPasswordView.requestFocus();
+        }
     }
 
     @Override
     protected void onCancelled() {
         showProgress(false);
-
     }
 
     /**
@@ -185,12 +188,10 @@ public class LoginTask extends UserTask {
         mActivity = null;
         mProgressView = null;
         mLoginFormView = null;
+        mPasswordView = null;
     }
 
 
-    public static boolean getSuccess() {
-        return success;
-    }
     /**
      * Shows the progress UI and hides the login form.
      */
@@ -200,7 +201,6 @@ public class LoginTask extends UserTask {
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            System.out.println(mActivity == null);
             int shortAnimTime = mActivity.getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
