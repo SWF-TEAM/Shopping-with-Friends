@@ -40,31 +40,16 @@ public class RegisterTask extends UserTask {
     private static volatile RegisterTask INSTANCE;
 
     public static RegisterTask getInstance(String username, String name,
-                                                  String email, String password,
+                                                  String email, byte[] password,
                                                   Activity act) {
 
         success = false;
-        byte[] digest = null;
-
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(password.getBytes("UTF-8")); //Change to "UTF-16" if needed
-            digest = md.digest();
-
-        } catch (NoSuchAlgorithmException e) {
-            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
-            return null; //Crash and burn; this should never happen
-        } catch (UnsupportedEncodingException e) {
-            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
-            return null; //Crash and burn; this shouls never happen
-        }
-
         synchronized (RegisterListingTask.class) {
             if (INSTANCE == null) {
-                INSTANCE = new RegisterTask(username, name, email, digest,
+                INSTANCE = new RegisterTask(username, name, email, password,
                                                                            act);
             } else {
-                sanitizeAndReset(username, name, email, digest, act);
+                sanitizeAndReset(username, name, email, password, act);
             }
         }
 

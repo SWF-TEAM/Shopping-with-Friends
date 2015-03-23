@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,9 @@ import android.database.Cursor;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,6 +174,22 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
+        //Try to hash the password
+        byte[] digest = null;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes("UTF-8")); //Change to "UTF-16" if needed
+            digest = md.digest();
+
+        } catch (NoSuchAlgorithmException e) {
+            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
+            cancel = true;
+        } catch (UnsupportedEncodingException e) {
+            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
+            cancel = true;
+        }
+
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -177,8 +197,9 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             focusView = mPasswordView;
             focusView.requestFocus();
         } else {
+
             /////////////////////////////////////////////////////begin database interaction//////////////////////////////////////////////////////////////////
-            mAuthTask = RegisterTask.getInstance(username, name, email, password, this);
+            mAuthTask = RegisterTask.getInstance(username, name, email, digest, this);
             mAuthTask.execute((Void) null);
 
             if (mAuthTask.getSuccess()) {
