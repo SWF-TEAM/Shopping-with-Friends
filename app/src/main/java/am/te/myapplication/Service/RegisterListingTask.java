@@ -40,12 +40,12 @@ public class RegisterListingTask extends UserTask {
      *
      * @param name the name of the listing to send
      * @param price the price of the listing to send
-     * @param descript the location of the listing to send
+     * @param descript the description of the listing to send
      * @param act the activity that calls this task
      * @return the RegisterListingTask instance
      */
     public static RegisterListingTask getInstance(String name, Double price,
-                                               String descript, Activity act) {
+                                                String descript, Activity act) {
         synchronized (RegisterListingTask.class) {
             if (INSTANCE == null) {
                 INSTANCE = new RegisterListingTask(name, price, descript, act);
@@ -57,6 +57,14 @@ public class RegisterListingTask extends UserTask {
         return INSTANCE;
     }
 
+    /**
+     * Constructs the initial RegisterListingTask instance.
+     *
+     * @param name the name of the initial listing to send
+     * @param price the price of the initial listing to send
+     * @param description the location of the initial listing to send
+     * @param activity the activity that calls this task
+     */
     private RegisterListingTask(String name, Double price, String description,
                                 Activity activity) {
         mName = name;
@@ -120,7 +128,6 @@ public class RegisterListingTask extends UserTask {
     protected void onCancelled() {
         sanitize();
     }
-
 
     /**
      * Resets all the fields of the task to prevent mixing data, and sets it
