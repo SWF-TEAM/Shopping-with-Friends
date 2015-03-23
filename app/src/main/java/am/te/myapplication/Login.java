@@ -132,8 +132,8 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
                                            mLoginFormView, mProgressView);
             mAuthTask.execute((Void) null);
             if (LoginTask.getSuccess()) {
-                View homeview = new View(getApplicationContext());
-                proceedToHome(homeview);
+                View homeView = new View(getApplicationContext());
+                proceedToHome(homeView);
                 finish();
             } else {
                 mPasswordView.setError("Invalid password or username.");

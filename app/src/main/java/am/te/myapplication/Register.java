@@ -199,17 +199,9 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         } else {
 
             /////////////////////////////////////////////////////begin database interaction//////////////////////////////////////////////////////////////////
-            mAuthTask = new RegisterTask(username, name, email, digest, this);
+            mAuthTask = new RegisterTask(username, name, email, digest, this, mEmailView);
             mAuthTask.execute((Void) null);
 
-            if (mAuthTask.getSuccess()) {
-                proceedToShoppingPage();
-                finish();
-            } else {
-                //database says this username already exists
-                mEmailView.setError("Try a different username or email");
-                mEmailView.requestFocus();
-            }
         }
     }
 
@@ -259,6 +251,12 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
     }
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
+    }
+
+    @Override
+    public void finish() {
+        proceedToShoppingPage();
+        super.finish();
     }
 
 }

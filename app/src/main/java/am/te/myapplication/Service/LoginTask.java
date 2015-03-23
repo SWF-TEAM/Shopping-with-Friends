@@ -119,6 +119,9 @@ public class LoginTask extends UserTask {
         String TAG = Register.class.getSimpleName();
         String link = server_url + "/getuserlogin.php?username=" + mUsername
                                  + "&password=" + digest;
+
+        System.out.println("Username: " + mUsername);
+        System.out.println("Password: " + String.valueOf(digest));
         try {
             URL url = new URL(link);
             HttpClient client = new DefaultHttpClient();
@@ -144,6 +147,7 @@ public class LoginTask extends UserTask {
     @Override
     protected void onPostExecute(final Boolean success) {
        showProgress(false);
+        this.success = success;
     }
 
     @Override

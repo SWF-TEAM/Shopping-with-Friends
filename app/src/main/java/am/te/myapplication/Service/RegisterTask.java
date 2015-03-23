@@ -2,6 +2,7 @@ package am.te.myapplication.Service;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.AutoCompleteTextView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -30,11 +31,11 @@ import am.te.myapplication.State;
  */
 public class RegisterTask extends UserTask {
 
-    private static boolean success;
     private static String mEmail;
     private static byte[] mPassword;
     private static String mUsername;
     private static String mName;
+    private static AutoCompleteTextView mEmailView;
     private static Activity mActivity;
 
     //private static volatile RegisterTask INSTANCE;
@@ -56,12 +57,13 @@ public class RegisterTask extends UserTask {
     //}
 
     public RegisterTask(String username, String name, String email,
-                                                byte[] password, Activity act) {
+               byte[] password, Activity act, AutoCompleteTextView emailView) {
         mUsername = username;
         mName = name;
         mEmail = email;
         mPassword = password;
         mActivity = act;
+        mEmailView = emailView;
     }
 
     @Override
@@ -95,11 +97,11 @@ public class RegisterTask extends UserTask {
                 sb.append(line);
                 break;
             }
-            success = true;
             in.close();
             Log.d(TAG, sb.toString());
-            return !sb.toString().contains("failed")
-                && !sb.toString().contains("already in use");
+            boolean noError = !sb.toString().contains("failed")
+                           && !sb.toString().contains("already in use");
+            return noError;
         }catch(Exception e){
             Log.e(TAG, "EXCEPTION>>>>", e);
             return false;
@@ -107,8 +109,13 @@ public class RegisterTask extends UserTask {
     }
     @Override
     protected void onPostExecute(final Boolean success) {
-        sanitize();
-        this.success = success;
+        if (success){
+            mActivity.finish();
+        } else {
+            //database says this username already exists
+            mEmailView.setError("Try a different username or email");
+            mEmailView.requestFocus();
+        }
     }
 
     @Override
@@ -146,16 +153,6 @@ public class RegisterTask extends UserTask {
         mEmail = null;
         mPassword = null;
         mActivity = null;
-    }
-
-    /**
-     * Returns the value of 'success'. This is necessary, as the calling
-     * activity needs to know whether or not the task has succeeded in order
-     * to know what to do next.
-     *
-     * @return true if the task was successful, false if otherwise.
-     */
-    public static boolean getSuccess() {
-        return success;
+        mEmailView = null;
     }
 }
