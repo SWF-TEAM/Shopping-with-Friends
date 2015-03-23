@@ -15,7 +15,6 @@ import java.net.URI;
 import java.net.URL;
 
 import am.te.myapplication.AddListing;
-import am.te.myapplication.Encoder;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.State;
 
@@ -95,8 +94,8 @@ public class RegisterDealTask extends UserTask {
         String TAG = AddListing.class.getSimpleName();
         String link = null;
         try {
-            link = server_url + "/adddeal2.php?Title=" + Encoder.encode(mName)
-                          + "&Location=" + Encoder.encode(mLocation)
+            link = server_url + "/adddeal2.php?Title=" + encode(mName)
+                          + "&Location=" + encode(mLocation)
                           + "&Price=" + mPrice
                           + "&userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
         } catch(UnsupportedEncodingException e){

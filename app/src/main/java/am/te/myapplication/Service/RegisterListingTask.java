@@ -15,11 +15,12 @@ import java.net.URI;
 import java.net.URL;
 
 import am.te.myapplication.AddListing;
-import am.te.myapplication.Encoder;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.State;
 
 /**
+ * The task used to register a new listing.
+ *
  * @author Mitchell Manguno, Mike Adkison
  * @version 1.0
  * @since 2015 March 22
@@ -76,8 +77,8 @@ public class RegisterListingTask extends UserTask {
         String TAG = AddListing.class.getSimpleName();
         String link = null;
         try {
-            link = server_url + "/addlisting.php?title=" + Encoder.encode(mName)
-                          + "&description=" + Encoder.encode(mDescription)
+            link = server_url + "/addlisting.php?title=" + encode(mName)
+                          + "&description=" + encode(mDescription)
                           + "&price=" + mPrice
                           + "&userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
         } catch(UnsupportedEncodingException e){

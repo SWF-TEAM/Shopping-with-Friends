@@ -5,7 +5,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,22 +23,10 @@ import android.database.Cursor;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import android.util.Log;
 
-//stuff for database access
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.net.URI;
-import java.net.URL;
-
-import am.te.myapplication.Model.User;
+import am.te.myapplication.Service.RegisterTask;
 
 public class Register extends Activity implements LoaderCallbacks<Cursor> {
 
@@ -51,7 +38,6 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
     private View mProgressView;
     private View mLoginFormView;
     private Toast mLoginStatus;
-    private final String server_url = "http://artineer.com/sandbox";
 
     private static Toast regMsgToast = null;
     private void populateAutoComplete() {
@@ -59,7 +45,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
     }
 
 
-    private UserRegisterTask mAuthTask = null;
+    private RegisterTask mAuthTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +140,8 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
 
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !Validation.isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password)
+         && !Validation.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -191,9 +178,17 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             focusView.requestFocus();
         } else {
             /////////////////////////////////////////////////////begin database interaction//////////////////////////////////////////////////////////////////
-            mAuthTask = new UserRegisterTask(username, name, email, password);
+            mAuthTask = RegisterTask.getInstance(username, name, email, password, this);
             mAuthTask.execute((Void) null);
 
+            if (mAuthTask.getSuccess()) {
+                proceedToShoppingPage();
+                finish();
+            } else {
+                //database says this username already exists
+                mEmailView.setError("Try a different username or email");
+                mEmailView.requestFocus();
+            }
         }
     }
 
@@ -245,100 +240,5 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
-    public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-        private final String mUsername;
-        private final String mName;
-
-        public UserRegisterTask(String username, String name, String email, String password) {
-            mEmail = email;
-            mPassword = password;
-            mUsername = username;
-            mName = name;
-        }
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            if (State.local) {
-                //local
-                RegistrationModel.addUser(new User(mEmail, mPassword));
-                return true;
-            } else {
-                // authentication against a network service.
-                // check if user is in system
-                // register user if not in system
-                return registerUser();
-               //already in system
-            }
-            /*
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            */
-
-            // Authentication with local list of registered users (will be replaced with database auth soon^(TM))
-            /*User userToAuthenticate = new User(mEmail, mPassword);
-            return RegistrationModel.getUsers().contains(userToAuthenticate);*/
-        }
-
-        protected boolean registerUser() {
-            String TAG = Register.class.getSimpleName();
-
-
-            try {
-                String link = server_url + "/adduser.php?username=" + mUsername +"&password=" + mPassword + "&email=" + mEmail +"&name=" + Encoder.encode(mName);
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line="";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                Log.d(TAG, sb.toString());
-                return !sb.toString().contains("failed") && !sb.toString().contains("already in use");
-            }catch(Exception e){
-                Log.e(TAG, "EXCEPTION>>>>", e);
-                return false;
-            }
-        }
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            //showProgress(false);
-
-            if (success) {
-                proceedToShoppingPage();
-                finish();
-            } else {
-                //database says this username already exists
-                mEmailView.setError("Try a different username or email");
-                mEmailView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-        }
-    }
 }
 
