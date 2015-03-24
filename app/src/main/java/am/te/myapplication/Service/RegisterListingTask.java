@@ -3,16 +3,7 @@ package am.te.myapplication.Service;
 import android.app.Activity;
 import android.util.Log;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URL;
 
 import am.te.myapplication.AddListing;
 import am.te.myapplication.Model.Agent;
@@ -81,6 +72,11 @@ public class RegisterListingTask extends UserTask {
         return false;
     }
 
+    /**
+     * Sends a request to a php post handler to add a listing (product) to the database.
+     *
+     * @return boolean - true if the query does not throw an exception, else returns false.
+     **/
     protected boolean registerProduct() {
         String TAG = AddListing.class.getSimpleName();
         String link = null;
@@ -92,30 +88,20 @@ public class RegisterListingTask extends UserTask {
         } catch(UnsupportedEncodingException e){
             Log.e(TAG, "url encoding failed");
         }
+
         try {
-            URL url = new URL(link);
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet();
-            request.setURI(new URI(link));
-            HttpResponse response = client.execute(request);
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                                            response.getEntity().getContent()));
-            StringBuffer sb = new StringBuffer("");
-            String line="";
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-                break;
-            }
-            in.close();
+            String response = fetchHTTPResponseAsStr(TAG, link);
             Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
                                                             + ">>>>>>>>>>>>>>");
-            Log.d(TAG, sb.toString());
-            return sb.toString().equals("success");
+            Log.d(TAG, response);
+            return response.equals("success");
         }catch(Exception e){
             Log.e(TAG, "EXCEPTION>>>>", e);
             return false;
         }
     }
+
+
     @Override
     protected void onPostExecute(final Boolean success) {
         sanitize();

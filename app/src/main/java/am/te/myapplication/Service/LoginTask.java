@@ -121,27 +121,7 @@ public class LoginTask extends UserTask {
         String link = server_url + "/getuserlogin.php?username=" + mUsername
                                  + "&password=" + digest;
 
-        try {
-            URL url = new URL(link);
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet();
-            request.setURI(new URI(link));
-            HttpResponse response = client.execute(request);
-            BufferedReader in = new BufferedReader(
-                      new InputStreamReader(response.getEntity().getContent()));
-            StringBuffer sb = new StringBuffer("");
-            String line="";
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-                break;
-            }
-            in.close();
-            Log.e(TAG, sb.toString());
-            return sb.toString();
-        }catch(Exception e){
-            Log.e(TAG, "EXCEPTION>>>>", e);
-            return "";
-        }
+        return fetchHTTPResponseAsStr(TAG, link);
     }
     @Override
     protected void onPostExecute(final Boolean success) {
