@@ -4,24 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
@@ -45,36 +31,6 @@ public class LoginTask extends UserTask {
     private static User userToAuthenticate;
     private static Activity mActivity;
     private static EditText mPasswordView;
-
-
-//    private static volatile LoginTask INSTANCE;
-//
-//    /**
-//     * Returns the RegisterListingTask instance, and resets the fields to
-//     * accommodate new data being sent.
-//     *
-//     * @param name the name of the user to login
-//     * @param password the price of the listing to login
-//     * @param act the activity that calls this task
-//     * @return the RegisterListingTask instance
-//     */
-//    public static LoginTask getInstance(String name, String password,
-//                                        View mLoginFormView, View mProgressView,
-//                                                                 Activity act) {
-//
-//        success = false;
-//        synchronized (LoginTask.class) {
-//            if (INSTANCE == null) {
-//                INSTANCE = new LoginTask(name, password, act, mLoginFormView,
-//                                                                 mProgressView);
-//            } else {
-//                sanitizeAndReset(name, password, act, mLoginFormView,
-//                                                                 mProgressView);
-//            }
-//        }
-//
-//        return INSTANCE;
-//    }
 
     public LoginTask(String username, String password, Activity act,
                 View loginFormView, View progressView, EditText mPasswordView) {
@@ -104,22 +60,9 @@ public class LoginTask extends UserTask {
     }
     protected String getLoginKey() {
 
-        byte[] digest = null;
-
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(mPassword.getBytes("UTF-8")); //Change to "UTF-16" if needed
-            digest = md.digest();
-
-        } catch (NoSuchAlgorithmException e) {
-            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
-        } catch (UnsupportedEncodingException e) {
-            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
-        }
-
         String TAG = Register.class.getSimpleName();
         String link = server_url + "/getuserlogin.php?username=" + mUsername
-                                 + "&password=" + digest;
+                                 + "&password=" + mPassword;
 
         return fetchHTTPResponseAsStr(TAG, link);
     }
@@ -137,38 +80,6 @@ public class LoginTask extends UserTask {
     @Override
     protected void onCancelled() {
         showProgress(false);
-    }
-
-    /**
-     * Resets all the fields of the task to prevent mixing data, and sets it
-     * to new data.
-     *
-     * @param name the name of the user to login
-     * @param password the password of the user to login
-     * @param activity the activity that calls this task
-     */
-    private static void sanitizeAndReset(String name, String password,
-                  Activity activity, View loginFormView, View progressView) {
-        sanitize();
-        mUsername = name;
-        mPassword = password;
-        userToAuthenticate = new User(mUsername, mPassword);
-        mActivity = activity;
-        mLoginFormView = loginFormView;
-        mProgressView = progressView;
-    }
-
-    /**
-     * Resets all the fields of the task to prevent mixing data.
-     */
-    private static void sanitize() {
-        mUsername = null;
-        mPassword = null;
-        userToAuthenticate = null;
-        mActivity = null;
-        mProgressView = null;
-        mLoginFormView = null;
-        mPasswordView = null;
     }
 
 

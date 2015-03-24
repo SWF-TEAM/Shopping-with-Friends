@@ -174,23 +174,6 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
-        //Try to hash the password
-        byte[] digest = null;
-
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(password.getBytes("UTF-8")); //Change to "UTF-16" if needed
-            digest = md.digest();
-
-        } catch (NoSuchAlgorithmException e) {
-            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
-            cancel = true;
-        } catch (UnsupportedEncodingException e) {
-            Log.e(Register.class.getSimpleName(), "EXCEPTION>>>>", e);
-            cancel = true;
-        }
-
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -199,7 +182,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         } else {
 
             /////////////////////////////////////////////////////begin database interaction//////////////////////////////////////////////////////////////////
-            mAuthTask = new RegisterTask(username, name, email, digest, this, mEmailView);
+            mAuthTask = new RegisterTask(username, name, email, password, this, mEmailView);
             mAuthTask.execute((Void) null);
 
         }
