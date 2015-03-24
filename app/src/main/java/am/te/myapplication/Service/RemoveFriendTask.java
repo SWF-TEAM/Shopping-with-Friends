@@ -17,30 +17,8 @@ public class RemoveFriendTask extends UserTask {
     private static String idOfFriend;
     private static Activity mActivity;
 
-//    private static volatile RemoveFriendTask INSTANCE;
-//
-//    /**
-//     * Returns the RegisterDealTask instance, and resets the fields to
-//     * accommodate new data being sent.
-//     *
-//     * @param id the id of the friend to remove
-//     * @param act the activity that calls this task
-//     * @return the RegisterDealTask instance
-//     */
-//    public static RemoveFriendTask getInstance(String id, Activity act) {
-//        synchronized (RemoveFriendTask.class) {
-//            if (INSTANCE == null) {
-//                INSTANCE = new RemoveFriendTask(id, act);
-//            } else {
-//                sanitizeAndReset(id, act);
-//            }
-//        }
-//
-//        return INSTANCE;
-//    }
-
     /**
-     * Creates the RemoveFriendTask instance.
+     * Creates a RemoveFriendTask instance.
      *
      * @param id the id of the initial friend to remove
      * @param activity the initial activity that calls this task
@@ -56,7 +34,6 @@ public class RemoveFriendTask extends UserTask {
             return removeFriend();
         }
 
-        sanitize();
         return false;
     }
 
@@ -83,35 +60,8 @@ public class RemoveFriendTask extends UserTask {
 
     @Override
     protected void onPostExecute(final Boolean success) {
-        sanitize();
         if (success) {
             mActivity.finish();
         }
-    }
-
-    @Override
-    protected void onCancelled() {
-        sanitize();
-    }
-
-
-    /**
-     * Resets all the fields of the task to prevent mixing data, and sets it
-     * to new data.
-     *
-     * @param idOfFriendParam the id of the friend to remove
-     */
-    private static void sanitizeAndReset(String idOfFriendParam, Activity act) {
-        sanitize();
-        idOfFriend = idOfFriendParam;
-        mActivity = act;
-    }
-
-    /**
-     * Resets all the fields of the task to prevent mixing data.
-     */
-    private static void sanitize() {
-        idOfFriend = null;
-        mActivity = null;
     }
 }

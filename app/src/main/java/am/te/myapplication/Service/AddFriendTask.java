@@ -2,6 +2,8 @@ package am.te.myapplication.Service;
 
 import android.app.Activity;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -32,23 +34,8 @@ public class AddFriendTask extends UserTask {
     private static boolean success;
     private static String mName;
     private static String mEmail;
+    private EditText mEmailView;
     private static Activity mActivity;
-
-//    private static volatile AddFriendTask INSTANCE;
-//
-//    public static AddFriendTask getInstance(String name, String email,
-//                                                                 Activity act) {
-//        success = false;
-//        synchronized (RegisterListingTask.class) {
-//            if (INSTANCE == null) {
-//                INSTANCE = new AddFriendTask(name, email, act);
-//            } else {
-//                sanitizeAndReset(name, email, act);
-//            }
-//        }
-//
-//        return INSTANCE;
-//    }
 
     /**
      * Constructs the initial AddFriendTask.
@@ -57,10 +44,12 @@ public class AddFriendTask extends UserTask {
      * @param email the email of the initial friend to add
      * @param act the activity that called this task
      */
-    public AddFriendTask(String name, String email, Activity act) {
-        mName = name;
-        mEmail = email;
-        mActivity = act;
+    public AddFriendTask(String name, String email, EditText mEmailView,
+                                                                 Activity act) {
+        this.mName = name;
+        this.mEmail = email;
+        this.mActivity = act;
+        this.mEmailView = mEmailView;
     }
 
     @Override
@@ -120,41 +109,11 @@ public class AddFriendTask extends UserTask {
     }
     @Override
     protected void onPostExecute(final Boolean success) {
-        sanitize();
-        this.success = success;
+        if (success) {
+            mActivity.finish();
+        } else {
+            mEmailView.setError("try a different user");
+        }
     }
 
-    @Override
-    protected void onCancelled() {
-        sanitize();
-    }
-
-    /**
-     * Resets all the fields of the task to prevent mixing data, and sets it
-     * to new data.
-     *
-     * @param name the name of the listing to send
-     * @param email the email of the friend to add
-     * @param activity the activity that calls this task
-     */
-    private static void sanitizeAndReset(String name, String email,
-                                                            Activity activity) {
-        sanitize();
-        mName = name;
-        mEmail = email;
-        mActivity = activity;
-    }
-
-    /**
-     * Resets all the fields of the task to prevent mixing data.
-     */
-    private static void sanitize() {
-        mName = null;
-        mEmail = null;
-        mActivity = null;
-    }
-
-    public boolean getSuccess() {
-        return success;
-    }
 }

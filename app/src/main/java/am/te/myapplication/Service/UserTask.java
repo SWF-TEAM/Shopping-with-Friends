@@ -17,8 +17,8 @@ import java.io.UnsupportedEncodingException;
 /**
  * The parent of all tasks that the current user may perform.
  *
- * @author Mitchell Manguno
- * @version 1.0
+ * @author Veronica LeBlanc, Mitchell Manguno
+ * @version 1.1
  * @since 2015 March 22
  */
 public abstract class UserTask extends AsyncTask<Void, Void, Boolean> {

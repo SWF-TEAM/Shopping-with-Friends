@@ -51,8 +51,10 @@ public class AddDeal extends Activity {
                 mRegisterDealTask = new RegisterDealTask(name, price,
                                                                 location, this);
                 mRegisterDealTask.execute();
+                mRegisterDealTask = null;
             }
             finish();
         }
+
     }
 }

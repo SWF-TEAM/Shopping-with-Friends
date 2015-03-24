@@ -38,9 +38,9 @@ public class RegisterDealTask extends UserTask {
     /**
      * Creates the RegisterDealTask instance.
      *
-     * @param name the name of the initial deal to send
-     * @param price the price of the initial deal to send
-     * @param location the location of the initial deal to send
+     * @param name the name of the deal to send
+     * @param price the price of the deal to send
+     * @param location the location of the deal to send
      * @param activity the initial activity that calls this task
      */
     public RegisterDealTask(String name, Double price, String location,
@@ -56,7 +56,6 @@ public class RegisterDealTask extends UserTask {
         if (!State.local) {//Doesn't make sense to use database in local sense
             return registerProduct();
         }
-        sanitize();
         return false;
     }
 
@@ -64,7 +63,7 @@ public class RegisterDealTask extends UserTask {
      * Sends a request to a php get handler to add a listing's deal to the database
      *
      * @return boolean - true if the query does not throw an exception, else returns false.
-     **/
+     */
     protected boolean registerProduct() {
         String TAG = AddListing.class.getSimpleName();
         String link = null;
@@ -90,43 +89,8 @@ public class RegisterDealTask extends UserTask {
     }
     @Override
     protected void onPostExecute(final Boolean success) {
-        sanitize();
         if (success) {
             mActivity.finish();
         }
     }
-
-    @Override
-    protected void onCancelled() {
-        sanitize();
-    }
-
-    /**
-     * Resets all the fields of the task to prevent mixing data, and sets it
-     * to new data.
-     *
-     * @param name the name of the deal to send
-     * @param price the price of the deal to send
-     * @param location the location of the deal to send
-     * @param activity the activity that calls this task
-     */
-    private static void sanitizeAndReset(String name, Double price,
-                                           String location, Activity activity) {
-        sanitize();
-        mName = name;
-        mPrice = price;
-        mLocation = location;
-        mActivity = activity;
-    }
-
-    /**
-     * Resets all the fields of the task to prevent mixing data.
-     */
-    private static void sanitize() {
-        mName = null;
-        mPrice = null;
-        mLocation = null;
-        mActivity = null;
-    }
-
 }
