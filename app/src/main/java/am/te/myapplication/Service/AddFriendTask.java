@@ -73,28 +73,16 @@ public class AddFriendTask extends UserTask {
             String userToAddKey = getUserKey();
             if (!userToAddKey.equals("*NOSUCHUSER")) {
                 System.out.println("ADDING USER");
+                String TAG = "login: ";
                 String link = server_url + "/addfriend.php?userID="
                                         + Agent.getUniqueIDofCurrentlyLoggedIn()
                                         + "&friendID=" + userToAddKey;
                 try {
-                    URL url = new URL(link);
-                    HttpClient client = new DefaultHttpClient();
-                    HttpGet request = new HttpGet();
-                    request.setURI(new URI(link));
-                    HttpResponse response = client.execute(request);
-                    BufferedReader in = new BufferedReader(
-                      new InputStreamReader(response.getEntity().getContent()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line="";
-                    while ((line = in.readLine()) != null) {
-                        sb.append(line);
-                        break;
-                    }
-                    in.close();
+                    String response = fetchHTTPResponseAsStr(TAG, link);
 
                     //whether or not user has become friends with the other
                     // in database
-                    return sb.toString().equals("success");
+                    return response.equals("success");
                 } catch(Exception e) {
                     return false;
                 }

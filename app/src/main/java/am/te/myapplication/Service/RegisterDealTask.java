@@ -61,10 +61,10 @@ public class RegisterDealTask extends UserTask {
     }
 
     /**
-     * Registers this product in the database.
+     * Sends a request to a php get handler to add a listing's deal to the database
      *
-     * @return true if successfull add, false if clone exists or other failure
-     */
+     * @return boolean - true if the query does not throw an exception, else returns false.
+     **/
     protected boolean registerProduct() {
         String TAG = AddListing.class.getSimpleName();
         String link = null;
@@ -77,25 +77,11 @@ public class RegisterDealTask extends UserTask {
             Log.e(TAG, "url encoding failed");
         }
         try {
-            URL url = new URL(link);
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet();
-            request.setURI(new URI(link));
-            HttpResponse response = client.execute(request);
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                                            response.getEntity().getContent()));
-            StringBuffer sb = new StringBuffer("");
-            String line="";
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-                break;
-            }
-            System.out.println(sb.toString());
-            in.close();
+            String response = fetchHTTPResponseAsStr(TAG, link);
             Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
                                                           + ">>>>>>>>>>>>>>>>");
-            Log.d(TAG, sb.toString());
-            return sb.toString().equals("Deal Values have been inserted"
+            Log.d(TAG, response);
+            return response.equals("Deal Values have been inserted"
                                                           + " successfully\\n");
         }catch(Exception e){
             Log.e(TAG, "EXCEPTION>>>>", e);

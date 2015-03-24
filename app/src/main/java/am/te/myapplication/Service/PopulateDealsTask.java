@@ -50,22 +50,11 @@ public class PopulateDealsTask extends UserTask {
         //DATABASE SHIT (get a list of possible friends from database)
         String TAG = Homepage.class.getSimpleName();
         String link = "http://artineer.com/sandbox" + "/getdeals2.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
+
         try {//kek
             Log.d(TAG, ">>>>>>>>>>>>>>>>>trying>>>>>");
-            URL url = new URL(link);
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet();
-            request.setURI(new URI(link));
-            HttpResponse response = client.execute(request);
-            BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            StringBuffer sb = new StringBuffer("");
-            String line = "";
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-                break;
-            }
-            in.close();
-            String result = sb.toString();
+            String result = fetchHTTPResponseAsStr(TAG,link);
+
             if (result.equals("0 results")) {
                 Log.d(TAG, result);
                 Log.d(TAG, "no results for getDeals");

@@ -4,22 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import am.te.myapplication.Model.User;
 import am.te.myapplication.Register;
-import am.te.myapplication.RegistrationModel;
 import am.te.myapplication.State;
 
 /**
@@ -76,6 +61,11 @@ public class RegisterTask extends UserTask {
         return false;
     }
 
+    /**
+     * Sends a request to a php post handler to register a user
+     *
+     * @return boolean - true if the query does not throw an exception, else returns false.
+     **/
     protected boolean registerUser() {
         String TAG = Register.class.getSimpleName();
 
@@ -84,24 +74,13 @@ public class RegisterTask extends UserTask {
                                      +"&password=" + mPassword
                                      + "&email=" + mEmail
                                      +"&name=" + encode(mName);
-            URL url = new URL(link);
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet();
-            request.setURI(new URI(link));
-            HttpResponse response = client.execute(request);
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                                            response.getEntity().getContent()));
-            StringBuffer sb = new StringBuffer("");
-            String line="";
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-                break;
-            }
-            in.close();
-            Log.d(TAG, sb.toString());
-            boolean noError = !sb.toString().contains("failed")
-                           && !sb.toString().contains("already in use");
+
+            String response = fetchHTTPResponseAsStr(TAG, link);
+
+            boolean noError = !response.contains("failed")
+                           && !response.contains("already in use");
             return noError;
+
         }catch(Exception e){
             Log.e(TAG, "EXCEPTION>>>>", e);
             return false;
