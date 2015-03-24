@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!--
+    See http://www.javacodegeeks.com/2013/06/
+    android-listview-background-row-style-rounded-corner-alternate-color.html
+    -->
+
+    <solid android:color="#99CC00" />
+
+    <padding android:left="3dp" android:bottom="3dp" android:right="3dp"
+             android:top="3dp" />
+
+    <stroke android:width="3dp"/>
+
+</shape>

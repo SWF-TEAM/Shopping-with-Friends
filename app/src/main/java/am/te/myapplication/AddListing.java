@@ -74,14 +74,13 @@ public class AddListing extends Activity {
             if (State.local) {
                 User current = Agent.getLoggedIn();
                 Listing newProduct = new Listing(name, price, additionalInfo);
-                current.addItem(newProduct);
-
+                current.addItem(newProduct); // kek
             } else {
                 mRegisterListingTask = new RegisterListingTask(name,
                                                    price, additionalInfo, this);
                 mRegisterListingTask.execute();
+                mRegisterListingTask = null;
             }
-            finish();
         }
     }
 

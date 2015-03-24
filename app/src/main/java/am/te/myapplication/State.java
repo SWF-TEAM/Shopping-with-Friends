@@ -12,5 +12,7 @@ package am.te.myapplication;
  * @since 2015 February 18
  */
 public class State {
+
     public static boolean local = false;
+
 }

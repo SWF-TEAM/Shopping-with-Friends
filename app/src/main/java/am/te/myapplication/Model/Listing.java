@@ -1,5 +1,7 @@
 package am.te.myapplication.Model;
 
+import java.util.List;
+
 /**
  * The product class represents a product that a user desires.
  *
@@ -9,9 +11,12 @@ package am.te.myapplication.Model;
 
 public class Listing {
 
+    private List<Deal> associatedDeals;
     private String name;
     private double desiredPrice;
     private String additionalInfo;
+    private boolean hasThresholdDeal;
+    private boolean hasBeenSeen;
     private int productID;
     public String id;
 
@@ -56,6 +61,30 @@ public class Listing {
         this.additionalInfo = additionalInfo;
     }
 
+    public List<Deal> getAssociatedDeals() {
+        return associatedDeals;
+    }
+
+    public void setAssociatedDeals(List<Deal> associatedDeals) {
+        this.associatedDeals = associatedDeals;
+    }
+
+    public boolean hasThresholdDeal() {
+        return hasThresholdDeal;
+    }
+
+    public void setHasThresholdDeal(boolean hasThresholdDeal) {
+        this.hasThresholdDeal = hasThresholdDeal;
+    }
+
+    public boolean hasBeenSeen() {
+        return hasBeenSeen;
+    }
+
+    public void setHasBeenSeen(boolean hasBeenSeen) {
+        this.hasBeenSeen = hasBeenSeen;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -77,7 +106,8 @@ public class Listing {
         int hash = 7;
         hash += 31 * hash + name.hashCode();
         hash += 127 * hash + desiredPrice;
-        hash += 8191 * hash + additionalInfo.hashCode();
+        int adHash = additionalInfo == null ? 0 : additionalInfo.hashCode();
+        hash += 8191 * hash + adHash;
         return hash;
     }
 
