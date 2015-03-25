@@ -22,3 +22,5 @@
 *.project
 *.jar
 *.log
+.idea/misc.xml
+app/app.iml
