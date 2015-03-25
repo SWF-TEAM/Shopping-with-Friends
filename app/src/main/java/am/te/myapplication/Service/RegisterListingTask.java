@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import am.te.myapplication.AddListing;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.State;
+import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
  * The task used to register a new listing.
@@ -37,6 +38,7 @@ public class RegisterListingTask extends UserTask {
         mPrice = price;
         mDescription = description;
         mActivity = activity;
+
     }
     @Override
     protected Boolean doInBackground(Void... params) {

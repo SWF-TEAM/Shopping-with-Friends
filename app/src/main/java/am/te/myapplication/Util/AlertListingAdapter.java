@@ -62,7 +62,7 @@ public class AlertListingAdapter extends BaseAdapter {
         Listing item = items.get(position);
 
         if (v == null) {
-            v = inflater.inflate(R.layout.listing_row, null);
+            v = inflater.inflate(R.layout.card_contents, null);
         }
 
         holder.nameView = (TextView) v.findViewById(R.id.name);
@@ -71,11 +71,11 @@ public class AlertListingAdapter extends BaseAdapter {
         v.setTag(holder);
 
         //If this item contains new, unseen deals, color the row.
-        if (item.hasThresholdDeal() && !(item.hasBeenSeen())) {
-            v.setBackgroundResource(R.drawable.alerted_row);
-        } else {
-            v.setBackgroundResource(R.drawable.normal_row);
-        }
+//        if (item.hasThresholdDeal() && !(item.hasBeenSeen())) {
+//            v.setBackgroundResource(R.drawable.card);
+//        } else {
+//            v.setBackgroundResource(R.drawable.card);
+//        }
 
 
         holder.nameView.setText(item.getName());

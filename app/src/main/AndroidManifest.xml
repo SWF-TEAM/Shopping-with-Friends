@@ -41,7 +41,8 @@
         </activity>
         <activity
             android:name=".Homepage"
-            android:label="Home" >
+            android:label="Home"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".FriendList"

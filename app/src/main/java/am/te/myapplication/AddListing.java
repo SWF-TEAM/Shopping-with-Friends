@@ -1,6 +1,7 @@
 package am.te.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.RegisterListingTask;
+import am.te.myapplication.Util.AlertListingAdapter;
 
 
 public class AddListing extends Activity {
@@ -20,6 +22,7 @@ public class AddListing extends Activity {
     private EditText priceView;
     private EditText additionalInfoView;
     private RegisterListingTask mRegisterListingTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,7 @@ public class AddListing extends Activity {
         priceView = (EditText) findViewById(R.id.add_product_price);
         additionalInfoView = (EditText) findViewById(
                                                R.id.add_product_additionalInfo);
+
     }
 
     @Override
@@ -69,17 +73,23 @@ public class AddListing extends Activity {
         }
 
         String additionalInfo = additionalInfoView.getText().toString();
-
+        Listing newProduct = new Listing(name, price, additionalInfo);
         if (!cancel) {
             if (State.local) {
                 User current = Agent.getLoggedIn();
-                Listing newProduct = new Listing(name, price, additionalInfo);
+
                 current.addItem(newProduct); // kek
             } else {
                 mRegisterListingTask = new RegisterListingTask(name,
                                                    price, additionalInfo, this);
                 mRegisterListingTask.execute();
                 mRegisterListingTask = null;
+                Intent listingData = new Intent();
+                listingData.putExtra("Name", name);
+                listingData.putExtra("Price", price);
+                listingData.putExtra("Additional", newProduct.getAdditionalInfo());
+                setResult(1,listingData);
+                finish();
             }
         }
     }

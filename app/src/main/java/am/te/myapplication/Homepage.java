@@ -21,6 +21,7 @@ import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Service.PopulateDealsTask;
 import am.te.myapplication.Service.PopulateProductsTask;
+import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
  * The homepage class acts as a springboard to other areas of the app.
@@ -33,12 +34,13 @@ import am.te.myapplication.Service.PopulateProductsTask;
 public class Homepage extends ActionBarActivity {
 
     private ListView lv;
-    private ArrayAdapter arrayAdapter;
+    private AlertListingAdapter arrayAdapter;
     List<Listing> products = new ArrayList<Listing>();
     List<Deal> deals = new ArrayList<>();
     private PopulateProductsTask mPopulateProductsTask;
     private PopulateDealsTask mPopulateDealsTask;
     static Listing selectedListing;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class Homepage extends ActionBarActivity {
     public void onStart() {
 
         lv = (ListView) findViewById(R.id.product_listView);
+        arrayAdapter = new AlertListingAdapter(this, products);
 
         //local
 
@@ -64,10 +67,6 @@ public class Homepage extends ActionBarActivity {
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        arrayAdapter = new ArrayAdapter<Listing>(
-                this,
-                android.R.layout.simple_list_item_1,
-                products);
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,7 +88,7 @@ public class Homepage extends ActionBarActivity {
 
         boolean foundDeal = false;
 
-        System.out.println("DEals: " + deals.size());
+        System.out.println("Deals: " + deals.size());
         System.out.println("Listing: " + products.size());
 
 
@@ -144,8 +143,9 @@ public class Homepage extends ActionBarActivity {
 
     @Override
     public void onResume() {
-        arrayAdapter.notifyDataSetChanged();
         super.onResume();
+        arrayAdapter.notifyDataSetChanged();
+        lv.requestLayout();
     }
 
     public void openFriends() {
@@ -155,7 +155,7 @@ public class Homepage extends ActionBarActivity {
 
     public void addProduct() {
         Intent intent = new Intent(this, AddListing.class);
-        startActivity(intent);
+        startActivityForResult(intent,1);
         //arrayAdapter.clear();
         //arrayAdapter.addAll(User.loggedIn.getItemList());
         arrayAdapter.notifyDataSetChanged();
@@ -166,6 +166,13 @@ public class Homepage extends ActionBarActivity {
         startActivity(intent);
         //arrayAdapter.clear();
         //arrayAdapter.addAll(User.loggedIn.getItemList());
+        arrayAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult( int aRequestCode, int aResultCode, Intent data) {
+        Listing newListing = Listing.getListingFromIntent(data);
+        products.add(newListing);
         arrayAdapter.notifyDataSetChanged();
     }
 

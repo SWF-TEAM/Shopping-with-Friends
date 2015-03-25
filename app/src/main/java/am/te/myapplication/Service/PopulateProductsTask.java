@@ -13,6 +13,7 @@ import java.util.List;
 import am.te.myapplication.Homepage;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
+import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
  * Created by Collin on 3/22/15.
@@ -20,9 +21,9 @@ import am.te.myapplication.Model.Listing;
 public class PopulateProductsTask extends UserTask {
 
     List<Listing> products;
-    ArrayAdapter arrayAdapter;
+    AlertListingAdapter arrayAdapter;
 
-    public PopulateProductsTask(List<Listing> products, ArrayAdapter arrayAdapter) {
+    public PopulateProductsTask(List<Listing> products, AlertListingAdapter arrayAdapter) {
         this.products = products;
         this.arrayAdapter = arrayAdapter;
     }
@@ -62,9 +63,6 @@ public class PopulateProductsTask extends UserTask {
 
             products.clear();
             products.addAll(theListings);
-
-            arrayAdapter.notifyDataSetChanged();
-
 
             return true;
         } catch (Exception e) {

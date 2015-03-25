@@ -1,5 +1,8 @@
 package am.te.myapplication.Model;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import java.util.List;
 
 /**
@@ -115,6 +118,12 @@ public class Listing {
     public String toString() {
         return "Name: " + name + ", Price: " + desiredPrice
             + ", Additional Info: " + additionalInfo;
+    }
+
+    public static Listing getListingFromIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        Listing newListing = new Listing(extras.getString("Name"), extras.getInt("Price"), extras.getString("Additional"));
+        return newListing;
     }
 
  }

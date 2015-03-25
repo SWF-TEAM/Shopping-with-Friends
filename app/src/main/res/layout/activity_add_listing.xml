@@ -12,6 +12,7 @@
         android:id="@+id/add_product_name"
         android:hint="@string/add_product_name_hint"
         android:maxLines="1"
+        android:singleLine="true"
         android:imeOptions="actionNext"
         android:layout_below="@+id/add_product_title"
         android:layout_alignParentLeft="true"
@@ -34,7 +35,9 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="34dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:maxLines="1"
+        android:singleLine="true"/>
 
     <EditText
         android:layout_width="wrap_content"

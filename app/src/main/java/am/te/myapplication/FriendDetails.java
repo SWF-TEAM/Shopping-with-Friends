@@ -43,7 +43,8 @@ public class FriendDetails extends Activity {
         ratingText.setText("Rating: "+ String.valueOf(currentUser.getRating()));
         // Put the email onto the details screen
         TextView salesText = (TextView) findViewById(R.id.salesReports);
-        salesText.setText("Sales Reports: " +String.valueOf(currentUser.getSalesReportNumber()));
+        salesText.setText("");
+//        salesText.setText("Sales Reports: " +String.valueOf(currentUser.getSalesReportNumber()));
     }
 
     /**

@@ -145,12 +145,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         return password.length() >= 4;
     }
 
-    private void proceedToHome() {
-        Intent intent = new Intent(this, Homepage.class);
-        startActivity(intent);
-
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return null;
@@ -170,6 +164,12 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
     public void finish() {
         proceedToHome();
         super.finish();
+    }
+
+    private void proceedToHome() {
+        Intent intent = new Intent(this, Homepage.class);
+        startActivity(intent);
+
     }
 }
 
