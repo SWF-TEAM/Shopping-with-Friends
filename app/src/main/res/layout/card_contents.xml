@@ -24,10 +24,11 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dip"
             android:layout_alignParentRight = "true"
-            android:gravity="right"
-            android:textSize="12dp"
+            android:layout_alignParentEnd = "true"
+            android:layout_marginTop="2dip"
+            android:gravity="end"
+            android:textSize="12sp"
             android:textStyle="italic" />
 
 

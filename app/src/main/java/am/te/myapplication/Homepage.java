@@ -56,13 +56,16 @@ public class Homepage extends ActionBarActivity {
 
         //local
 
-        if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasItems()) {
-            products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
+        if (State.local && Agent.getLoggedIn() != null
+                && Agent.getLoggedIn().hasItems()) {
+            products = RegistrationModel.getUsers().get(
+                                           RegistrationModel.getUsers().indexOf(
+                                            Agent.getLoggedIn())).getItemList();
         } else {
             /* Get products from the database. */
-            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter, this);
+            mPopulateProductsTask = new PopulateProductsTask(products,
+                                                            arrayAdapter, this);
             mPopulateProductsTask.execute();
-            checkDeals();
 
         }
         // This is the array adapter, it takes the context of the activity as a
@@ -74,7 +77,9 @@ public class Homepage extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Pass user clicked on to new Friend Details Page
-                Intent i = new Intent(getApplicationContext(), ListingDetails.class);
+                Intent i = new Intent(getApplicationContext(),
+                                                          ListingDetails.class);
+                products.get(position).setHasBeenSeen(true);
                 if (State.local) {
                     i.putExtra("products", products.get(position).getName());
                 } else {
@@ -97,26 +102,10 @@ public class Homepage extends ActionBarActivity {
 
     }
 
-    public void checkDeals() {
-        for (Deal deal : deals) {
-            for (Listing listing : products) {
-                if (deal.getName().equals(listing.getName()) && deal.getDesiredPrice() < listing.getDesiredPrice()) {
-                    System.out.println("deal price: " + deal.getDesiredPrice());
-                    System.out.println("listing price: " + listing.getDesiredPrice());
-                    Context context = getApplicationContext();
-                    CharSequence text = "The " + listing.getName() + " is available at " + deal.getLocation() + " for " + deal.getDesiredPrice();
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-            }
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
+        //Inflate the menu items for use in the action bar
+        //see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_homepage, menu);
         return super.onCreateOptionsMenu(menu);
@@ -124,9 +113,9 @@ public class Homepage extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar
-        // Opens the friends menu if the user presses the 'friends' button
-        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
+        //Handle presses on the action bar
+        //Opens the friends menu if the user presses the 'friends' button
+        //see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
         switch (item.getItemId()) {
             case R.id.friend_menu:
                 openFriends();
@@ -171,7 +160,8 @@ public class Homepage extends ActionBarActivity {
     }
 
     @Override
-    protected void onActivityResult( int aRequestCode, int aResultCode, Intent data) {
+    protected void onActivityResult( int aRequestCode, int aResultCode,
+                                                                  Intent data) {
         if (data != null) {
             Listing newListing = Listing.getListingFromIntent(data);
             products.add(newListing);

@@ -128,7 +128,7 @@ public class Listing implements Comparable<Listing>{
 
     @Override
     public int compareTo(Listing another) {
-        return this.getName().compareTo(another.getName());
+        return this.name.compareTo(another.name);
     }
 
  }

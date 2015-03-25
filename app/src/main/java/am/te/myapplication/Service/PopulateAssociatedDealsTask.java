@@ -14,20 +14,27 @@ import java.util.List;
 
 import am.te.myapplication.Homepage;
 import am.te.myapplication.Model.Agent;
+import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
- * Created by Collin on 3/22/15.
+ * @author Mitchell Manguno
+ * @version 1.0
+ * @since 2015 March 25
  */
-public class PopulateProductsTask extends UserTask {
+public class PopulateAssociatedDealsTask extends UserTask {
 
-    List<Listing> products;
-    AlertListingAdapter arrayAdapter;
+
+    List<Deal> deals;
+    Listing listing;
+    ArrayAdapter arrayAdapter;
     Activity activity;
 
-    public PopulateProductsTask(List<Listing> products, AlertListingAdapter arrayAdapter, Activity activity) {
-        this.products = products;
+    public PopulateAssociatedDealsTask(List<Deal> deals, Listing listing,
+                                 ArrayAdapter arrayAdapter, Activity activity) {
+        this.deals = deals;
+        this.listing = listing;
         this.arrayAdapter = arrayAdapter;
         this.activity = activity;
     }
@@ -35,14 +42,14 @@ public class PopulateProductsTask extends UserTask {
     @Override
     protected Boolean doInBackground(Void... params) {
         // get a list of possible friends from database
-        ArrayList<Listing> theListings = new ArrayList<>();
+        ArrayList<Deal> theDeals = new ArrayList<>();
         String TAG = Homepage.class.getSimpleName();
-        String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
+        String link = "http://artineer.com/sandbox" + "/getdeals.php?listingid="
+                                                    + listing.id;
         try {//kek
 
             String result = fetchHTTPResponseAsStr(TAG, link);
 
-            //now need to populate friends with users from result of database query
             if (result.equals("0 results")) {
                 Log.d(TAG, result);
                 return false;
@@ -53,21 +60,24 @@ public class PopulateProductsTask extends UserTask {
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                    String title = lineOfArray.getString("title");
-                    String price = lineOfArray.getString("price");
-                    String description = lineOfArray.getString("description");
-                    String id = lineOfArray.getString("listingID");
-
-                    Listing newListing = new Listing(title, Double.parseDouble(price), description, id);
-                    theListings.add(newListing);
+                    String id = lineOfArray.getString("dealID");
+                    String title = lineOfArray.getString("Title");
+                    String description = lineOfArray.getString("Description");
+                    String price = lineOfArray.getString("Price");
+                    String location = lineOfArray.getString("Location");
+                    String claimed = lineOfArray.getString("claimed");
+                    Deal newDeal = new Deal(title, description,
+                                            Double.valueOf(price), location,
+                                 Boolean.valueOf(claimed), Integer.valueOf(id));
+                    theDeals.add(newDeal);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage());
                 }
             }
 
-            products.clear();
-            products.addAll(theListings);
-            Collections.sort(products);
+            deals.clear();
+            deals.addAll(theDeals);
+            Collections.sort(deals);
             activity.runOnUiThread(new Runnable() {
 
                 @Override
@@ -77,10 +87,10 @@ public class PopulateProductsTask extends UserTask {
             });
 
 
-                return true;
-            } catch (Exception e) {
-                Log.e(TAG, "EXCEPTION on homepage>>>", e);
-                return false;
-            }
+            return true;
+        } catch (Exception e) {
+            Log.e(TAG, "EXCEPTION on homepage>>>", e);
+            return false;
+        }
     }
 }

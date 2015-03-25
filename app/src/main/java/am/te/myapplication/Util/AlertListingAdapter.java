@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.R;
 
@@ -25,12 +26,29 @@ public class AlertListingAdapter extends BaseAdapter {
 
     LayoutInflater inflater;
     List<Listing> items;
+    int rowLayout;
+    int alertLayout;
+    int normalLayout;
 
-    public AlertListingAdapter(Activity context, List<Listing> items) {
+    public AlertListingAdapter(Activity context, List<Listing> items,
+                             int rowLayout, int alertLayout, int normalLayout) {
         super();
         this.items = items;
         this.inflater = (LayoutInflater) context.getSystemService(
-                                               Context.LAYOUT_INFLATER_SERVICE);
+                Context.LAYOUT_INFLATER_SERVICE);
+        this.rowLayout = rowLayout;
+        this.alertLayout = alertLayout;
+        this.normalLayout = normalLayout;
+    }
+
+    public AlertListingAdapter(Activity context, List<Listing> items, int rowLayout) {
+        this(context, items, rowLayout, R.drawable.alerted_row,
+                                        R.drawable.normal_row);
+    }
+
+    public AlertListingAdapter(Activity context, List<Listing> items) {
+        this(context, items, R.layout.card_contents, R.drawable.alerted_row,
+                                                     R.drawable.normal_row);
     }
 
     @Override
@@ -71,11 +89,11 @@ public class AlertListingAdapter extends BaseAdapter {
         v.setTag(holder);
 
         //If this item contains new, unseen deals, color the row.
-//        if (item.hasThresholdDeal() && !(item.hasBeenSeen())) {
-//            v.setBackgroundResource(R.drawable.card);
-//        } else {
-//            v.setBackgroundResource(R.drawable.card);
-//        }
+        //if (item.hasThresholdDeal() && !(item.hasBeenSeen())) {
+        //    v.setBackgroundResource(R.drawable.alerted_row);
+        //} else {
+        //    v.setBackgroundResource(R.drawable.normal_row);
+        //}
 
 
         holder.nameView.setText(item.getName());
