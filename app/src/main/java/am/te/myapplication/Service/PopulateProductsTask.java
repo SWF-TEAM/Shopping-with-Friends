@@ -1,5 +1,6 @@
 package am.te.myapplication.Service;
 
+import android.app.Activity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
@@ -22,10 +23,12 @@ public class PopulateProductsTask extends UserTask {
 
     List<Listing> products;
     AlertListingAdapter arrayAdapter;
+    Activity activity;
 
-    public PopulateProductsTask(List<Listing> products, AlertListingAdapter arrayAdapter) {
+    public PopulateProductsTask(List<Listing> products, AlertListingAdapter arrayAdapter, Activity activity) {
         this.products = products;
         this.arrayAdapter = arrayAdapter;
+        this.activity = activity;
     }
 
     @Override
@@ -63,12 +66,22 @@ public class PopulateProductsTask extends UserTask {
 
             products.clear();
             products.addAll(theListings);
-            arrayAdapter.notifyDataSetChanged();
-            return true;
-        } catch (Exception e) {
-            Log.e(TAG, "EXCEPTION on homepage>>>", e);
-            return false;
-        }
+
+
+            activity.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            });
+
+
+                return true;
+            } catch (Exception e) {
+                Log.e(TAG, "EXCEPTION on homepage>>>", e);
+                return false;
+            }
 
     }
 }

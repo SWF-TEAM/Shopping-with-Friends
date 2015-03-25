@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import am.te.myapplication.Model.Agent;
@@ -59,7 +60,7 @@ public class Homepage extends ActionBarActivity {
             products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
         } else {
             /* Get products from the database. */
-            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter);
+            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter, this);
             mPopulateProductsTask.execute();
             checkDeals();
 
@@ -174,7 +175,10 @@ public class Homepage extends ActionBarActivity {
         if (data != null) {
             Listing newListing = Listing.getListingFromIntent(data);
             products.add(newListing);
+            Collections.sort(products);
             arrayAdapter.notifyDataSetChanged();
+
+
         }
     }
 }
