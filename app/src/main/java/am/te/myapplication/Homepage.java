@@ -155,7 +155,7 @@ public class Homepage extends ActionBarActivity {
 
     public void addProduct() {
         Intent intent = new Intent(this, AddListing.class);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
         //arrayAdapter.clear();
         //arrayAdapter.addAll(User.loggedIn.getItemList());
         arrayAdapter.notifyDataSetChanged();
@@ -171,9 +171,10 @@ public class Homepage extends ActionBarActivity {
 
     @Override
     protected void onActivityResult( int aRequestCode, int aResultCode, Intent data) {
-        Listing newListing = Listing.getListingFromIntent(data);
-        products.add(newListing);
-        arrayAdapter.notifyDataSetChanged();
+        if (data != null) {
+            Listing newListing = Listing.getListingFromIntent(data);
+            products.add(newListing);
+            arrayAdapter.notifyDataSetChanged();
+        }
     }
-
 }
