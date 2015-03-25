@@ -25,19 +25,21 @@ public class PopulateProductsTask extends UserTask {
     List<Listing> products;
     AlertListingAdapter arrayAdapter;
     Activity activity;
-
-    public PopulateProductsTask(List<Listing> products, AlertListingAdapter arrayAdapter, Activity activity) {
+    String id;
+    public PopulateProductsTask(List<Listing> products, AlertListingAdapter arrayAdapter, Activity activity, String id) {
         this.products = products;
         this.arrayAdapter = arrayAdapter;
         this.activity = activity;
+        this.id = id;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
+        System.out.println("Getting listings for " + id);
         // get a list of possible friends from database
         ArrayList<Listing> theListings = new ArrayList<>();
         String TAG = Homepage.class.getSimpleName();
-        String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
+        String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + id;
         try {//kek
 
             String result = fetchHTTPResponseAsStr(TAG, link);
@@ -67,7 +69,9 @@ public class PopulateProductsTask extends UserTask {
 
             products.clear();
             products.addAll(theListings);
+            System.out.println("the listings size: " + theListings.size());
             Collections.sort(products);
+
             activity.runOnUiThread(new Runnable() {
 
                 @Override

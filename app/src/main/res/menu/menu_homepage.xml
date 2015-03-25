@@ -14,4 +14,8 @@
         android:icon="@drawable/ic_menu_allfriends"
         android:title="@string/friend_menu"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/friends_listings"
+        android:icon="@drawable/ic_menu_allfriends"
+        android:title="@string/friends_listings"
+        app:showAsAction="ifRoom"/>
 </menu>

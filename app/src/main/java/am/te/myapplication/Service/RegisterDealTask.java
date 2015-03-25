@@ -15,6 +15,7 @@ import java.net.URI;
 import java.net.URL;
 
 import am.te.myapplication.AddListing;
+import am.te.myapplication.FriendListings;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.State;
 
@@ -65,13 +66,15 @@ public class RegisterDealTask extends UserTask {
      * @return boolean - true if the query does not throw an exception, else returns false.
      */
     protected boolean registerProduct() {
-        String TAG = AddListing.class.getSimpleName();
+        String TAG = RegisterDealTask.class.getSimpleName();
         String link = null;
         try {
-            link = server_url + "/adddeal2.php?Title=" + encode(mName)
+            link = server_url + "/adddeal.php?Title=" + encode(mName)
                           + "&Location=" + encode(mLocation)
                           + "&Price=" + mPrice
-                          + "&userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
+                          + "&userID=" + encode(Agent.getUniqueIDofCurrentlyLoggedIn())
+                          + "&listingID=" + encode(FriendListings.selectedFriendListing.id);
+            System.out.println("using link: " + link);
         } catch(UnsupportedEncodingException e){
             Log.e(TAG, "url encoding failed");
         }
@@ -79,7 +82,7 @@ public class RegisterDealTask extends UserTask {
             String response = fetchHTTPResponseAsStr(TAG, link);
             Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
                                                           + ">>>>>>>>>>>>>>>>");
-            Log.d(TAG, response);
+            Log.d(TAG, "RESPONSE TO REGISTER DEAL: " + response);
             return response.equals("Deal Values have been inserted"
                                                           + " successfully\\n");
         }catch(Exception e){
