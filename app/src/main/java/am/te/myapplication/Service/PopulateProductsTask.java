@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import am.te.myapplication.Homepage;
@@ -66,7 +67,7 @@ public class PopulateProductsTask extends UserTask {
 
             products.clear();
             products.addAll(theListings);
-
+            Collections.sort(products);
             activity.runOnUiThread(new Runnable() {
 
                 @Override

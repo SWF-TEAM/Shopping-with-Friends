@@ -175,10 +175,7 @@ public class Homepage extends ActionBarActivity {
         if (data != null) {
             Listing newListing = Listing.getListingFromIntent(data);
             products.add(newListing);
-            Collections.sort(products);
             arrayAdapter.notifyDataSetChanged();
-
-
         }
     }
 }
