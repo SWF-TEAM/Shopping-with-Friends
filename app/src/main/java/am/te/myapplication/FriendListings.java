@@ -29,12 +29,15 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateFriendsListingsTask;
+import am.te.myapplication.Service.PopulateFriendsTask;
+import am.te.myapplication.Service.PopulateProductsTask;
 import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
@@ -50,6 +53,9 @@ public class FriendListings extends ActionBarActivity {
     private AlertListingAdapter arrayAdapter;
     List<Listing> friendListings = new ArrayList<Listing>();
     private PopulateFriendsListingsTask mPopulateFriendsListingsTask;
+    List<User> friends = new ArrayList<User>();
+
+    private PopulateFriendsTask mPopulateFriendsTask;
 
     public static Listing selectedFriendListing;
     @Override
@@ -61,17 +67,44 @@ public class FriendListings extends ActionBarActivity {
     @Override
     public void onStart() {
 
-        lv = (ListView) findViewById(R.id.product_listView);
+        lv = (ListView) findViewById(R.id.activity_friends_listings_listView);
 
         //local
         arrayAdapter = new AlertListingAdapter(this, friendListings);
         if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasItems()) {
             friendListings = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
         } else {
+            /* get friends from database */
+            mPopulateFriendsTask = new PopulateFriendsTask(friends);
+            mPopulateFriendsTask.execute();
+            try {
+                mPopulateFriendsTask.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             /* Get friend listings from the database. */
-            mPopulateFriendsListingsTask = new PopulateFriendsListingsTask(arrayAdapter, friendListings, this);
-            mPopulateFriendsListingsTask.execute();
-
+            List<Listing> allListings = new ArrayList<>();
+            System.out.println("number of friends to iterate thru: " + friends.size());
+            for (User friend: friends) {
+                String friendID = friend.getId();
+                List<Listing> currFriendListings = new ArrayList<>();
+                PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, arrayAdapter, this, friendID);
+                mListingsTask.execute(); //should update arrayAdapter automatically with fetch of each friend's listing data
+                System.out.println("mListingsTask started execution");
+                try {
+                    mListingsTask.get();
+                    System.out.println("mListingsTask finished execution");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                allListings.addAll(currFriendListings);
+            }
+            System.out.println(">>>>>>>>size of allListings: " + allListings.size());
+            friendListings.addAll(allListings);
         }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your

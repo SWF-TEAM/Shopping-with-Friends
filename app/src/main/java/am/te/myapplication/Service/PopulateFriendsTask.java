@@ -35,9 +35,10 @@ public class PopulateFriendsTask extends UserTask {
 
     @Override
     protected Boolean doInBackground(Void... params) {
+        System.out.println("beginning to populate friends");
         //DATABASE SHIT (get a list of possible friends from database)
         ArrayList<User> theFriends = new ArrayList<>();
-        String TAG = FriendList.class.getSimpleName();
+        String TAG = PopulateFriendsTask.class.getSimpleName();
 
         String link = server_url + "/listfriends.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
         String result = fetchHTTPResponseAsStr(TAG, link);
@@ -66,6 +67,8 @@ public class PopulateFriendsTask extends UserTask {
                 Log.e(TAG, e.getMessage());
             }
         }
+        System.out.println("all went well with getting friend data");
+        System.out.println("the number of friends to be populated into list is: " + theFriends.size());
         toPopulate.clear();
         toPopulate.addAll(theFriends);
         return true;

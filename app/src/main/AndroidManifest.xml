@@ -70,6 +70,10 @@
             android:label="Friend Details" >
         </activity>
         <activity
+            android:name=".FriendListings"
+            android:label="Friend Listings">
+        </activity>
+        <activity
             android:name=".ListingDetails"
             android:label="@string/title_activity_product_details" >
         </activity>

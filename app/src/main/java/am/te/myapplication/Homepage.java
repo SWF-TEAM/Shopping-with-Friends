@@ -20,6 +20,7 @@ import java.util.List;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
+import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateDealsTask;
 import am.te.myapplication.Service.PopulateProductsTask;
 import am.te.myapplication.Util.AlertListingAdapter;
@@ -60,7 +61,7 @@ public class Homepage extends ActionBarActivity {
             products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
         } else {
             /* Get products from the database. */
-            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter, this);
+            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter, this, User.getUniqueIDofCurrentlyLoggedIn());
             mPopulateProductsTask.execute();
             checkDeals();
 
@@ -137,6 +138,9 @@ public class Homepage extends ActionBarActivity {
             case R.id.add_deal:
                 addDeal();
                 return true;
+            case R.id.friends_listings:
+                openFriendsListings();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -147,6 +151,10 @@ public class Homepage extends ActionBarActivity {
         super.onResume();
         arrayAdapter.notifyDataSetChanged();
         lv.requestLayout();
+    }
+    public void openFriendsListings() {
+        Intent intent = new Intent(this, FriendListings.class);
+        startActivity(intent);
     }
 
     public void openFriends() {
