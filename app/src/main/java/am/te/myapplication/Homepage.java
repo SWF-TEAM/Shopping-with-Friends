@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import am.te.myapplication.Model.Agent;
@@ -174,7 +175,9 @@ public class Homepage extends ActionBarActivity {
         if (data != null) {
             Listing newListing = Listing.getListingFromIntent(data);
             products.add(newListing);
+            Collections.sort(products);
             arrayAdapter.notifyDataSetChanged();
+
 
         }
     }
