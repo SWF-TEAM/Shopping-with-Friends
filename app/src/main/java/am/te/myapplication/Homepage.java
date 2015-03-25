@@ -59,7 +59,7 @@ public class Homepage extends ActionBarActivity {
             products = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
         } else {
             /* Get products from the database. */
-            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter);
+            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter, this);
             mPopulateProductsTask.execute();
             checkDeals();
 
@@ -175,6 +175,7 @@ public class Homepage extends ActionBarActivity {
             Listing newListing = Listing.getListingFromIntent(data);
             products.add(newListing);
             arrayAdapter.notifyDataSetChanged();
+
         }
     }
 }

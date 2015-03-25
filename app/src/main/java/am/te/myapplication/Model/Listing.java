@@ -12,7 +12,7 @@ import java.util.List;
  * @since 2015 February 23
  */
 
-public class Listing {
+public class Listing implements Comparable<Listing>{
 
     private List<Deal> associatedDeals;
     private String name;
@@ -124,6 +124,11 @@ public class Listing {
         Bundle extras = intent.getExtras();
         Listing newListing = new Listing(extras.getString("Name"), extras.getInt("Price"), extras.getString("Additional"));
         return newListing;
+    }
+
+    @Override
+    public int compareTo(Listing another) {
+        return this.getName().compareTo(another.getName());
     }
 
  }
