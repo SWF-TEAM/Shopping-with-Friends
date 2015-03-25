@@ -63,7 +63,7 @@ public class PopulateProductsTask extends UserTask {
 
             products.clear();
             products.addAll(theListings);
-
+            arrayAdapter.notifyDataSetChanged();
             return true;
         } catch (Exception e) {
             Log.e(TAG, "EXCEPTION on homepage>>>", e);
