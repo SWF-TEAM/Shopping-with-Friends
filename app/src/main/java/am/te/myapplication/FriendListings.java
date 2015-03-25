@@ -104,6 +104,7 @@ public class FriendListings extends ActionBarActivity {
                 allListings.addAll(currFriendListings);
             }
             System.out.println(">>>>>>>>size of allListings: " + allListings.size());
+            friendListings.clear();
             friendListings.addAll(allListings);
         }
         // This is the array adapter, it takes the context of the activity as a

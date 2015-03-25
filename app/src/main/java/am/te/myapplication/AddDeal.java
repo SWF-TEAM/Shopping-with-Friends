@@ -17,6 +17,7 @@ public class AddDeal extends Activity {
     private EditText locationView;
     private UserTask mRegisterDealTask;
 
+    private String friendListingId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,7 @@ public class AddDeal extends Activity {
         nameView = (EditText) findViewById(R.id.add_deal_name);
         priceView = (EditText) findViewById(R.id.add_price);
         locationView = (EditText) findViewById(R.id.add_location);
+        friendListingId = FriendListings.selectedFriendListing.id;
     }
 
     public void submitDeal(View view) {
