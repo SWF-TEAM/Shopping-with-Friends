@@ -123,9 +123,6 @@ public class Homepage extends ActionBarActivity {
             case R.id.add_product:
                 addProduct();
                 return true;
-            case R.id.add_deal:
-                addDeal();
-                return true;
             case R.id.friends_listings:
                 openFriendsListings();
                 return true;
@@ -163,7 +160,7 @@ public class Homepage extends ActionBarActivity {
         startActivity(intent);
         //arrayAdapter.clear();
         //arrayAdapter.addAll(User.loggedIn.getItemList());
-        arrayAdapter.notifyDataSetChanged();
+//        arrayAdapter.notifyDataSetChanged();
     }
 
     @Override

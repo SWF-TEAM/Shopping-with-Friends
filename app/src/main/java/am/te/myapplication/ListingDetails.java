@@ -18,6 +18,7 @@ import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateAssociatedDealsTask;
 import am.te.myapplication.Service.PopulateProductsTask;
+import am.te.myapplication.Util.AlertDealAdapter;
 import am.te.myapplication.Util.AlertListingAdapter;
 
 
@@ -34,13 +35,14 @@ public class ListingDetails extends Activity {
     private Listing currentListing;
     private List<Deal> deals;
     private ListView lv;
-    private ArrayAdapter<Deal> adapter;
+    private AlertDealAdapter adapter;
 
     @Override
     public void onStart() {
         deals = new ArrayList<>();
         lv = (ListView) findViewById(R.id.deals_listView);
-        adapter = new ArrayAdapter<Deal>(this, R.layout.card_contents, deals);
+//        adapter = new ArrayAdapter<Deal>(this, R.layout.card_contents, deals);
+        adapter = new AlertDealAdapter(this, deals);
 
         if (!(State.local)) {
             /* Get products from the database. */

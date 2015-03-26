@@ -1,5 +1,6 @@
 package am.te.myapplication.Service;
 
+import android.app.Activity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
@@ -33,10 +34,12 @@ public class PopulateDealsTask extends UserTask {
     List<Deal> deals;
     ArrayAdapter arrayAdapter;
     ArrayList<Deal> theDeals;
+    Activity activity;
 
-    public PopulateDealsTask(List<Deal> deals, ArrayAdapter arrayAdapter) {
+    public PopulateDealsTask(List<Deal> deals, ArrayAdapter arrayAdapter, Activity activity) {
         this.deals = deals;
         this.arrayAdapter = arrayAdapter;
+        this.activity = activity;
     }
 
     /**
@@ -61,6 +64,7 @@ public class PopulateDealsTask extends UserTask {
                 Log.d(TAG, Agent.getUniqueIDofCurrentlyLoggedIn());
                 return false;
             }
+            System.out.print("DEALS");
             System.out.println(result);
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -78,7 +82,13 @@ public class PopulateDealsTask extends UserTask {
             }
             deals.clear();
             deals.addAll(theDeals);
-            arrayAdapter.notifyDataSetChanged();
+            activity.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            });
             return true;
         } catch (Exception e) {
             Log.e(TAG, "EXCEPTION on homepage>>>", e);

@@ -16,6 +16,7 @@ import am.te.myapplication.Homepage;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
+import am.te.myapplication.Util.AlertDealAdapter;
 import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
@@ -28,11 +29,11 @@ public class PopulateAssociatedDealsTask extends UserTask {
 
     List<Deal> deals;
     Listing listing;
-    ArrayAdapter arrayAdapter;
+    AlertDealAdapter arrayAdapter;
     Activity activity;
 
     public PopulateAssociatedDealsTask(List<Deal> deals, Listing listing,
-                                 ArrayAdapter arrayAdapter, Activity activity) {
+                                       AlertDealAdapter arrayAdapter, Activity activity) {
         this.deals = deals;
         this.listing = listing;
         this.arrayAdapter = arrayAdapter;
@@ -44,8 +45,9 @@ public class PopulateAssociatedDealsTask extends UserTask {
         // get a list of possible friends from database
         ArrayList<Deal> theDeals = new ArrayList<>();
         String TAG = Homepage.class.getSimpleName();
-        String link = "http://artineer.com/sandbox" + "/getdeals.php?listingid="
+        String link = "http://artineer.com/sandbox" + "/getdeals.php?listingID="
                                                     + listing.id;
+        System.out.println(listing.id);
         try {//kek
 
             String result = fetchHTTPResponseAsStr(TAG, link);
@@ -54,7 +56,9 @@ public class PopulateAssociatedDealsTask extends UserTask {
                 Log.d(TAG, result);
                 return false;
             }
+            System.out.print("DEALS");
             String[] resultLines = result.split("<br>");
+
             System.out.println(result);
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -68,7 +72,7 @@ public class PopulateAssociatedDealsTask extends UserTask {
                     String claimed = lineOfArray.getString("claimed");
                     Deal newDeal = new Deal(title, description,
                                             Double.valueOf(price), location,
-                                 Boolean.valueOf(claimed), Integer.valueOf(id));
+                                 Boolean.valueOf(claimed), 1);
                     theDeals.add(newDeal);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage());
@@ -78,6 +82,7 @@ public class PopulateAssociatedDealsTask extends UserTask {
             deals.clear();
             deals.addAll(theDeals);
             Collections.sort(deals);
+
             activity.runOnUiThread(new Runnable() {
 
                 @Override

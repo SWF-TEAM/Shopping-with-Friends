@@ -135,14 +135,15 @@ public class FriendListings extends ActionBarActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_homepage, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu items for use in the action bar
+//        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
+////        MenuInflater inflater = getMenuInflater();
+////        inflater.inflate(R.menu.menu_homepage, menu);
+////        return super.onCreateOptionsMenu(menu);
+//        return null;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -155,9 +156,6 @@ public class FriendListings extends ActionBarActivity {
                 return true;
             case R.id.add_product:
                 addProduct();
-                return true;
-            case R.id.add_deal:
-                addDeal();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

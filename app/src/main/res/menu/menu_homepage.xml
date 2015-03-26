@@ -4,18 +4,11 @@
     <!-- Adds a button to add a new product -->
     <item android:id="@+id/add_product"
         android:icon="@drawable/ic_menu_btn_add"
-        android:title="@string/title_activity_add_product"
-        app:showAsAction="ifRoom"/>
-    <item android:id="@+id/add_deal"
-        android:icon="@drawable/ic_menu_allfriends"
-        android:title="@string/add_deal"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/title_activity_add_product"/>
     <item android:id="@+id/friend_menu"
         android:icon="@drawable/ic_menu_allfriends"
-        android:title="@string/friend_menu"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/friend_menu"/>
     <item android:id="@+id/friends_listings"
         android:icon="@drawable/ic_menu_allfriends"
-        android:title="@string/friends_listings"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/friends_listings"/>
 </menu>

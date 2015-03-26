@@ -70,7 +70,7 @@ public class PopulateFriendsListingsTask extends UserTask {
         for (User friend: friends) {
             String friendID = friend.getId();
             List<Listing> currFriendListings = new ArrayList<>();
-            PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, arrayAdapter, caller);
+            PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, arrayAdapter, caller, "hey");
             mListingsTask.execute(); //should update arrayAdapter automatically with fetch of each friend's listing data
         }
         return true;
