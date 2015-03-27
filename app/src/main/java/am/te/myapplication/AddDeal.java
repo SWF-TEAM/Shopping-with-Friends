@@ -1,9 +1,11 @@
 package am.te.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Service.RegisterDealTask;
@@ -22,10 +24,12 @@ public class AddDeal extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_deal);
-        nameView = (EditText) findViewById(R.id.add_deal_name);
         priceView = (EditText) findViewById(R.id.add_price);
-        locationView = (EditText) findViewById(R.id.add_location);
 //        friendListingId = FriendListings.selectedFriendListing.id;
+        EditText latText = (EditText) findViewById(R.id.lat);
+        latText.setText(String.valueOf(0.0));
+        EditText lngText = (EditText) findViewById(R.id.lng);
+        lngText.setText(String.valueOf(0.0));
     }
 
     public void submitDeal(View view) {
@@ -57,6 +61,30 @@ public class AddDeal extends Activity {
             }
             finish();
         }
+
+    }
+
+    public void openMap(View view) {
+        Intent intent = new Intent(this, Map.class);
+        startActivityForResult(intent, 1);
+
+    }
+    @Override
+    protected void onActivityResult( int aRequestCode, int aResultCode,
+                                     Intent data) {
+//        if (data != null) {
+//            Listing newListing = Listing.getListingFromIntent(data);
+//            products.add(newListing);
+//            arrayAdapter.notifyDataSetChanged();
+//        }
+        Bundle extras = data.getExtras();
+        Double lat = extras.getDouble("lat");
+        Double lng = extras.getDouble("lng");
+        EditText latText = (EditText) findViewById(R.id.lat);
+        latText.setText(String.valueOf(lat));
+        EditText lngText = (EditText) findViewById(R.id.lng);
+        lngText.setText(String.valueOf(lng));
+
 
     }
 }

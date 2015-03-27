@@ -25,5 +25,6 @@
     <string name="title_activity_show_deal">ShowDeal</string>
     <string name="title_activity_deal_details">DealDetails</string>
     <string name="price_hint">Price</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>
