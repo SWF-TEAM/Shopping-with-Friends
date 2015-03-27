@@ -33,8 +33,6 @@ public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleM
         marker.title("Marker");
         marker.draggable(true);
 
-
-
     }
 
     @Override

@@ -35,7 +35,7 @@ public class AddDeal extends Activity {
     public void submitDeal(View view) {
 
         boolean cancel = false; // If an error occurs, cancel the operation
-        String name = nameView.getText().toString();
+        //String name = nameView.getText().toString();
         double price = 0.0;
 
         try {

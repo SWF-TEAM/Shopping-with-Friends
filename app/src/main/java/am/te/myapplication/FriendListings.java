@@ -54,6 +54,7 @@ public class FriendListings extends ActionBarActivity {
     List<Listing> friendListings = new ArrayList<Listing>();
     private PopulateFriendsListingsTask mPopulateFriendsListingsTask;
     List<User> friends = new ArrayList<User>();
+    private boolean notify;
 
     private PopulateFriendsTask mPopulateFriendsTask;
 
@@ -90,7 +91,7 @@ public class FriendListings extends ActionBarActivity {
             for (User friend: friends) {
                 String friendID = friend.getId();
                 List<Listing> currFriendListings = new ArrayList<>();
-                PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, arrayAdapter, this, friendID);
+                PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, notify, arrayAdapter, this, friendID);
                 mListingsTask.execute(); //should update arrayAdapter automatically with fetch of each friend's listing data
                 System.out.println("mListingsTask started execution");
                 try {

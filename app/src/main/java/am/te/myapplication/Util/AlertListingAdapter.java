@@ -90,11 +90,11 @@ public class AlertListingAdapter extends BaseAdapter {
         v.setTag(holder);
 
         //If this item contains new, unseen deals, color the row.
-        if (!(item.hasBeenSeen())) {
-            v.setBackgroundColor(colors[0]); //Green
-        } else {
-            v.setBackgroundColor(colors[1]); //White (default)
-        }
+//        if (!(item.hasBeenSeen())) {
+//            v.setBackgroundColor(colors[0]); //Green
+//        } else {
+//            v.setBackgroundColor(colors[1]); //White (default)
+//        }
 
 
         holder.nameView.setText(item.getName());

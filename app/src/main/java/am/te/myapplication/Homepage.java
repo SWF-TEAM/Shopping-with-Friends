@@ -70,6 +70,8 @@ public class Homepage extends ActionBarActivity {
             mPopulateProductsTask.execute();
         }
 
+        System.out.println("Size of products:" + products.size());
+
         //Continuously search your soul. Do you feel satisfied?
         if (notify) {
             //A toast, to all your sins and regrets

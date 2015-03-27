@@ -38,6 +38,8 @@ public class PopulateFriendsListingsTask extends UserTask {
     AlertListingAdapter arrayAdapter; //arrayadapter to update
     List<Listing> friendsListings; //will be updated
     Activity caller;
+    private boolean notifier;
+
     public PopulateFriendsListingsTask(AlertListingAdapter arrayAdapter, List<Listing> friendsListings, Activity caller) {
         this.arrayAdapter = arrayAdapter;
         this.friendsListings = friendsListings;
@@ -70,7 +72,7 @@ public class PopulateFriendsListingsTask extends UserTask {
         for (User friend: friends) {
             String friendID = friend.getId();
             List<Listing> currFriendListings = new ArrayList<>();
-            PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, arrayAdapter, caller, "hey");
+            PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, notifier, arrayAdapter, caller, "hey");
             mListingsTask.execute(); //should update arrayAdapter automatically with fetch of each friend's listing data
         }
         return true;

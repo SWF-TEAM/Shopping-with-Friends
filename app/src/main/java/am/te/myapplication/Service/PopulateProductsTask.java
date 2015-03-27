@@ -57,25 +57,34 @@ public class PopulateProductsTask extends UserTask {
             System.out.println(result);
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 0; i < jsonArray.length(); i++) {
+                Listing newListing = null;
                 try {
                     JSONObject lineOfArray = jsonArray.getJSONObject(i);
                     String title = lineOfArray.getString("title");
                     String price = lineOfArray.getString("price");
                     String description = lineOfArray.getString("description");
                     String id = lineOfArray.getString("listingID");
-                    String seen = lineOfArray.getString("hasSeenDeals");
-                    Listing newListing = new Listing(title, Double.parseDouble(price), description, id);
-                    newListing.setHasBeenSeen(Boolean.valueOf(seen));
+                    newListing = new Listing(title, Double.parseDouble(price), description, id);
                     theListings.add(newListing);
-
-                    //If it has not been seen
-                    if (!(Boolean.valueOf(seen))) {
-                        //We must notify
-                        notify = true;
-                    }
 
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage());
+                }
+                if (newListing != null) {
+                    try {
+                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
+                        String seen = lineOfArray.getString("hasSeenDeals");
+                        newListing.setHasBeenSeen(Boolean.valueOf(seen));
+
+                        //If it has not been seen
+                        if (!(Boolean.valueOf(seen))) {
+                            //We must notify
+                            notify = true;
+                        }
+
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getMessage());
+                    }
                 }
             }
 
