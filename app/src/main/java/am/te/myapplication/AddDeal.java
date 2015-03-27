@@ -14,9 +14,9 @@ import am.te.myapplication.Service.UserTask;
 
 public class AddDeal extends Activity {
 
-    private EditText nameView;
     private EditText priceView;
-    private EditText locationView;
+    String listingName = "";
+    private String location = "0;0";
     private UserTask mRegisterDealTask;
 
     private String friendListingId;
@@ -30,6 +30,8 @@ public class AddDeal extends Activity {
         latText.setText(String.valueOf(0.0));
         EditText lngText = (EditText) findViewById(R.id.lng);
         lngText.setText(String.valueOf(0.0));
+
+        this.listingName = getIntent().getExtras().getString("listing");
     }
 
     public void submitDeal(View view) {
@@ -48,13 +50,12 @@ public class AddDeal extends Activity {
             cancel = true;
         }
 
-        String location = locationView.getText().toString();
 
         if (!cancel) {
             if (State.local) {
                 //Deal newDeal = new Deal(name, price, location);
             } else {
-                mRegisterDealTask = new RegisterDealTask(name, price,
+                mRegisterDealTask = new RegisterDealTask(listingName, price,
                                                                 location, this);
                 mRegisterDealTask.execute();
                 mRegisterDealTask = null;
@@ -78,12 +79,13 @@ public class AddDeal extends Activity {
 //            arrayAdapter.notifyDataSetChanged();
 //        }
         Bundle extras = data.getExtras();
-        Double lat = extras.getDouble("lat");
-        Double lng = extras.getDouble("lng");
+        String lat = String.valueOf(extras.getDouble("lat"));
+        String lng = String.valueOf(extras.getDouble("lng"));
         EditText latText = (EditText) findViewById(R.id.lat);
-        latText.setText(String.valueOf(lat));
+        latText.setText(lat);
         EditText lngText = (EditText) findViewById(R.id.lng);
-        lngText.setText(String.valueOf(lng));
+        lngText.setText(lng);
+        this.location = lat+";"+lng;
 
 
     }

@@ -50,6 +50,7 @@ public class FriendListingDetails extends Activity {
 
     public void registerDeal(View view) {
         Intent intent = new Intent(this, AddDeal.class);
+        intent.putExtra("listing", currentFriendListing.getName());
         startActivity(intent);
         finish();
     }
