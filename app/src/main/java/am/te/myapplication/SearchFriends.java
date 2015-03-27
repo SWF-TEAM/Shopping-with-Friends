@@ -21,16 +21,16 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
+import am.te.myapplication.Service.AddFriendTask;
 
 
 public class SearchFriends extends Activity {
 
-    private static Set<User> registeredUsers;
     private EditText mNameView;
     private EditText mEmailView;
-    private UserAddTask mUserAddTask;
-    private final String server_url = "http://artineer.com/sandbox";
+    private AddFriendTask mUserAddTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,6 @@ public class SearchFriends extends Activity {
         setContentView(R.layout.activity_search_friends);
         mNameView = (EditText) findViewById(R.id.name);
         mEmailView = (EditText) findViewById(R.id.email);
-
         super.onStart();
     }
 
@@ -52,8 +51,9 @@ public class SearchFriends extends Activity {
     public void search(View view) {
         String name = mNameView.getText().toString();
         String email = mEmailView.getText().toString();
-        mUserAddTask = new UserAddTask(name, email);
+        mUserAddTask = new AddFriendTask(name, email, mEmailView, this);
         mUserAddTask.execute();
+        mUserAddTask = null;
     }
 
 
@@ -84,116 +84,5 @@ public class SearchFriends extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public class UserAddTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mName;
-        private final String mEmail;
-        private User userToAuthenticate;
-        UserAddTask(String name, String email) {
-            mName = name;
-            mEmail = email;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            if (State.local) {
-                //oh no y r u not using database
-                return true;
-            } else {
-                //attempt authentication against a network service.
-                /*
-                try {
-                    // Simulate network access.
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    return false;
-                }
-
-                for (String credential : DUMMY_CREDENTIALS) {
-                    String[] pieces = credential.split(":");
-                    if (pieces[0].equals(mUsername)) {
-                        // Account exists, return true if the password matches.
-                        return pieces[1].equals(mPassword);
-                    }
-                }
-
-                */
-                //database stuff
-                String userToAddKey = getUserKey();
-                if (!userToAddKey.equals("*NOSUCHUSER")) {
-                    System.out.println("ADDING USER");
-                    String link = server_url + "/addfriend.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn + "&friendID=" + userToAddKey;
-                    try {
-                        URL url = new URL(link);
-                        HttpClient client = new DefaultHttpClient();
-                        HttpGet request = new HttpGet();
-                        request.setURI(new URI(link));
-                        HttpResponse response = client.execute(request);
-                        BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                        StringBuffer sb = new StringBuffer("");
-                        String line="";
-                        while ((line = in.readLine()) != null) {
-                            sb.append(line);
-                            break;
-                        }
-                        in.close();
-
-                        return sb.toString().equals("success"); //whether or not user has become friends with the other in database
-                    }catch(Exception e){
-                        return false;
-                    }
-                }
-                return false;
-            }
-        }
-        protected String getUserKey() {
-            String TAG = Register.class.getSimpleName();
-
-            try {
-                String link = "http://artineer.com/sandbox/getuser.php?name=" + Encoder.encode(mName) + "&email=" + Encoder.encode(mEmail);
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line="";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                Log.e(TAG, sb.toString());
-
-                return sb.toString();
-            }catch(Exception e){
-                Log.e(TAG, "EXCEPTION>>>>", e);
-                return "";
-            }
-        }
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mUserAddTask = null;
-
-            if (success) {
-                finish();
-            } else {
-                mEmailView.setError("try a different user");
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mUserAddTask = null;
-        }
-    }
-
-
-
-
-
-
 }
 

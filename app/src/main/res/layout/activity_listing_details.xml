@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:id="@+id/homepage">
-    android:orientation="vertical"
+    android:id="@+id/homepage"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:background="@drawable/card"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:id="@+id/relativeLayout"
+        android:layout_margin="5dp">
 
         <TextView
             android:id="@+id/Name"
@@ -11,24 +23,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:textSize="50dp"
+            android:textSize="24sp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:id="@+id/DesiredPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:textSize="40dp"
-            android:layout_gravity="center_vertical"
-            android:layout_above="@+id/button4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignLeft="@+id/DesiredPrice"
+            android:layout_alignStart="@+id/DesiredPrice"/>
 
         <TextView
             android:id="@+id/AdditionalInfo"
@@ -36,21 +34,38 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:textSize="40dp"
-            android:layout_below="@+id/Name"
+            android:textSize="14sp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_below="@+id/DesiredPrice"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="43dp" />
+            android:layout_alignParentStart="true"/>
 
-        <Button
-            android:text="Express Intrest"
+        <TextView
+            android:id="@+id/DesiredPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button4"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="expressIntrest" />
-</RelativeLayout>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_below="@+id/Name"
+            android:layout_alignLeft="@+id/AdditionalInfo"
+            android:layout_alignStart="@+id/AdditionalInfo"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/deals_listView"
+        android:layout_margin="5dp"/>
+
+
+</LinearLayout>

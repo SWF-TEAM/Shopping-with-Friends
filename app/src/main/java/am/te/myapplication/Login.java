@@ -1,16 +1,11 @@
 package am.te.myapplication;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.os.AsyncTask;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,17 +18,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URL;
-
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
+import am.te.myapplication.Service.LoginTask;
 
 
 /**
@@ -41,8 +32,7 @@ import am.te.myapplication.Model.User;
  */
 public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
-    protected static String uniqueIDofCurrentlyLoggedIn;
-    private UserLoginTask mAuthTask = null;
+    private LoginTask mAuthTask = null;
 
     // UI references.
     private EditText mUsernameView;
@@ -60,7 +50,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         // Set up the login form.
         mUsernameView = (EditText) findViewById(R.id.login_username);
         populateAutoComplete();
-        RegistrationModel.addUser(new User("m", "mmmm"));
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -139,8 +128,10 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            mAuthTask = new UserLoginTask(username, password);
+            mAuthTask = new LoginTask(username, password, this,
+                                  mLoginFormView, mProgressView, mPasswordView);
             mAuthTask.execute((Void) null);
+            mAuthTask = null;
         }
     }
 
@@ -152,48 +143,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() >= 4;
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    public void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
-    private void proceedToHome(View view) {
-        Intent intent = new Intent(this, Homepage.class);
-        startActivity(intent);
-
     }
 
     @Override
@@ -211,83 +160,16 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    @Override
+    public void finish() {
+        proceedToHome();
+        super.finish();
+    }
 
-        private final String mUsername;
-        private final String mPassword;
-        private User userToAuthenticate;
-        UserLoginTask(String username, String password) {
-            mUsername = username;
-            mPassword = password;
-            userToAuthenticate = new User(mUsername, mPassword);
-        }
+    private void proceedToHome() {
+        Intent intent = new Intent(this, Homepage.class);
+        startActivity(intent);
 
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            if (State.local) {
-                return RegistrationModel.getUsers().contains(userToAuthenticate);
-            } else {
-                String loginKey = getLoginKey();
-                if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals("") || loginKey == null)) {
-                    uniqueIDofCurrentlyLoggedIn = loginKey;
-                    return true;
-                }
-                return false;
-            }
-        }
-        protected String getLoginKey() {
-            String TAG = Register.class.getSimpleName();
-            String link = "http://artineer.com/sandbox/getuserlogin.php?username=" + mUsername + "&password=" + mPassword;
-            try {
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line="";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                Log.e(TAG, sb.toString());
-
-                return sb.toString();
-            }catch(Exception e){
-                Log.e(TAG, "EXCEPTION>>>>", e);
-                return "";
-            }
-        }
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                View homeview = new View(getApplicationContext());
-                proceedToHome(homeview);
-                if (State.local) {
-                    User.loggedIn = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(userToAuthenticate));
-                } else {
-                }
-                finish();
-            } else {
-                mPasswordView.setError("Invalid password or username.");
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
     }
 }
 

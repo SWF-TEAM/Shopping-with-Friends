@@ -28,7 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
+import am.te.myapplication.Service.PopulateFriendsTask;
 
 public class FriendList extends ActionBarActivity {
 
@@ -37,8 +39,8 @@ public class FriendList extends ActionBarActivity {
     private ArrayAdapter<User> arrayAdapter;
     List<User> friends = new ArrayList<User>();
     static User selectedFriend;
-    private final String server_url = "http://artineer.com/sandbox";
-    UserPopulateFriendsTask mUserPopulateFriendsTask = null;
+
+    PopulateFriendsTask mPopulateFriendsTask = null;
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -53,15 +55,6 @@ public class FriendList extends ActionBarActivity {
         lv = (ListView) findViewById(R.id.add_friend_listView);
 
         //local
-
-        if (State.local && User.loggedIn != null && User.loggedIn.hasFriends()) {
-            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(User.loggedIn)).getFriends();
-        } else { //database
-
-            mUserPopulateFriendsTask = new UserPopulateFriendsTask();
-            mUserPopulateFriendsTask.execute();
-
-        }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
@@ -69,6 +62,17 @@ public class FriendList extends ActionBarActivity {
                 this,
                 android.R.layout.simple_list_item_1,
                 friends);
+
+        if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasFriends()) {
+            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getFriends();
+        } else { //database
+
+            mPopulateFriendsTask = new PopulateFriendsTask(friends, arrayAdapter, this);
+            mPopulateFriendsTask.execute();
+            mPopulateFriendsTask = null;
+
+        }
+
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -143,84 +147,5 @@ public class FriendList extends ActionBarActivity {
 
     public void refreshArrayAdapter() {
         arrayAdapter.notifyDataSetChanged();
-    }
-    public class UserPopulateFriendsTask extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            //DATABASE SHIT (get a list of possible friends from database)
-            ArrayList<User> theFriends = new ArrayList<>();
-            String TAG = FriendList.class.getSimpleName();
-            String link = server_url + "/listfriends.php?userID=" + Login.uniqueIDofCurrentlyLoggedIn;
-            try {//kek
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line = "";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                in.close();
-                String result = sb.toString();
-                //now need to populate friends with users from result of database query
-                if (result.equals("0 results")) {
-                    Log.d(TAG, result);
-                    return false;
-                }
-                Log.d(TAG, result);
-                JSONArray jsonArray = new JSONArray(result);
-                for (int i = 0; i < jsonArray.length() - 1; i++) {
-                    try {
-                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                        String id = lineOfArray.getString("friendID");
-                        String email = lineOfArray.getString("email");
-                        String name = lineOfArray.getString("name");
-                        String description = lineOfArray.getString("description");
-                        String username = lineOfArray.getString("username");
-                        User friend = new User(username, "", email, id, description, name);
-                        theFriends.add(friend);
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-                }
-//                String[] resultLines = result.split("<br>");
-//                for(int i = 0; i < resultLines.length; i++) {
-//                    String[] fields = resultLines[i].split("~");
-//                    String id = fields[0];
-//                    String email = fields[1];
-//                    String name = fields[2];
-//                    String description = fields[3];
-//                    String username = fields[4];
-//                    User friend = new User(username, "", email, id, description, name);
-//                    theFriends.add(friend);
-//                }
-                friends.clear();
-                friends.addAll(theFriends);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        refreshArrayAdapter();
-                    }
-                });
-
-                return true;
-            } catch (Exception e) {
-                Log.e(TAG, "EXCEPTION while getting friends from database>>>", e);
-                return false;
-            }
-
-        }
-
-
-        @Override
-        protected void onCancelled() {
-            mUserPopulateFriendsTask = null;
-        }
     }
 }

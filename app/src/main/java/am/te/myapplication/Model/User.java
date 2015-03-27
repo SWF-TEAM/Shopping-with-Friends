@@ -7,61 +7,57 @@ import java.util.List;
  * The user class represents a user in the app.
  *
  * @author Mike Adkison, Mitchell Manguno
- * @since 2015 March 01
- * @version 1.2
+ * @since 2015 March 22
+ * @version 2.0
  */
-public class User {
+public class User extends Agent {
 
-    public static User loggedIn;
-    private String username;
-    private String password;
-    private String email;
     private List<User> friendList;
     private List<Listing> itemList;
-    private int rating;
-    private int salesReports;
-    private String id;
+    private List<SalesReport> salesReports;
     private String description;
-    private String name;
+    private int rating;
 
-    public User(String username, String password, String email, String id, String description, String name) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.id = id;
+    /**
+     * Creates a User object with a given username, password, email, id
+     * description, and name.
+     *
+     * @param username the User's username
+     * @param password the User's password
+     * @param email the User's email
+     * @param id the User's id
+     * @param description the User's description
+     * @param name the User's name
+     */
+    public User(String username, String password, String email, String id,
+                String description, String name) {
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setEmail(email);
+        this.setId(id);
+        this.setName(name);
         this.description = description;
-        this.name = name;
-        /*Random rand = new Random();
-        this.rating = rand.nextInt(10);
-        this.salesReports = rand.nextInt(1000);*/
         friendList = new ArrayList<>();
         itemList = new ArrayList<>();
     }
 
-
+    /**
+     * Creates a User object with a given username and password.
+     *
+     * @param username the User's username
+     * @param password the User's password
+     */
     public User(String username, String password) {
         this(username, password, null, null, null, null);
     }
 
-    /* Getters and Setters */
-    public String getUsername() {
-        return username;
-    }
-
-    public String getId() {
-        return id;
-    }
+    /**
+     * Get's this User's description.
+     *
+     * @return this user's description.
+     */
     public String getDescription() {
         return description;
-    }
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {return name;}
-
-    public String getEmail() {
-        return email;
     }
 
     public List<User> getFriends() {
@@ -76,24 +72,8 @@ public class User {
         return rating;
     }
 
-    public int getSalesReports() {
+    public List<SalesReport> getSalesReports() {
         return salesReports;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPassword(String pass) {
-        this.password = pass;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public void setFriendList(List friendList) {
@@ -105,21 +85,22 @@ public class User {
     }
 
     public void setRating(int rating) {
-        this.rating = rating;
+        if (rating > 0 && rating < 6) {
+            this.rating = rating;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public void setSalesReports(int salesReports) {
+    public void setSalesReports(List<SalesReport> salesReports) {
         this.salesReports = salesReports;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    /* Friend List Operations */
+
     public boolean hasFriends() {
         return !friendList.isEmpty();
     }
@@ -133,7 +114,11 @@ public class User {
     }
 
     public User getFriend(User user) {
-        return isFriendsWith(user) ? friendList.get(friendList.indexOf(user)) : null;
+        if (isFriendsWith(user)) {
+            return friendList.get(friendList.indexOf(user));
+        }
+
+        return null;
     }
 
     public boolean isFriendsWith(User user) {
@@ -142,7 +127,7 @@ public class User {
 
     public User getFriend(String username) {
         for (User friend: friendList) {
-            if (username.equals(friend.username)) {
+            if (username.equals(friend.getUsername())) {
                 System.out.println("Name");
                 return friend;
             }
@@ -154,7 +139,7 @@ public class User {
         friendList.remove(user);
     }
 
-    /* Item List Operations */
+
     public boolean hasItems() {
         return !itemList.isEmpty();
     }
@@ -181,7 +166,31 @@ public class User {
         return itemList.contains(product);
     }
 
-    /* Object Overrides */
+
+    public boolean hasSalesReports() {
+        return !salesReports.isEmpty();
+    }
+
+    public boolean addSalesReport(SalesReport newReport) {
+        if (!salesReports.contains(newReport)) {
+            salesReports.add(newReport);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasSalesReport(SalesReport salesReport) {
+        return salesReports.contains(salesReport);
+    }
+
+    public int getSalesReportNumber() {
+        if (hasSalesReports()) {
+            return salesReports.size();
+        }
+
+        return 0;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof User)) {

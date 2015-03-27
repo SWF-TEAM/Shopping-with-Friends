@@ -24,8 +24,9 @@
                 android:hint="@string/prompt_username"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
+                android:singleLine="true"
                 android:imeOptions="actionNext"
-                android:singleLine="true" />
+                />
 
             <AutoCompleteTextView android:id="@+id/password"
                 android:layout_width="match_parent"

@@ -2,53 +2,42 @@ package am.te.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URL;
+import android.widget.TextView;
 
 import am.te.myapplication.Model.Deal;
-import am.te.myapplication.Model.Listing;
-import am.te.myapplication.Model.User;
+import am.te.myapplication.Service.RegisterDealTask;
+import am.te.myapplication.Service.UserTask;
 
 
 public class AddDeal extends Activity {
 
-    private EditText nameView;
     private EditText priceView;
-    private EditText locationView;
-    private UserRegisterDealTask mRegisterDealTask;
-    private final String server_url = "http://artineer.com/sandbox";
+    String listingName = "";
+    private String location = "0;0";
+    private UserTask mRegisterDealTask;
+
+    private String friendListingId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_deal);
-        nameView = (EditText) findViewById(R.id.add_deal_name);
         priceView = (EditText) findViewById(R.id.add_price);
-        locationView = (EditText) findViewById(R.id.add_location);
-    }
+//        friendListingId = FriendListings.selectedFriendListing.id;
+        EditText latText = (EditText) findViewById(R.id.lat);
+        latText.setText(String.valueOf(0.0));
+        EditText lngText = (EditText) findViewById(R.id.lng);
+        lngText.setText(String.valueOf(0.0));
 
+        this.listingName = getIntent().getExtras().getString("listing");
+    }
 
     public void submitDeal(View view) {
 
-
-        boolean cancel = false; /* If an error occurs, cancel the operation */
-        String name = nameView.getText().toString();
+        boolean cancel = false; // If an error occurs, cancel the operation
+        //String name = nameView.getText().toString();
         double price = 0.0;
 
         try {
@@ -61,98 +50,45 @@ public class AddDeal extends Activity {
             cancel = true;
         }
 
-        String location = locationView.getText().toString();
 
         if (!cancel) {
             if (State.local) {
-                Deal newDeal = new Deal(name, price, location);
+                //Deal newDeal = new Deal(name, price, location);
             } else {
-                //databasey stuff
-                mRegisterDealTask = new UserRegisterDealTask(name, price, location);
+                mRegisterDealTask = new RegisterDealTask(listingName, price,
+                                                                location, this);
                 mRegisterDealTask.execute();
-
+                mRegisterDealTask = null;
             }
             finish();
         }
 
-
     }
 
+    public void openMap(View view) {
+        Intent intent = new Intent(this, Map.class);
+        startActivityForResult(intent, 1);
 
+    }
+    @Override
+    protected void onActivityResult( int aRequestCode, int aResultCode,
+                                     Intent data) {
+//        if (data != null) {
+//            Listing newListing = Listing.getListingFromIntent(data);
+//            products.add(newListing);
+//            arrayAdapter.notifyDataSetChanged();
+//        }
+        Bundle extras = data.getExtras();
+        String lat = String.valueOf(extras.getDouble("lat"));
+        String lng = String.valueOf(extras.getDouble("lng"));
+        System.out.println("Lat: " + lat);
+        System.out.println("Lng: " + lng);
+        EditText latText = (EditText) findViewById(R.id.lat);
+        latText.setText(lat);
+        EditText lngText = (EditText) findViewById(R.id.lng);
+        lngText.setText(lng);
+        this.location = lat+";"+lng;
 
-
-
-    public class UserRegisterDealTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mName;
-        private final Double mPrice;
-        private final String mLocation;
-
-        public UserRegisterDealTask(String name, Double price, String location) {
-            mName = name;
-            mPrice = price;
-            mLocation = location;
-        }
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            if (State.local) {
-                //lol pls no local
-                return false;
-            } else {
-                // authentication against a network service.
-                // check if user is in system
-                // register user if not in system
-                return registerProduct();
-            }
-        }
-
-        protected boolean registerProduct() {
-            String TAG = AddListing.class.getSimpleName();
-            String link = null;
-            try {
-                link = server_url + "/adddeal2.php?Title=" + Encoder.encode(mName) + "&Location=" + Encoder.encode(mLocation) + "&Price=" + mPrice + "&userID=" + Login.uniqueIDofCurrentlyLoggedIn;
-            } catch(UnsupportedEncodingException e){
-                Log.e(TAG, "url encoding failed");
-            }
-            try {
-                URL url = new URL(link);
-                HttpClient client = new DefaultHttpClient();
-                HttpGet request = new HttpGet();
-                request.setURI(new URI(link));
-                HttpResponse response = client.execute(request);
-                BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer sb = new StringBuffer("");
-                String line="";
-                while ((line = in.readLine()) != null) {
-                    sb.append(line);
-                    break;
-                }
-                System.out.println(sb.toString());
-                in.close();
-                Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                Log.d(TAG, sb.toString());
-                return sb.toString().equals("Deal Values have been inserted successfully\\n");
-            }catch(Exception e){
-                Log.e(TAG, "EXCEPTION>>>>", e);
-                return false;
-            }
-        }
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mRegisterDealTask = null;
-            //showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                //database says this product already exists
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mRegisterDealTask= null;
-        }
 
     }
 }

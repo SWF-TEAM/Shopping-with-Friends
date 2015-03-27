@@ -1,5 +1,10 @@
 package am.te.myapplication.Model;
 
+import android.content.Intent;
+import android.os.Bundle;
+
+import java.util.List;
+
 /**
  * The product class represents a product that a user desires.
  *
@@ -7,11 +12,13 @@ package am.te.myapplication.Model;
  * @since 2015 February 23
  */
 
-public class Listing {
+public class Listing implements Comparable<Listing>{
 
+    private List<Deal> associatedDeals;
     private String name;
     private double desiredPrice;
     private String additionalInfo;
+    private boolean hasBeenSeen;
     private int productID;
     public String id;
 
@@ -56,6 +63,22 @@ public class Listing {
         this.additionalInfo = additionalInfo;
     }
 
+    public List<Deal> getAssociatedDeals() {
+        return associatedDeals;
+    }
+
+    public void setAssociatedDeals(List<Deal> associatedDeals) {
+        this.associatedDeals = associatedDeals;
+    }
+
+    public boolean hasBeenSeen() {
+        return hasBeenSeen;
+    }
+
+    public void setHasBeenSeen(boolean hasBeenSeen) {
+        this.hasBeenSeen = hasBeenSeen;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -77,7 +100,8 @@ public class Listing {
         int hash = 7;
         hash += 31 * hash + name.hashCode();
         hash += 127 * hash + desiredPrice;
-        hash += 8191 * hash + additionalInfo.hashCode();
+        int adHash = additionalInfo == null ? 0 : additionalInfo.hashCode();
+        hash += 8191 * hash + adHash;
         return hash;
     }
 
@@ -85,6 +109,17 @@ public class Listing {
     public String toString() {
         return "Name: " + name + ", Price: " + desiredPrice
             + ", Additional Info: " + additionalInfo;
+    }
+
+    public static Listing getListingFromIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        Listing newListing = new Listing(extras.getString("Name"), extras.getDouble("Price"), extras.getString("Additional"));
+        return newListing;
+    }
+
+    @Override
+    public int compareTo(Listing another) {
+        return this.name.compareTo(another.name);
     }
 
  }

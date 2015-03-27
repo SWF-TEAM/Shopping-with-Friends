@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!--
+    See http://www.javacodegeeks.com/2013/06/
+    android-listview-background-row-style-rounded-corner-alternate-color.html
+    -->
+
+    <solid android:color="#99CC00" />
+
+</shape>

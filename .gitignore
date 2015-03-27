@@ -1,12 +1,11 @@
 **/build
 **/bin/
 **/gen/
+**/.idea/
+/.idea/codeStyleSettings.xml
 **/.gradle
 **/local.properties
-**/.idea/dictionaries
-**/.idea/workspace.xml
-**/.idea/tasks.xml
-**/.idea/libraries/*.xml
+*.iml
 *.iws
 *.properties
 *~
@@ -22,3 +21,6 @@
 *.project
 *.jar
 *.log
+.idea/misc.xml
+app/app.iml
+app/build.gradle
