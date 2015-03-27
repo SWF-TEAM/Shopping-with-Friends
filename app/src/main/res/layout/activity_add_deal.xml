@@ -9,44 +9,16 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/add_deal_name"
-        android:hint="@string/add_product_name_hint"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeOptions="actionNext"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:id="@+id/add_price"
         android:numeric="decimal"
         android:hint="Enter Price"
-        android:layout_below="@+id/add_deal_name"
+        android:layout_marginTop="99dp"
+        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_location"
-        android:hint="Location"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeOptions="actionNext"
-        android:layout_below="@+id/add_price"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/add_price"
-        android:layout_alignEnd="@+id/add_price" />
 
     <Button
         android:layout_width="wrap_content"
@@ -56,9 +28,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/add_location"
-        android:layout_alignEnd="@+id/add_location"
-        android:onClick="submitDeal" />
+        android:onClick="submitDeal"
+        android:layout_alignRight="@+id/add_price"
+        android:layout_alignEnd="@+id/add_price" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -67,6 +39,73 @@
         android:text="@string/add_deal_title"
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Location"
+        android:id="@+id/get_location"
+        android:onClick="openMap"
+        android:layout_below="@+id/lng"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/lng"
+        android:layout_alignEnd="@+id/lng" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lat"
+        android:focusable="false"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/add_price"
+        android:layout_alignEnd="@+id/add_price"
+        android:textAlignment="center"
+        android:gravity="center" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lng"
+        android:focusable="false"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/lat"
+        android:layout_alignEnd="@+id/lat"
+        android:textAlignment="center"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Use the button to get location"
+        android:id="@+id/textView3"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/add_price"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Latitude:"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Longitude:"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/lat"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
