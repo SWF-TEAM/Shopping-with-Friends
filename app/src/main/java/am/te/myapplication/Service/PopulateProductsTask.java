@@ -22,12 +22,16 @@ import am.te.myapplication.Util.AlertListingAdapter;
  */
 public class PopulateProductsTask extends UserTask {
 
-    List<Listing> products;
-    AlertListingAdapter arrayAdapter;
-    Activity activity;
-    String id;
-    public PopulateProductsTask(List<Listing> products, AlertListingAdapter arrayAdapter, Activity activity, String id) {
+    private List<Listing> products;
+    private AlertListingAdapter arrayAdapter;
+    private Activity activity;
+    private String id;
+    private boolean notify;
+
+    public PopulateProductsTask(List<Listing> products, boolean notify,
+               AlertListingAdapter arrayAdapter, Activity activity, String id) {
         this.products = products;
+        this.notify = notify;
         this.arrayAdapter = arrayAdapter;
         this.activity = activity;
         this.id = id;
@@ -59,9 +63,17 @@ public class PopulateProductsTask extends UserTask {
                     String price = lineOfArray.getString("price");
                     String description = lineOfArray.getString("description");
                     String id = lineOfArray.getString("listingID");
-
+                    String seen = lineOfArray.getString("hasSeenDeals");
                     Listing newListing = new Listing(title, Double.parseDouble(price), description, id);
+                    newListing.setHasBeenSeen(Boolean.valueOf(seen));
                     theListings.add(newListing);
+
+                    //If it has not been seen
+                    if (!(Boolean.valueOf(seen))) {
+                        //We must notify
+                        notify = true;
+                    }
+
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage());
                 }

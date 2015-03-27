@@ -24,6 +24,7 @@ import am.te.myapplication.R;
  */
 public class AlertListingAdapter extends BaseAdapter {
 
+    private static int[] colors = new int[] { 0x99CC00, 0xFFFFFF };
     LayoutInflater inflater;
     List<Listing> items;
     int rowLayout;
@@ -89,11 +90,11 @@ public class AlertListingAdapter extends BaseAdapter {
         v.setTag(holder);
 
         //If this item contains new, unseen deals, color the row.
-        //if (item.hasThresholdDeal() && !(item.hasBeenSeen())) {
-        //    v.setBackgroundResource(R.drawable.alerted_row);
-        //} else {
-        //    v.setBackgroundResource(R.drawable.normal_row);
-        //}
+        if (!(item.hasBeenSeen())) {
+            v.setBackgroundColor(colors[0]); //Green
+        } else {
+            v.setBackgroundColor(colors[1]); //White (default)
+        }
 
 
         holder.nameView.setText(item.getName());

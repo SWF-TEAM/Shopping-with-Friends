@@ -18,7 +18,6 @@ public class Listing implements Comparable<Listing>{
     private String name;
     private double desiredPrice;
     private String additionalInfo;
-    private boolean hasThresholdDeal;
     private boolean hasBeenSeen;
     private int productID;
     public String id;
@@ -70,14 +69,6 @@ public class Listing implements Comparable<Listing>{
 
     public void setAssociatedDeals(List<Deal> associatedDeals) {
         this.associatedDeals = associatedDeals;
-    }
-
-    public boolean hasThresholdDeal() {
-        return hasThresholdDeal;
-    }
-
-    public void setHasThresholdDeal(boolean hasThresholdDeal) {
-        this.hasThresholdDeal = hasThresholdDeal;
     }
 
     public boolean hasBeenSeen() {

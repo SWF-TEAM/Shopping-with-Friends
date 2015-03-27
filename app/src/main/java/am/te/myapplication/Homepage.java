@@ -41,6 +41,7 @@ public class Homepage extends ActionBarActivity {
     List<Deal> deals = new ArrayList<>();
     private PopulateProductsTask mPopulateProductsTask;
     private PopulateDealsTask mPopulateDealsTask;
+    private boolean notify;
     static Listing selectedListing;
 
     @Override
@@ -64,10 +65,22 @@ public class Homepage extends ActionBarActivity {
                                             Agent.getLoggedIn())).getItemList();
         } else {
             /* Get products from the database. */
-            mPopulateProductsTask = new PopulateProductsTask(products, arrayAdapter, this, User.getUniqueIDofCurrentlyLoggedIn());
+            mPopulateProductsTask = new PopulateProductsTask(products, notify,
+                     arrayAdapter, this, User.getUniqueIDofCurrentlyLoggedIn());
             mPopulateProductsTask.execute();
-
         }
+
+        //Continuously search your soul. Do you feel satisfied?
+        if (notify) {
+            //A toast, to all your sins and regrets
+            Context context = getApplicationContext();
+            CharSequence text = "Your listings have new deals!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
