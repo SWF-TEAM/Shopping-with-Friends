@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class ListingDetails extends Activity {
     private List<Deal> deals;
     private ListView lv;
     private AlertDealAdapter adapter;
+    private double latitude;
+    private double longitude;
 
     @Override
     public void onStart() {
@@ -58,17 +62,29 @@ public class ListingDetails extends Activity {
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                                        int position, long id) {
-                /*
-                Pass the information to either a Deal details page, or to a map.
-                 */
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Pass user clicked on to new Friend Details Page
+                String latLong = deals.get(position).getLocation();
+                String[] latLongArr = latLong.split(";");
+                System.out.println(latLong);
+                latitude = Double.valueOf(latLongArr[0]);
+                longitude = Double.valueOf(latLongArr[1]);
+                LatLng loc = new LatLng(latitude, longitude);
+                openMap(lv);
             }
         });
 
         adapter.notifyDataSetChanged();
 
         super.onStart();
+    }
+
+    public void openMap(View view) {
+        Intent intent = new Intent(this, Map.class);
+        intent.putExtra("latitude", latitude);
+        intent.putExtra("longitude", longitude);
+        startActivityForResult(intent, 1);
+
     }
 
     @Override

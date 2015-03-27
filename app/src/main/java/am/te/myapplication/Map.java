@@ -17,19 +17,28 @@ public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleM
 
     MarkerOptions marker = new MarkerOptions();
     GoogleMap map;
-    private static LatLng position = new LatLng(0, 0);
+    private LatLng position = new LatLng(0, 0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
 
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            double longitude = extras.getDouble("longitude");
+            double latitude = extras.getDouble("latitude");
+            this.position = new LatLng(latitude, longitude);
+        }
+
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         // Making the Marker
-        marker.position(new LatLng(0, 0));
+        marker.position(position);
         marker.title("Marker");
         marker.draggable(true);
 

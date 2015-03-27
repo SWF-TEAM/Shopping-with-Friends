@@ -68,6 +68,8 @@ public class PopulateAssociatedDealsTask extends UserTask {
                     String title = lineOfArray.getString("Title");
                     String description = lineOfArray.getString("Description");
                     String price = lineOfArray.getString("Price");
+                    System.out.println(title);
+                    System.out.println(price);
                     String location = lineOfArray.getString("Location");
                     String claimed = lineOfArray.getString("claimed");
                     Deal newDeal = new Deal(title, description,

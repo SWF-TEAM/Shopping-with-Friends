@@ -81,6 +81,8 @@ public class AddDeal extends Activity {
         Bundle extras = data.getExtras();
         String lat = String.valueOf(extras.getDouble("lat"));
         String lng = String.valueOf(extras.getDouble("lng"));
+        System.out.println("Lat: " + lat);
+        System.out.println("Lng: " + lng);
         EditText latText = (EditText) findViewById(R.id.lat);
         latText.setText(lat);
         EditText lngText = (EditText) findViewById(R.id.lng);
