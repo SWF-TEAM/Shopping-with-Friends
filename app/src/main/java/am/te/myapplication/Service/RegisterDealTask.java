@@ -83,8 +83,7 @@ public class RegisterDealTask extends UserTask {
             Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
                                                           + ">>>>>>>>>>>>>>>>");
             Log.d(TAG, "RESPONSE TO REGISTER DEAL: " + response);
-            return response.equals("Deal Values have been inserted"
-                                                          + " successfully\\n");
+            return !response.contains("fail");
         }catch(Exception e){
             Log.e(TAG, "EXCEPTION>>>>", e);
             return false;
