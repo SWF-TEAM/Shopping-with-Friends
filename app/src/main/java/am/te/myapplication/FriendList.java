@@ -55,16 +55,6 @@ public class FriendList extends ActionBarActivity {
         lv = (ListView) findViewById(R.id.add_friend_listView);
 
         //local
-
-        if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasFriends()) {
-            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getFriends();
-        } else { //database
-
-            mPopulateFriendsTask = new PopulateFriendsTask(friends);
-            mPopulateFriendsTask.execute();
-            mPopulateFriendsTask = null;
-
-        }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
@@ -72,6 +62,17 @@ public class FriendList extends ActionBarActivity {
                 this,
                 android.R.layout.simple_list_item_1,
                 friends);
+
+        if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasFriends()) {
+            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getFriends();
+        } else { //database
+
+            mPopulateFriendsTask = new PopulateFriendsTask(friends, arrayAdapter, this);
+            mPopulateFriendsTask.execute();
+            mPopulateFriendsTask = null;
+
+        }
+
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -1,7 +1,9 @@
 package am.te.myapplication.Service;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -28,9 +30,17 @@ import am.te.myapplication.Model.User;
 
 public class PopulateFriendsTask extends UserTask {
     List<User> toPopulate;
+    ArrayAdapter adapter;
+    Activity activity;
 
     public PopulateFriendsTask(List<User> toPopulate) {
         this.toPopulate = toPopulate;
+    }
+
+    public PopulateFriendsTask(List<User> toPopulate, ArrayAdapter adapter, Activity activity) {
+        this.toPopulate = toPopulate;
+        this.adapter = adapter;
+        this.activity = activity;
     }
 
     @Override
@@ -71,6 +81,15 @@ public class PopulateFriendsTask extends UserTask {
         System.out.println("the number of friends to be populated into list is: " + theFriends.size());
         toPopulate.clear();
         toPopulate.addAll(theFriends);
+        if (adapter != null) {
+            activity.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
         return true;
     }
 
