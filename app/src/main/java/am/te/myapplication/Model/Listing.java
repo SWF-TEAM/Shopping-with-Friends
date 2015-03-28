@@ -3,6 +3,8 @@ package am.te.myapplication.Model;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 /**
@@ -117,7 +119,7 @@ public class Listing implements Comparable<Listing>{
     }
 
     @Override
-    public int compareTo(Listing another) {
+    public int compareTo(@NonNull Listing another) {
         return this.name.compareTo(another.name);
     }
 

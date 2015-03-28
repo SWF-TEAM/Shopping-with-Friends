@@ -19,15 +19,14 @@ import am.te.myapplication.Util.AlertListingAdapter;
 public class PopulateFriendsListingsTask extends UserTask {
 
     private AlertListingAdapter arrayAdapter; //arrayadapter to update
-    private List<Listing> friendsListings; //will be updated
     private Activity caller;
     private boolean notifier;
 
-    public PopulateFriendsListingsTask(AlertListingAdapter arrayAdapter, List<Listing> friendsListings, Activity caller) {
+    public PopulateFriendsListingsTask(AlertListingAdapter arrayAdapter, Activity caller) {
         this.arrayAdapter = arrayAdapter;
-        this.friendsListings = friendsListings;
         this.caller = caller;
     }
+
     /**
      * populates deals ArrayList with info from database
      *
@@ -51,19 +50,11 @@ public class PopulateFriendsListingsTask extends UserTask {
         }
 
         /*now iterate thru list of friends and get their listings*/
-        List<Listing> allListings = new ArrayList<>();
-        for (User friend: friends) {
-            String friendID = friend.getId();
+        for (User friend : friends) {
             List<Listing> currFriendListings = new ArrayList<>();
             PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, notifier, arrayAdapter, caller, "hey");
             mListingsTask.execute(); //should update arrayAdapter automatically with fetch of each friend's listing data
         }
         return true;
     }
-
-
-   /* @Override
-    protected void onCancelled() {
-        mPopulateDealsTask = null;
-    }*/
 }

@@ -24,7 +24,8 @@ public class PopulateFriendsTask extends UserTask {
         this.toPopulate = toPopulate;
     }
 
-    public PopulateFriendsTask(List<User> toPopulate, ArrayAdapter adapter, Activity activity) {
+    public PopulateFriendsTask(List<User> toPopulate, ArrayAdapter adapter,
+                               Activity activity) {
         this.toPopulate = toPopulate;
         this.adapter = adapter;
         this.activity = activity;
@@ -37,7 +38,8 @@ public class PopulateFriendsTask extends UserTask {
         ArrayList<User> theFriends = new ArrayList<>();
         String TAG = PopulateFriendsTask.class.getSimpleName();
 
-        String link = server_url + "/listfriends.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
+        String link = server_url + "/listfriends.php?userID="
+                                 + Agent.getUniqueIDofCurrentlyLoggedIn();
         String result = fetchHTTPResponseAsStr(TAG, link);
         if (result.equals("0 results")) {
             Log.d(TAG, result);
@@ -50,32 +52,34 @@ public class PopulateFriendsTask extends UserTask {
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
-        for (int i = 0; i < jsonArray.length() - 1; i++) {
-            try {
-                JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                String id = lineOfArray.getString("friendID");
-                String email = lineOfArray.getString("email");
-                String name = lineOfArray.getString("name");
-                String description = lineOfArray.getString("description");
-                String username = lineOfArray.getString("username");
-                User friend = new User(username, "", email, id, description, name);
-                theFriends.add(friend);
-            } catch (JSONException e) {
-                Log.e(TAG, e.getMessage());
-            }
-        }
-        System.out.println("all went well with getting friend data");
-        System.out.println("the number of friends to be populated into list is: " + theFriends.size());
-        toPopulate.clear();
-        toPopulate.addAll(theFriends);
-        if (adapter != null) {
-            activity.runOnUiThread(new Runnable() {
 
-                @Override
-                public void run() {
-                    adapter.notifyDataSetChanged();
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.length() - 1; i++) {
+                try {
+                    JSONObject lineOfArray = jsonArray.getJSONObject(i);
+                    String id = lineOfArray.getString("friendID");
+                    String email = lineOfArray.getString("email");
+                    String name = lineOfArray.getString("name");
+                    String description = lineOfArray.getString("description");
+                    String username = lineOfArray.getString("username");
+                    User friend = new User(username, "", email, id, description,
+                                           name);
+                    theFriends.add(friend);
+                } catch (JSONException e) {
+                    Log.e(TAG, e.getMessage());
                 }
-            });
+            }
+            toPopulate.clear();
+            toPopulate.addAll(theFriends);
+            if (adapter != null) {
+                activity.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
         }
         return true;
     }

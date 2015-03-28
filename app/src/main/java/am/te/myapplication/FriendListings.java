@@ -15,7 +15,6 @@ import java.util.concurrent.ExecutionException;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
-import am.te.myapplication.Service.PopulateFriendsListingsTask;
 import am.te.myapplication.Service.PopulateFriendsTask;
 import am.te.myapplication.Service.PopulateProductsTask;
 import am.te.myapplication.Service.UserTask;
@@ -32,7 +31,6 @@ public class FriendListings extends ActionBarActivity {
 
     private AlertListingAdapter arrayAdapter;
     List<Listing> friendListings = new ArrayList<Listing>();
-    private PopulateFriendsListingsTask mPopulateFriendsListingsTask;
     List<User> friends = new ArrayList<User>();
     private boolean notify;
 
@@ -96,15 +94,10 @@ public class FriendListings extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(), FriendListingDetails.class);
-                if (State.local) {
-                   // i.putExtra("products", products.get(position).getName());
-                   // why are u local
-                   // stop that
-                } else {
+                if (!State.local) {
                     selectedFriendListing = friendListings.get(position);
                 }
                 startActivity(i);
-
             }
         });
 

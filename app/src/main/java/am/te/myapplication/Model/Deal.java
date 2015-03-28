@@ -1,5 +1,7 @@
 package am.te.myapplication.Model;
 
+import android.support.annotation.NonNull;
+
 /**
  * Defines a deal that meets the price threshold of a listing.
  *
@@ -104,11 +106,7 @@ public class Deal implements Comparable<Deal> {
     }
 
     @Override
-    public int compareTo(Deal other) {
-        if (other == null) {
-            return 9;
-        }
-
+    public int compareTo(@NonNull Deal other) {
         return this.name.compareTo(other.name);
     }
 }

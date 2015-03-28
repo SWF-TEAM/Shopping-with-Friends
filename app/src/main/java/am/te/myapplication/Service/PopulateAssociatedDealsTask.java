@@ -53,15 +53,11 @@ public class PopulateAssociatedDealsTask extends UserTask {
                 Log.d(TAG, result);
                 return false;
             }
-            System.out.print("DEALS");
-            String[] resultLines = result.split("<br>");
 
-            System.out.println(result);
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                    String id = lineOfArray.getString("dealID");
                     String title = lineOfArray.getString("Title");
                     String description = lineOfArray.getString("Description");
                     String price = lineOfArray.getString("Price");

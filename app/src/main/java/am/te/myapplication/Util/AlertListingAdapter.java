@@ -23,7 +23,7 @@ import am.te.myapplication.R;
  */
 public class AlertListingAdapter extends BaseAdapter {
 
-    private static int[] colors = new int[] { 0x99CC00, 0xFFFFFF };
+    //private static int[] colors = new int[] { 0x99CC00, 0xFFFFFF };
     LayoutInflater inflater;
     List<Listing> items;
     int rowLayout;

@@ -8,8 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +62,6 @@ public class ListingDetails extends Activity {
                 System.out.println(latLong);
                 latitude = Double.valueOf(latLongArr[0]);
                 longitude = Double.valueOf(latLongArr[1]);
-                LatLng loc = new LatLng(latitude, longitude);
                 openMap(lv);
             }
         });

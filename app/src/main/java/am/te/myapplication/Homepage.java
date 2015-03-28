@@ -107,13 +107,6 @@ public class Homepage extends ActionBarActivity {
         });
 
         arrayAdapter.notifyDataSetChanged();
-
-        boolean foundDeal = false;
-
-        System.out.println("Deals: " + deals.size());
-        System.out.println("Listing: " + products.size());
-
-
         super.onStart();
 
     }

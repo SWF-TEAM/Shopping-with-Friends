@@ -28,7 +28,6 @@ public class FriendList extends ActionBarActivity {
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        String TAG = Register.class.getSimpleName();
         setContentView(R.layout.activity_friend_list);
     }
     @Override

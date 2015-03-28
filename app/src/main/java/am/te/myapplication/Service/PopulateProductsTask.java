@@ -51,8 +51,6 @@ public class PopulateProductsTask extends UserTask {
                 Log.d(TAG, result);
                 return false;
             }
-            String[] resultLines = result.split("<br>");
-            System.out.println(result);
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 0; i < jsonArray.length(); i++) {
                 Listing newListing = null;

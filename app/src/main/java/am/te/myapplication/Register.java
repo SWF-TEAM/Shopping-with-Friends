@@ -127,32 +127,25 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         String password2 = mPasswordView2.getText().toString();
 
         boolean cancel = false;
-        View focusView = null;
-
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password)
          && !Validation.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
             cancel = true;
         } else if (!Validation.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
             cancel = true;
         }
         // Check for same passwords
         boolean passSame = Validation.arePasswordsSame(password,password2);
-        if (passSame) {
-            //
-        } else {
+        if (!passSame) {
             Context context = getApplicationContext();
             CharSequence text = "Passwords don't match!";
             int duration = Toast.LENGTH_SHORT;
@@ -164,8 +157,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            focusView = mPasswordView;
-            focusView.requestFocus();
+            mPasswordView.requestFocus();
         } else {
 
             UserTask mAuthTask = new RegisterTask(username, name, email,

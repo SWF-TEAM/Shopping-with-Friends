@@ -12,7 +12,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URL;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Register;
@@ -83,7 +82,6 @@ public class AddFriendTask extends UserTask {
         try {
             String link = server_url + "/getuser.php?name=" + encode(mName)
                                      + "&email=" + encode(mEmail);
-            URL url = new URL(link);
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet();
             request.setURI(new URI(link));
@@ -91,7 +89,7 @@ public class AddFriendTask extends UserTask {
             BufferedReader in = new BufferedReader(
                       new InputStreamReader(response.getEntity().getContent()));
             StringBuffer sb = new StringBuffer("");
-            String line="";
+            String line;
             while ((line = in.readLine()) != null) {
                 sb.append(line);
                 break;

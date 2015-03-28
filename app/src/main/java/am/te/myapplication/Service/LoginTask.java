@@ -50,8 +50,7 @@ public class LoginTask extends UserTask {
             return RegistrationModel.getUsers().contains(userToAuthenticate);
         } else {
             String loginKey = getLoginKey();
-            if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals("")
-                                                 || loginKey == null)) {
+            if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals(""))) {
                 Agent.setUniqueIDofCurrentlyLoggedIn(loginKey);
                 return true;
             }
@@ -69,9 +68,7 @@ public class LoginTask extends UserTask {
     @Override
     protected void onPostExecute(final Boolean success) {
        showProgress(false);
-        if (success) {
-//            mActivity.finish();
-        } else {
+        if (!success) {
             mPasswordView.setError("Invalid password or username.");
             mPasswordView.requestFocus();
         }
