@@ -21,6 +21,7 @@ import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateDealsTask;
 import am.te.myapplication.Service.PopulateProductsTask;
+import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
@@ -37,7 +38,6 @@ public class Homepage extends ActionBarActivity {
     private AlertListingAdapter arrayAdapter;
     List<Listing> products = new ArrayList<Listing>();
     List<Deal> deals = new ArrayList<>();
-    private PopulateProductsTask mPopulateProductsTask;
     private PopulateDealsTask mPopulateDealsTask;
     private boolean notify;
     static Listing selectedListing;
@@ -63,8 +63,11 @@ public class Homepage extends ActionBarActivity {
                                             Agent.getLoggedIn())).getItemList();
         } else {
             /* Get products from the database. */
-            mPopulateProductsTask = new PopulateProductsTask(products, notify,
-                     arrayAdapter, this, User.getUniqueIDofCurrentlyLoggedIn());
+            UserTask mPopulateProductsTask = new PopulateProductsTask(products,
+                                                                      notify,
+                                                                   arrayAdapter,
+                                                                      this,
+                                         User.getUniqueIDofCurrentlyLoggedIn());
             mPopulateProductsTask.execute();
         }
 

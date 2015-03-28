@@ -15,7 +15,6 @@ public class AddDeal extends Activity {
     private EditText priceView;
     String listingName = "";
     private String location = "0;0";
-    private UserTask mRegisterDealTask;
 
     private String friendListingId;
     @Override
@@ -53,8 +52,8 @@ public class AddDeal extends Activity {
             if (State.local) {
                 //Deal newDeal = new Deal(name, price, location);
             } else {
-                mRegisterDealTask = new RegisterDealTask(listingName, price,
-                                                                location, this);
+                UserTask mRegisterDealTask = new RegisterDealTask(listingName,
+                                                         price, location, this);
                 mRegisterDealTask.execute();
                 mRegisterDealTask = null;
             }

@@ -18,6 +18,7 @@ import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateFriendsListingsTask;
 import am.te.myapplication.Service.PopulateFriendsTask;
 import am.te.myapplication.Service.PopulateProductsTask;
+import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
@@ -29,14 +30,11 @@ import am.te.myapplication.Util.AlertListingAdapter;
  */
 public class FriendListings extends ActionBarActivity {
 
-    private ListView lv;
     private AlertListingAdapter arrayAdapter;
     List<Listing> friendListings = new ArrayList<Listing>();
     private PopulateFriendsListingsTask mPopulateFriendsListingsTask;
     List<User> friends = new ArrayList<User>();
     private boolean notify;
-
-    private PopulateFriendsTask mPopulateFriendsTask;
 
     public static Listing selectedFriendListing;
     @Override
@@ -48,7 +46,7 @@ public class FriendListings extends ActionBarActivity {
     @Override
     public void onStart() {
 
-        lv = (ListView) findViewById(R.id.activity_friends_listings_listView);
+        ListView lv = (ListView) findViewById(R.id.activity_friends_listings_listView);
 
         //local
         arrayAdapter = new AlertListingAdapter(this, friendListings);
@@ -56,7 +54,7 @@ public class FriendListings extends ActionBarActivity {
             friendListings = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
         } else {
             /* get friends from database */
-            mPopulateFriendsTask = new PopulateFriendsTask(friends);
+            UserTask mPopulateFriendsTask = new PopulateFriendsTask(friends);
             mPopulateFriendsTask.execute();
             try {
                 mPopulateFriendsTask.get();

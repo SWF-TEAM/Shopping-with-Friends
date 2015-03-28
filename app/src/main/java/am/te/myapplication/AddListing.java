@@ -13,6 +13,7 @@ import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.RegisterListingTask;
+import am.te.myapplication.Service.UserTask;
 
 
 public class AddListing extends Activity {
@@ -20,7 +21,6 @@ public class AddListing extends Activity {
     private EditText nameView;
     private EditText priceView;
     private EditText additionalInfoView;
-    private RegisterListingTask mRegisterListingTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class AddListing extends Activity {
 
                 current.addItem(newProduct); // kek
             } else {
-                mRegisterListingTask = new RegisterListingTask(name,
+                UserTask mRegisterListingTask = new RegisterListingTask(name,
                                                    price, additionalInfo, this);
                 mRegisterListingTask.execute();
                 mRegisterListingTask = null;

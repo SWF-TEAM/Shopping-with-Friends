@@ -9,6 +9,7 @@ import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
 
 import am.te.myapplication.Service.RemoveFriendTask;
+import am.te.myapplication.Service.UserTask;
 
 
 /**
@@ -20,7 +21,7 @@ import am.te.myapplication.Service.RemoveFriendTask;
  */
 public class FriendDetails extends Activity {
     User currentUser;
-    private RemoveFriendTask mRemoveFriendTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +58,8 @@ public class FriendDetails extends Activity {
         if (State.local) {
             Agent.getLoggedIn().removeFriend(currentUser);
         } else {
-            mRemoveFriendTask = new RemoveFriendTask(currentUser.getId(), this);
+            UserTask mRemoveFriendTask =
+                                new RemoveFriendTask(currentUser.getId(), this);
             mRemoveFriendTask.execute();
             mRemoveFriendTask = null;
         }

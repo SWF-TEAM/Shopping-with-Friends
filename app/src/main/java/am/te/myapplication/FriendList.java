@@ -20,7 +20,6 @@ import am.te.myapplication.Service.PopulateFriendsTask;
 public class FriendList extends ActionBarActivity {
 
     // Creates the listview to hold the users.
-    private ListView lv;
     private ArrayAdapter<User> arrayAdapter;
     List<User> friends = new ArrayList<User>();
     static User selectedFriend;
@@ -37,7 +36,7 @@ public class FriendList extends ActionBarActivity {
         if (arrayAdapter != null) {
             arrayAdapter.notifyDataSetChanged();
         }
-        lv = (ListView) findViewById(R.id.add_friend_listView);
+        ListView lv = (ListView) findViewById(R.id.add_friend_listView);
 
         //local
         // This is the array adapter, it takes the context of the activity as a

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import am.te.myapplication.Service.RegisterTask;
+import am.te.myapplication.Service.UserTask;
 
 public class Register extends Activity implements LoaderCallbacks<Cursor> {
 
@@ -35,17 +36,10 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mNameView;
     private EditText mPasswordView;
     private EditText mPasswordView2;
-    private View mProgressView;
-    private View mLoginFormView;
-    private Toast mLoginStatus;
 
-    private static Toast regMsgToast = null;
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
     }
-
-
-    private RegisterTask mAuthTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +82,6 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
                 attemptRegister(findViewById(R.id.reg_register));
             }
         });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
 
@@ -177,8 +168,8 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             focusView.requestFocus();
         } else {
 
-            /////////////////////////////////////////////////////begin database interaction//////////////////////////////////////////////////////////////////
-            mAuthTask = new RegisterTask(username, name, email, password, this, mEmailView);
+            UserTask mAuthTask = new RegisterTask(username, name, email,
+                                                  password, this, mEmailView);
             mAuthTask.execute((Void) null);
 
         }

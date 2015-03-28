@@ -9,13 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 
 import am.te.myapplication.Service.AddFriendTask;
+import am.te.myapplication.Service.UserTask;
 
 
 public class SearchFriends extends Activity {
 
     private EditText mNameView;
     private EditText mEmailView;
-    private AddFriendTask mUserAddTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,8 @@ public class SearchFriends extends Activity {
     public void search(View view) {
         String name = mNameView.getText().toString();
         String email = mEmailView.getText().toString();
-        mUserAddTask = new AddFriendTask(name, email, mEmailView, this);
+        UserTask mUserAddTask = new AddFriendTask(name, email, mEmailView,
+                                                  this);
         mUserAddTask.execute();
         mUserAddTask = null;
     }

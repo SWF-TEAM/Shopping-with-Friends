@@ -21,13 +21,12 @@ import am.te.myapplication.Model.User;
 
 
 public class AddFriend extends ActionBarActivity {
-    private ListView lv;
     protected List<User> possibleFriends = new ArrayList<User>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
-        lv = (ListView) findViewById(R.id.add_friend_listView);
+        ListView lv = (ListView) findViewById(R.id.add_friend_listView);
 
         populate();
 

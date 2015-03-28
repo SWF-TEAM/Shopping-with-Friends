@@ -17,8 +17,8 @@ import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Service.PopulateAssociatedDealsTask;
+import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.AlertDealAdapter;
-
 
 /**
  * This displays the details of your listing that you clicked on.
@@ -29,25 +29,24 @@ import am.te.myapplication.Util.AlertDealAdapter;
  */
 public class ListingDetails extends Activity {
 
-    private PopulateAssociatedDealsTask mPopulateTask;
     private Listing currentListing;
     private List<Deal> deals;
-    private ListView lv;
-    private AlertDealAdapter adapter;
     private double latitude;
     private double longitude;
 
     @Override
     public void onStart() {
         deals = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.deals_listView);
+        final ListView lv = (ListView) findViewById(R.id.deals_listView);
 //        adapter = new ArrayAdapter<Deal>(this, R.layout.card_contents, deals);
-        adapter = new AlertDealAdapter(this, deals);
+        AlertDealAdapter adapter = new AlertDealAdapter(this, deals);
 
         if (!(State.local)) {
             /* Get products from the database. */
-            mPopulateTask = new PopulateAssociatedDealsTask(deals,
-                                                 currentListing, adapter, this);
+            UserTask mPopulateTask = new PopulateAssociatedDealsTask(deals,
+                                                                 currentListing,
+                                                                     adapter,
+                                                                     this);
             mPopulateTask.execute();
 
         }
