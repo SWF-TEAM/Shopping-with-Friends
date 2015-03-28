@@ -15,7 +15,7 @@
         android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:id="@+id/button3"
+        android:id="@+id/mapButton"
         android:layout_alignParentBottom="true"
         android:onClick="submitLocation"
         android:layout_gravity="center_horizontal|bottom"
