@@ -175,17 +175,13 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
     private void proceedToHome() {
         Intent intent = new Intent(this, Homepage.class);
         startActivity(intent);
+        finish();
 
-    }
-
-    public void login() {
-        proceedToHome();
     }
 
     private void proceedToWelcome() {
         Intent intent = new Intent(this, Welcome.class);
         startActivity(intent);
-
     }
 }
 
