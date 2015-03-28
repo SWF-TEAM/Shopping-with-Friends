@@ -1,6 +1,7 @@
 package am.te.myapplication;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.content.Intent;
 
 
 public class Welcome extends Activity {
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +28,10 @@ public class Welcome extends Activity {
     public void openRegister(View view) {
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
+    }
+
+    public void ahh(View view){
+        player=MediaPlayer.create(this, R.raw.ahhhh);
+        player.start();
     }
 }

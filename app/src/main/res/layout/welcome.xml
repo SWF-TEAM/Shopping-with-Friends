@@ -41,6 +41,8 @@
         android:phoneNumber="false"
         android:elegantTextHeight="false"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:onClick="ahh" />
 
 </RelativeLayout>

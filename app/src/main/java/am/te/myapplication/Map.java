@@ -61,6 +61,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleM
         this.map = map;
         map.setOnMarkerDragListener(this);
         map.addMarker(marker);
+
         if (viewDeal) {
             CameraPosition cameraPosition = new CameraPosition.Builder().target(
                     position).zoom(12).build();
