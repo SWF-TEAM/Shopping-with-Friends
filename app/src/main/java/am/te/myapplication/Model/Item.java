@@ -8,9 +8,9 @@ import java.text.NumberFormat;
  */
 public class Item {
 
-    public String formatPrice(Double price) {
+    public static String formatPrice(Double price) {
         NumberFormat formatter = new DecimalFormat("#0.00");
-        return formatter.format(price);
+        return "$"+formatter.format(price);
     }
 
 

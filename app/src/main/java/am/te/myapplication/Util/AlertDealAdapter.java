@@ -100,7 +100,7 @@ public class AlertDealAdapter extends BaseAdapter {
 
         String price = item.formatPrice(item.getDesiredPrice());
 
-        holder.priceView.setText("$"+price);
+        holder.priceView.setText(price);
 
         return v;
     }

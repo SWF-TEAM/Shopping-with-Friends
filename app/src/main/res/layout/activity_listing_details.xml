@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/homepage"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <RelativeLayout
         android:orientation="vertical"
@@ -15,42 +16,47 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:id="@+id/relativeLayout"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        android:layout_weight="0.65">
 
         <TextView
             android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:textSize="24sp"
+            android:text="Listing"
+            android:textSize="40sp"
             android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/DesiredPrice"
-            android:layout_alignStart="@+id/DesiredPrice"/>
+            android:layout_alignLeft="@+id/AdditionalInfo"
+            android:layout_alignStart="@+id/AdditionalInfo"
+            android:layout_toLeftOf="@+id/DesiredPrice"
+            android:layout_toStartOf="@+id/DesiredPrice" />
 
         <TextView
             android:id="@+id/AdditionalInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:textSize="14sp"
+            android:text="Additional Text"
+            android:textSize="20dp"
             android:layout_gravity="start|center_vertical"
-            android:layout_below="@+id/DesiredPrice"
+            android:layout_below="@+id/Name"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true" />
 
         <TextView
             android:id="@+id/DesiredPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:textSize="18sp"
+            android:text="Price"
+            android:textSize="40sp"
             android:layout_gravity="center"
-            android:layout_below="@+id/Name"
-            android:layout_alignLeft="@+id/AdditionalInfo"
-            android:layout_alignStart="@+id/AdditionalInfo"/>
+            android:layout_alignTop="@+id/Name"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/price_color" />
 
     </RelativeLayout>
 
@@ -63,11 +69,12 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="302dp"
         android:id="@+id/deals_listView"
         android:layout_margin="5dp"
         android:divider="#E6E6E6"
-        android:dividerHeight="0px"/>
+        android:dividerHeight="0px"
+        android:layout_weight="0.24" />
 
 
 </LinearLayout>

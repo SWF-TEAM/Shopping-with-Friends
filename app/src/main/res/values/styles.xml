@@ -5,5 +5,6 @@
         <!-- Customize your theme here. -->
     </style>
     <color name="price_color">#ff00c655</color>
+    <color name="black">#ffffffff</color>
 
 </resources>

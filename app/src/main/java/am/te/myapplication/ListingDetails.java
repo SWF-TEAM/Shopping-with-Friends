@@ -16,6 +16,7 @@ import java.util.List;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
+import am.te.myapplication.Model.Item;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateAssociatedDealsTask;
@@ -109,7 +110,7 @@ public class ListingDetails extends Activity {
         listingName.setText(currentListing.getName());
 
         TextView desiredPrice = (TextView) findViewById(R.id.DesiredPrice);
-        desiredPrice.setText(String.valueOf(currentListing.getDesiredPrice()));
+        desiredPrice.setText(Item.formatPrice(currentListing.getDesiredPrice()));
 
         TextView additionalInfo = (TextView) findViewById(R.id.AdditionalInfo);
         additionalInfo.setText(currentListing.getAdditionalInfo());
