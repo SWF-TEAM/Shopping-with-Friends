@@ -30,6 +30,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.Service.MikeTask;
 import am.te.myapplication.Service.RegisterTask;
 
 public class Register extends Activity implements LoaderCallbacks<Cursor> {

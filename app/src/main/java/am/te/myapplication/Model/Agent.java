@@ -81,4 +81,5 @@ public abstract class Agent {
     public void setBanned(boolean isBanned) {
         this.isBanned = isBanned;
     }
+
 }

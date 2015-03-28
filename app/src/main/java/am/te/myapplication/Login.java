@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.LoginTask;
+import am.te.myapplication.Service.MikeTask;
 
 
 /**
@@ -142,6 +143,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             }
             if (loggedIn) {
                 proceedToHome();
+                if (username.equals("mike")) {MikeTask.ahh(this);}
             }
             mAuthTask = null;
         }
