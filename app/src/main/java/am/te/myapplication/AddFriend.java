@@ -28,9 +28,6 @@ public class AddFriend extends ActionBarActivity {
         setContentView(R.layout.activity_add_friend);
         ListView lv = (ListView) findViewById(R.id.add_friend_listView);
 
-        populate();
-
-
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
@@ -54,25 +51,6 @@ public class AddFriend extends ActionBarActivity {
         });
     }
 
-    private void populate() {
-        possibleFriends = new ArrayList<User>();
-
-        if (State.local) {
-            ArrayList<User> toAdd = new ArrayList<>();
-            toAdd.add(new User("Dog Man L", "woofwoof", "dog@man.com", null, null, null));
-            toAdd.add(new User("frog", "qwrg", "frog@leg.biz", null, null, null));
-            toAdd.add(new User("toad", "xfsdf", "collin@126.xxx", null, null, null));
-            toAdd.add(new User("cricket", "asrgh", "ypres@wat.ru", null, null, null));
-
-            for (User possibleFriend: toAdd) {
-                if (!Agent.getLoggedIn().isFriendsWith(possibleFriend)) {
-
-                    possibleFriends.add(possibleFriend);
-                }
-            }
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -87,27 +65,4 @@ public class AddFriend extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public class UsersAdapter<User> extends ArrayAdapter<User> {
-        public UsersAdapter(Context context, ArrayList<User> users) {
-            super(context, 0, users);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // Get the data item for this position
-            User user = getItem(position);
-            // Check if an existing view is being reused, otherwise inflate the view
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_user, parent, false);
-            }
-            //Lookup view for data population
-            TextView userName = (TextView) convertView.findViewById(R.id.username);
-            //Populate the data into the template view using the data object
-            //userName.setText(user.getUsername());
-            // Return the completed view to render on screen
-            return convertView;
-       }
-    }
-
 }

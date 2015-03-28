@@ -18,9 +18,9 @@ import am.te.myapplication.Util.AlertListingAdapter;
  */
 public class PopulateFriendsListingsTask extends UserTask {
 
-    AlertListingAdapter arrayAdapter; //arrayadapter to update
-    List<Listing> friendsListings; //will be updated
-    Activity caller;
+    private AlertListingAdapter arrayAdapter; //arrayadapter to update
+    private List<Listing> friendsListings; //will be updated
+    private Activity caller;
     private boolean notifier;
 
     public PopulateFriendsListingsTask(AlertListingAdapter arrayAdapter, List<Listing> friendsListings, Activity caller) {

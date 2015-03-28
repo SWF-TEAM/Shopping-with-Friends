@@ -16,12 +16,12 @@ import am.te.myapplication.State;
  */
 public class RegisterTask extends UserTask {
 
-    private static String mEmail;
-    private static String mPassword;
-    private static String mUsername;
-    private static String mName;
-    private static AutoCompleteTextView mEmailView;
-    private static Activity mActivity;
+    private String mEmail;
+    private String mPassword;
+    private String mUsername;
+    private String mName;
+    private AutoCompleteTextView mEmailView;
+    private Activity mActivity;
 
     public RegisterTask(String username, String name, String email,
                 String password, Activity act, AutoCompleteTextView emailView) {

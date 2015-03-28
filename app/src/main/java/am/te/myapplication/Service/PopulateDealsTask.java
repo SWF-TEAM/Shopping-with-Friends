@@ -20,10 +20,10 @@ import am.te.myapplication.Model.Deal;
 */
 public class PopulateDealsTask extends UserTask {
 
-    List<Deal> deals;
-    ArrayAdapter arrayAdapter;
-    ArrayList<Deal> theDeals;
-    Activity activity;
+    private List<Deal> deals;
+    private ArrayAdapter arrayAdapter;
+    private ArrayList<Deal> theDeals;
+    private Activity activity;
 
     public PopulateDealsTask(List<Deal> deals, ArrayAdapter arrayAdapter, Activity activity) {
         this.deals = deals;

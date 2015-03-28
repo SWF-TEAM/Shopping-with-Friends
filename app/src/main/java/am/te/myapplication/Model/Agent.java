@@ -1,7 +1,7 @@
 package am.te.myapplication.Model;
 
 /**
- * The parent of all agentic organisms in the application.
+ * The parent of all agents in the application.
  *
  * @author Mitchell Manguno
  * @version 1.0

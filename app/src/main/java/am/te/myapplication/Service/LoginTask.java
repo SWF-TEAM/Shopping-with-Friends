@@ -24,13 +24,13 @@ import am.te.myapplication.State;
  */
 public class LoginTask extends UserTask {
 
-    private static View mProgressView;
-    private static View mLoginFormView;
-    private static String mUsername;
-    private static String mPassword;
-    private static User userToAuthenticate;
-    private static Activity mActivity;
-    private static EditText mPasswordView;
+    private View mProgressView;
+    private View mLoginFormView;
+    private String mUsername;
+    private String mPassword;
+    private User userToAuthenticate;
+    private Activity mActivity;
+    private EditText mPasswordView;
 
     public LoginTask(String username, String password, Activity act,
                 View loginFormView, View progressView, EditText mPasswordView) {

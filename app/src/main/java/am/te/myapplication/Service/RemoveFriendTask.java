@@ -14,8 +14,9 @@ import am.te.myapplication.State;
  * @since 2015 March 22
  */
 public class RemoveFriendTask extends UserTask {
-    private static String idOfFriend;
-    private static Activity mActivity;
+
+    private String idOfFriend;
+    private Activity mActivity;
 
     /**
      * Creates a RemoveFriendTask instance.
