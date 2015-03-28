@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="6dp"
@@ -17,21 +17,24 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:textStyle="bold"
-            android:textSize="25dp"
-            android:layout_centerVertical="true"/>
+            android:textSize="30dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight = "true"
-            android:layout_alignParentEnd = "true"
-            android:layout_marginTop="2dip"
-            android:gravity="end"
-            android:textSize="12sp"
-            android:textStyle="italic" />
+            android:textSize="@dimen/item_size"
+            android:textStyle="italic"
+            android:textColor="@color/price_color"
+            android:gravity="center|right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="10dp" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

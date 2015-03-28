@@ -4,5 +4,6 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
+    <color name="price_color">#ff00c655</color>
 
 </resources>
