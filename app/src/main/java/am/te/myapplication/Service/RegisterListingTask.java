@@ -41,10 +41,7 @@ public class RegisterListingTask extends UserTask {
     }
     @Override
     protected Boolean doInBackground(Void... params) {
-        if (!State.local) {//Doesn't make sense to use database in local sense
-            return registerProduct();
-        }
-        return false;
+        return !State.local && registerProduct();
     }
 
     /**

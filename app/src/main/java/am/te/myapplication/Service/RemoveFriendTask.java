@@ -30,11 +30,7 @@ public class RemoveFriendTask extends UserTask {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        if (!State.local) {
-            return removeFriend();
-        }
-
-        return false;
+        return !State.local && removeFriend();
     }
 
     /**

@@ -35,10 +35,7 @@ public class RegisterTask extends UserTask {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        if (!State.local) {
-            return registerUser();
-        }
-        return false;
+        return !State.local && registerUser();
     }
 
     /**
