@@ -2,7 +2,6 @@ package am.te.myapplication.Service;
 
 import android.app.Activity;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 
 import org.apache.http.HttpResponse;
@@ -16,7 +15,6 @@ import java.net.URI;
 import java.net.URL;
 
 import am.te.myapplication.Model.Agent;
-import am.te.myapplication.Model.User;
 import am.te.myapplication.Register;
 import am.te.myapplication.State;
 

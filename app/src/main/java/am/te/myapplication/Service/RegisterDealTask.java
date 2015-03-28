@@ -3,18 +3,8 @@ package am.te.myapplication.Service;
 import android.app.Activity;
 import android.util.Log;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URL;
 
-import am.te.myapplication.AddListing;
 import am.te.myapplication.FriendListings;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.State;

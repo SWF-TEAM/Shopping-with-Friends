@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import am.te.myapplication.AddListing;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.State;
-import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
  * The task used to register a new listing.

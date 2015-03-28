@@ -2,27 +2,12 @@ package am.te.myapplication;
 
 import android.app.Activity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URL;
-import java.util.Set;
-
-import am.te.myapplication.Model.Agent;
-import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.AddFriendTask;
 
 

@@ -2,7 +2,6 @@ package am.te.myapplication.Service;
 
 import android.app.Activity;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,11 +12,9 @@ import java.util.Collections;
 import java.util.List;
 
 import am.te.myapplication.Homepage;
-import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Util.AlertDealAdapter;
-import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
  * @author Mitchell Manguno

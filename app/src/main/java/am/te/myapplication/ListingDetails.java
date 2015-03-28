@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,11 +16,8 @@ import java.util.List;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
-import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateAssociatedDealsTask;
-import am.te.myapplication.Service.PopulateProductsTask;
 import am.te.myapplication.Util.AlertDealAdapter;
-import am.te.myapplication.Util.AlertListingAdapter;
 
 
 /**

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.R;
 

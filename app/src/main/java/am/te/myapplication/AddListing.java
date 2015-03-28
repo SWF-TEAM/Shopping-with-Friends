@@ -13,7 +13,6 @@ import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.RegisterListingTask;
-import am.te.myapplication.Util.AlertListingAdapter;
 
 
 public class AddListing extends Activity {

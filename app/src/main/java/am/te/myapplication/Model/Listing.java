@@ -113,8 +113,7 @@ public class Listing implements Comparable<Listing>{
 
     public static Listing getListingFromIntent(Intent intent) {
         Bundle extras = intent.getExtras();
-        Listing newListing = new Listing(extras.getString("Name"), extras.getDouble("Price"), extras.getString("Additional"));
-        return newListing;
+        return new Listing(extras.getString("Name"), extras.getDouble("Price"), extras.getString("Additional"));
     }
 
     @Override
