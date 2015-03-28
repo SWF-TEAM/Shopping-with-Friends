@@ -159,6 +159,15 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
+    
+    /**
+     * now back button wont call finish()
+     */
+    @Override
+    public void onBackPressed() {
+        proceedToWelcome();
+    }
+
 
     @Override
     public void finish() {
@@ -168,6 +177,12 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
     private void proceedToHome() {
         Intent intent = new Intent(this, Homepage.class);
+        startActivity(intent);
+
+    }
+
+    private void proceedToWelcome() {
+        Intent intent = new Intent(this, Welcome.class);
         startActivity(intent);
 
     }
