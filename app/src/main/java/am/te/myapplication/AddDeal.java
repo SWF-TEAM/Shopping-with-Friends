@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Service.RegisterDealTask;
 import am.te.myapplication.Service.UserTask;
 

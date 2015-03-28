@@ -98,14 +98,6 @@
             android:name=".AddDeal"
             android:label="@string/title_activity_deal_report" >
         </activity>
-        <activity
-            android:name=".ShowDeal"
-            android:label="@string/title_activity_show_deal" >
-        </activity>
-        <activity
-            android:name=".DealDetails"
-            android:label="@string/title_activity_deal_details" >
-        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

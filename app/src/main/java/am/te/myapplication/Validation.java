@@ -1,7 +1,5 @@
 package am.te.myapplication;
 
-import java.util.PriorityQueue;
-
 /**
  * Created by Collin on 2/7/15.
  */

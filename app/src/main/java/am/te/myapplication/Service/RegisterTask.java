@@ -57,9 +57,8 @@ public class RegisterTask extends UserTask {
 
             String response = fetchHTTPResponseAsStr(TAG, link);
 
-            boolean noError = !response.contains("failed")
-                           && !response.contains("already in use");
-            return noError;
+            return !response.contains("failed")
+                && !response.contains("already in use");
 
         }catch(Exception e){
             Log.e(TAG, "EXCEPTION>>>>", e);

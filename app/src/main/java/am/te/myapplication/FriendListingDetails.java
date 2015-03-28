@@ -4,14 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
-import am.te.myapplication.Model.User;
-//import am.te.myapplication.Service.RegisterDealTask;
-
 
 /**
  * This displays the details of your friend that you clicked on

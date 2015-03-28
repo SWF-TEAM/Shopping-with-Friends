@@ -8,7 +8,6 @@ import android.database.Cursor;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,13 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
-import am.te.myapplication.Model.Agent;
-import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.LoginTask;
 
 
@@ -57,7 +51,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    attemptLogin(findViewById(R.id.login));
                     return true;
                 }
                 return false;
@@ -68,7 +62,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         musernameSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptLogin(view);
             }
         });
 
@@ -86,7 +80,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
      * If there are form errors (invalid username, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public void attemptLogin() {
+    public void attemptLogin(View v) {
         if (mAuthTask != null) {
             return;
         }

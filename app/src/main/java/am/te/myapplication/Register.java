@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,9 +23,6 @@ import android.database.Cursor;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +63,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptRegister();
+                    attemptRegister(findViewById(R.id.reg_register));
                     return true;
                 }
                 return false;
@@ -78,7 +74,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptRegister();
+                    attemptRegister(findViewById(R.id.reg_register));
                     return true;
                 }
                 return false;
@@ -89,7 +85,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptRegister();
+                attemptRegister(findViewById(R.id.reg_register));
             }
         });
 
@@ -125,7 +121,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         startActivity(shoppingIntent);
 
     }
-    public void attemptRegister() {
+    public void attemptRegister(View v) {
 
         // Reset errors.
         mEmailView.setError(null);
