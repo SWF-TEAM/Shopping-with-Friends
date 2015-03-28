@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.view.View;
 import android.widget.EditText;
@@ -70,7 +71,7 @@ public class LoginTask extends UserTask {
     protected void onPostExecute(final Boolean success) {
        showProgress(false);
         if (success) {
-            mActivity.finish();
+//            mActivity.finish();
         } else {
             mPasswordView.setError("Invalid password or username.");
             mPasswordView.requestFocus();

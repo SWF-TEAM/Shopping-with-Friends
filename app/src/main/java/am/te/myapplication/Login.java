@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ExecutionException;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
@@ -131,6 +132,17 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask = new LoginTask(username, password, this,
                                   mLoginFormView, mProgressView, mPasswordView);
             mAuthTask.execute((Void) null);
+            boolean loggedIn = false;
+            try {
+                loggedIn = mAuthTask.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            if (loggedIn) {
+                proceedToHome();
+            }
             mAuthTask = null;
         }
     }
@@ -159,26 +171,15 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
-    
-    /**
-     * now back button wont call finish()
-     */
-    @Override
-    public void onBackPressed() {
-        proceedToWelcome();
-    }
-
-
-    @Override
-    public void finish() {
-        proceedToHome();
-        super.finish();
-    }
 
     private void proceedToHome() {
         Intent intent = new Intent(this, Homepage.class);
         startActivity(intent);
 
+    }
+
+    public void login() {
+        proceedToHome();
     }
 
     private void proceedToWelcome() {
