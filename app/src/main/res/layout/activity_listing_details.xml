@@ -65,7 +65,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/deals_listView"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:divider="#E6E6E6"
+        android:dividerHeight="0px"/>
 
 
 </LinearLayout>

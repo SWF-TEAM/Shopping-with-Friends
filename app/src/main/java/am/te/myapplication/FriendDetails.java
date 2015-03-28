@@ -24,7 +24,7 @@ public class FriendDetails extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.friend_details);
+        setContentView(R.layout.activity_friend_details);
 
         Bundle extras = getIntent().getExtras();
         if (State.local && extras != null) {

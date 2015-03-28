@@ -7,10 +7,11 @@ package am.te.myapplication.Model;
  * @version 1.1
  * @since 2015 March 12
  */
-public class Deal implements Comparable<Deal> {
+public class Deal extends Item implements Comparable<Deal> {
     private String name;
-    private String description;
     private double desiredPrice;
+
+    private String description;
     private String location;
     private boolean claimed;
     public int id;

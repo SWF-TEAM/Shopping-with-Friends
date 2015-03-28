@@ -52,7 +52,7 @@ public class PopulateDealsTask extends UserTask {
     protected Boolean doInBackground(Void... params) {
         //DATABASE SHIT (get a list of possible friends from database)
         String TAG = Homepage.class.getSimpleName();
-        String link = "http://artineer.com/sandbox" + "/getdeals2.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
+        String link = "http://artineer.com/sandbox" + "/getdeals.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
 
         try {//kek
             Log.d(TAG, ">>>>>>>>>>>>>>>>>trying>>>>>");
@@ -70,9 +70,9 @@ public class PopulateDealsTask extends UserTask {
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                    String title = lineOfArray.getString("Title");
-                    String price = lineOfArray.getString("Price");
-                    String location = lineOfArray.getString("Location");
+                    String title = lineOfArray.getString("title");
+                    String price = lineOfArray.getString("trice");
+                    String location = lineOfArray.getString("location");
 
                     Deal newDeal = new Deal(title, Double.parseDouble(price), location);
                     theDeals.add(newDeal);
@@ -91,7 +91,7 @@ public class PopulateDealsTask extends UserTask {
             });
             return true;
         } catch (Exception e) {
-            Log.e(TAG, "EXCEPTION on homepage>>>", e);
+            Log.e(TAG, "EXCEPTION on activity_homepage>>>", e);
             return false;
         }
 

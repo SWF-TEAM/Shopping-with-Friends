@@ -12,11 +12,12 @@ import java.util.List;
  * @since 2015 February 23
  */
 
-public class Listing implements Comparable<Listing>{
+public class Listing extends Item implements Comparable<Listing>{
 
-    private List<Deal> associatedDeals;
     private String name;
     private double desiredPrice;
+
+    private List<Deal> associatedDeals;
     private String additionalInfo;
     private boolean hasBeenSeen;
     private int productID;

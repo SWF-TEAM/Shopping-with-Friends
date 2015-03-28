@@ -73,11 +73,7 @@ public class AddDeal extends Activity {
     @Override
     protected void onActivityResult( int aRequestCode, int aResultCode,
                                      Intent data) {
-//        if (data != null) {
-//            Listing newListing = Listing.getListingFromIntent(data);
-//            products.add(newListing);
-//            arrayAdapter.notifyDataSetChanged();
-//        }
+
         Bundle extras = data.getExtras();
         String lat = String.valueOf(extras.getDouble("lat"));
         String lng = String.valueOf(extras.getDouble("lng"));

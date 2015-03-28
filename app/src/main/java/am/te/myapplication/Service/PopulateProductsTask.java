@@ -104,7 +104,7 @@ public class PopulateProductsTask extends UserTask {
 
                 return true;
             } catch (Exception e) {
-                Log.e(TAG, "EXCEPTION on homepage>>>", e);
+                Log.e(TAG, "EXCEPTION on activity_homepage>>>", e);
                 return false;
             }
     }

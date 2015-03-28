@@ -65,12 +65,12 @@ public class PopulateAssociatedDealsTask extends UserTask {
                 try {
                     JSONObject lineOfArray = jsonArray.getJSONObject(i);
                     String id = lineOfArray.getString("dealID");
-                    String title = lineOfArray.getString("Title");
-                    String description = lineOfArray.getString("Description");
-                    String price = lineOfArray.getString("Price");
+                    String title = lineOfArray.getString("title");
+                    String description = lineOfArray.getString("description");
+                    String price = lineOfArray.getString("price");
                     System.out.println(title);
                     System.out.println(price);
-                    String location = lineOfArray.getString("Location");
+                    String location = lineOfArray.getString("location");
                     String claimed = lineOfArray.getString("claimed");
                     Deal newDeal = new Deal(title, description,
                                             Double.valueOf(price), location,
@@ -96,7 +96,7 @@ public class PopulateAssociatedDealsTask extends UserTask {
 
             return true;
         } catch (Exception e) {
-            Log.e(TAG, "EXCEPTION on homepage>>>", e);
+            Log.e(TAG, "EXCEPTION on activity_homepage>>>", e);
             return false;
         }
     }

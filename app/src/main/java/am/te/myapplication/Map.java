@@ -5,8 +5,6 @@ package am.te.myapplication;
         import android.support.v4.app.FragmentActivity;
         import android.view.View;
         import android.widget.Button;
-        import android.widget.TextView;
-        import android.widget.Toast;
 
         import com.google.android.gms.maps.CameraUpdateFactory;
         import com.google.android.gms.maps.GoogleMap;
@@ -27,7 +25,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map);
+        setContentView(R.layout.activity_map);
 
 
 
