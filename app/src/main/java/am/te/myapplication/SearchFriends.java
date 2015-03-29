@@ -29,7 +29,7 @@ public class SearchFriends extends Activity {
 
     /**
      * The OnClick listener for the "OK" button. Calls the real search method
-     * with whatever is inside the textfield at the time.
+     * with whatever is inside the text-field at the time.
      *
      * @param view Not really sure what this is for
      */

@@ -63,16 +63,13 @@ public class FriendListings extends ActionBarActivity {
             }
             /* Get friend listings from the database. */
             List<Listing> allListings = new ArrayList<>();
-            System.out.println("number of friends to iterate thru: " + friends.size());
             for (User friend: friends) {
                 String friendID = friend.getId();
                 List<Listing> currFriendListings = new ArrayList<>();
                 PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, notify, arrayAdapter, this, friendID);
                 mListingsTask.execute(); //should update arrayAdapter automatically with fetch of each friend's listing data
-                System.out.println("mListingsTask started execution");
                 try {
                     mListingsTask.get();
-                    System.out.println("mListingsTask finished execution");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {

@@ -51,11 +51,6 @@ public class User extends Agent {
         this(username, password, null, null, null, null);
     }
 
-    /**
-     * Get's this User's description.
-     *
-     * @return this user's description.
-     */
     public String getDescription() {
         return description;
     }

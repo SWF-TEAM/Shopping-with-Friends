@@ -58,8 +58,8 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-        Button musernameSignInButton = (Button) findViewById(R.id.username_sign_in_button);
-        musernameSignInButton.setOnClickListener(new OnClickListener() {
+        Button mUsernameSignInButton = (Button) findViewById(R.id.username_sign_in_button);
+        mUsernameSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin(view);

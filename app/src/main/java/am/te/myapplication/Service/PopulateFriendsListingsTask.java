@@ -22,7 +22,7 @@ import am.te.myapplication.Util.AlertListingAdapter;
  */
 public class PopulateFriendsListingsTask extends UserTask {
 
-    private AlertListingAdapter arrayAdapter; //arrayadapter to update
+    private AlertListingAdapter arrayAdapter; //ArrayAdapter to update
     private Activity caller;
     private boolean notifier;
 
@@ -53,7 +53,7 @@ public class PopulateFriendsListingsTask extends UserTask {
             e.printStackTrace();
         }
 
-        /*now iterate thru list of friends and get their listings*/
+        /*Now iterate through list of friends and get their listings */
         for (User friend : friends) {
             List<Listing> currFriendListings = new ArrayList<>();
             PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, notifier, arrayAdapter, caller, "hey");

@@ -19,7 +19,7 @@ import am.te.myapplication.Service.PopulateFriendsTask;
 
 public class FriendList extends ActionBarActivity {
 
-    // Creates the listview to hold the users.
+    // Creates the list-view to hold the users.
     private ArrayAdapter<User> arrayAdapter;
     List<User> friends = new ArrayList<User>();
     static User selectedFriend;
@@ -66,7 +66,7 @@ public class FriendList extends ActionBarActivity {
                 if (State.local) {
                     i.putExtra("username", friends.get(position).getUsername());
                     i.putExtra("email", friends.get(position).getEmail());
-                } else { //derterbers
+                } else { //database
                     selectedFriend = friends.get(position);
                 }
                 startActivity(i);

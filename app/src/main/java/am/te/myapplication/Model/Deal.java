@@ -80,9 +80,7 @@ public class Deal implements Comparable<Deal> {
         Deal deal = (Deal) o;
 
         if (claimed != deal.claimed) return false;
-        if (Double.compare(deal.desiredPrice, desiredPrice) != 0) return false;
-        if (id != deal.id) return false;
-        return !(description != null ? !description.equals(deal.description) : deal.description != null) && !(location != null ? !location.equals(deal.location) : deal.location != null) && !(name != null ? !name.equals(deal.name) : deal.name != null);
+        return Double.compare(deal.desiredPrice, desiredPrice) == 0 && id == deal.id && !(description != null ? !description.equals(deal.description) : deal.description != null) && !(location != null ? !location.equals(deal.location) : deal.location != null) && !(name != null ? !name.equals(deal.name) : deal.name != null);
     }
 
     @Override
