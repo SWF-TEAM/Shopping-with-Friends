@@ -8,8 +8,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/product_listView"
+        android:divider="#E6E6E6"
+        android:dividerHeight="0px"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:divider="#E6E6E6"
-        android:dividerHeight="0px"/>
+        android:layout_marginTop="102dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/homepage_welcome"
+        android:id="@+id/homepage_welcome"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
