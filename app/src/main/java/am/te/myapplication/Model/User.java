@@ -100,12 +100,10 @@ public class User extends Agent {
         return !friendList.isEmpty();
     }
 
-    public boolean addFriend(User newFriend) {
+    public void addFriend(User newFriend) {
         if (!friendList.contains(newFriend)) {
             friendList.add(newFriend);
-            return true;
         }
-        return false;
     }
 
     public User getFriend(User user) {
@@ -139,12 +137,10 @@ public class User extends Agent {
         return !itemList.isEmpty();
     }
 
-    public boolean addItem(Listing newProduct) {
+    public void addItem(Listing newProduct) {
         if (!itemList.contains(newProduct)) {
             itemList.add(newProduct);
-            return true;
         }
-        return false;
     }
 
     public Listing getListing(String product) {

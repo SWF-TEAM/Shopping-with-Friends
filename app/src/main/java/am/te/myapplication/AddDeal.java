@@ -3,7 +3,6 @@ package am.te.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 
 import am.te.myapplication.Service.RegisterDealTask;
@@ -31,7 +30,7 @@ public class AddDeal extends Activity {
         this.listingName = getIntent().getExtras().getString("listing");
     }
 
-    public void submitDeal(View view) {
+    public void submitDeal() {
 
         boolean cancel = false; // If an error occurs, cancel the operation
         //String name = nameView.getText().toString();
@@ -60,7 +59,7 @@ public class AddDeal extends Activity {
 
     }
 
-    public void openMap(View view) {
+    public void openMap() {
         Intent intent = new Intent(this, Map.class);
         startActivityForResult(intent, 1);
 

@@ -3,7 +3,6 @@ package am.te.myapplication;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
 import android.content.Intent;
 
 
@@ -16,17 +15,17 @@ public class Welcome extends Activity {
     }
 
 
-    public void openLogin(View view) {
+    public void openLogin() {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 
-    public void openRegister(View view) {
+    public void openRegister() {
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
     }
 
-    public void ahh(View view){
+    public void ahh(){
         MediaPlayer player = MediaPlayer.create(this, R.raw.ahhhh);
         player.start();
     }

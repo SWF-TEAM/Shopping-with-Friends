@@ -3,7 +3,6 @@ package am.te.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import am.te.myapplication.Model.Listing;
@@ -39,7 +38,7 @@ public class FriendListingDetails extends Activity {
         additionalInfo.setText(currentFriendListing.getAdditionalInfo());
     }
 
-    public void registerDeal(View view) {
+    public void registerDeal() {
         Intent intent = new Intent(this, AddDeal.class);
         intent.putExtra("listing", currentFriendListing.getName());
         startActivity(intent);

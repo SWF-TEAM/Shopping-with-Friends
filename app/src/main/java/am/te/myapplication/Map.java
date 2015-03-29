@@ -3,7 +3,6 @@ package am.te.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -68,7 +67,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleM
     }
 
 
-    public void submitLocation(View view) {
+    public void submitLocation() {
 
         if (!viewDeal) {
             Intent location = new Intent();

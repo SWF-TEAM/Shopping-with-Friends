@@ -58,7 +58,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptRegister(findViewById(R.id.reg_register));
+                    attemptRegister();
                     return true;
                 }
                 return false;
@@ -69,7 +69,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptRegister(findViewById(R.id.reg_register));
+                    attemptRegister();
                     return true;
                 }
                 return false;
@@ -80,7 +80,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptRegister(findViewById(R.id.reg_register));
+                attemptRegister();
             }
         });
     }
@@ -113,7 +113,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         startActivity(shoppingIntent);
 
     }
-    void attemptRegister(View v) {
+    void attemptRegister() {
 
         // Reset errors.
         mEmailView.setError(null);

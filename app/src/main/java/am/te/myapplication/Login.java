@@ -51,7 +51,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin(findViewById(R.id.login));
+                    attemptLogin();
                     return true;
                 }
                 return false;
@@ -62,7 +62,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         mUsernameSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin(view);
+                attemptLogin();
             }
         });
 
@@ -80,9 +80,8 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
      * If there are form errors (invalid username, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      *
-     * @param v the View that the onClick's button sends out
      */
-    void attemptLogin(View v) {
+    void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }

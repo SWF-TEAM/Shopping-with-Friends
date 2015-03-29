@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 
 
@@ -55,7 +54,7 @@ public class AddListing extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addProduct(View view) {
+    public void addProduct() {
 
         boolean cancel = false; /* If an error occurs, cancel the operation */
         String name = nameView.getText().toString();

@@ -62,7 +62,7 @@ public class ListingDetails extends Activity {
                 System.out.println(latLong);
                 latitude = Double.valueOf(latLongArr[0]);
                 longitude = Double.valueOf(latLongArr[1]);
-                openMap(lv);
+                openMap();
             }
         });
 
@@ -71,7 +71,7 @@ public class ListingDetails extends Activity {
         super.onStart();
     }
 
-    void openMap(View view) {
+    void openMap() {
         Intent intent = new Intent(this, Map.class);
         intent.putExtra("latitude", latitude);
         intent.putExtra("longitude", longitude);

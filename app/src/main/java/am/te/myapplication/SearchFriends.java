@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 
 import am.te.myapplication.Service.AddFriendTask;
@@ -31,9 +30,8 @@ public class SearchFriends extends Activity {
      * The OnClick listener for the "OK" button. Calls the real search method
      * with whatever is inside the text-field at the time.
      *
-     * @param view Not really sure what this is for
      */
-    public void search(View view) {
+    public void search() {
         String name = mNameView.getText().toString();
         String email = mEmailView.getText().toString();
         UserTask mUserAddTask = new AddFriendTask(name, email, mEmailView,

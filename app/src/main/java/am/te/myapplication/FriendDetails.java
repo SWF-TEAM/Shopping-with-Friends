@@ -2,7 +2,6 @@ package am.te.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import am.te.myapplication.Model.Agent;
@@ -51,9 +50,8 @@ public class FriendDetails extends Activity {
     /**
      * Removes your friends while in details view
      *
-     * @param view the View that the onClick's button sends
      */
-    public void removeFriend(View view) {
+    public void removeFriend() {
 
         if (State.local) {
             Agent.getLoggedIn().removeFriend(currentUser);
