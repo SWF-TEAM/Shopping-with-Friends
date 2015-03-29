@@ -41,20 +41,6 @@ public class User extends Agent {
         itemList = new ArrayList<>();
     }
 
-    /**
-     * Creates a User object with a given username and password.
-     *
-     * @param username the User's username
-     * @param password the User's password
-     */
-    public User(String username, String password) {
-        this(username, password, null, null, null, null);
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public List<User> getFriends() {
         return friendList;
     }
@@ -67,34 +53,6 @@ public class User extends Agent {
         return rating;
     }
 
-    public List<Deal> getDeals() {
-        return deals;
-    }
-
-    public void setFriendList(List<User> friendList) {
-        this.friendList = friendList;
-    }
-
-    public void setItemList(List<Listing> itemList) {
-        this.itemList = itemList;
-    }
-
-    public void setRating(int rating) {
-        if (rating > 0 && rating < 6) {
-            this.rating = rating;
-        } else {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public void setDeals(List<Deal> salesReports) {
-        this.deals = salesReports;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
 
     public boolean hasFriends() {
         return !friendList.isEmpty();
@@ -104,18 +62,6 @@ public class User extends Agent {
         if (!friendList.contains(newFriend)) {
             friendList.add(newFriend);
         }
-    }
-
-    public User getFriend(User user) {
-        if (isFriendsWith(user)) {
-            return friendList.get(friendList.indexOf(user));
-        }
-
-        return null;
-    }
-
-    boolean isFriendsWith(User user) {
-        return friendList.contains(user);
     }
 
     public User getFriend(String username) {
@@ -150,36 +96,6 @@ public class User extends Agent {
             }
         }
         return null;
-    }
-
-
-    public boolean hasItem(Listing product) {
-        return itemList.contains(product);
-    }
-
-
-    boolean hasSalesReports() {
-        return !deals.isEmpty();
-    }
-
-    public boolean addSalesReport(Deal newReport) {
-        if (!deals.contains(newReport)) {
-            deals.add(newReport);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean hasSalesReport(Deal salesReport) {
-        return deals.contains(salesReport);
-    }
-
-    public int getSalesReportNumber() {
-        if (hasSalesReports()) {
-            return deals.size();
-        }
-
-        return 0;
     }
 
     @Override

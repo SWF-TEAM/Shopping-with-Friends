@@ -13,7 +13,7 @@
         android:layout_marginBottom="8dp" android:visibility="gone" />
 
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
-        android:layout_height="172dp"
+        android:layout_height="0dp"
         android:layout_weight="0.62">
 
         <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
@@ -70,8 +70,7 @@
                 android:layout_width="353dp" android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" android:text="@string/action_register_short"
                 android:textStyle="bold"
-                android:onClick="attemptRegister"
-                android:nestedScrollingEnabled="false" />
+                android:onClick="attemptRegister" />
 
         </LinearLayout>
     </ScrollView>

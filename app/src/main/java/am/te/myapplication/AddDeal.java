@@ -15,7 +15,6 @@ public class AddDeal extends Activity {
     private String listingName;
     private String location = "0;0";
 
-    private String friendListingId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

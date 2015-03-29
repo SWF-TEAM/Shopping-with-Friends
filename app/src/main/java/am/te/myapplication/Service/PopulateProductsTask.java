@@ -28,12 +28,10 @@ public class PopulateProductsTask extends UserTask {
     private final AlertListingAdapter arrayAdapter;
     private final Activity activity;
     private final String id;
-    private boolean notify;
 
-    public PopulateProductsTask(List<Listing> products, boolean notify,
+    public PopulateProductsTask(List<Listing> products,
                AlertListingAdapter arrayAdapter, Activity activity, String id) {
         this.products = products;
-        this.notify = notify;
         this.arrayAdapter = arrayAdapter;
         this.activity = activity;
         this.id = id;
@@ -76,12 +74,6 @@ public class PopulateProductsTask extends UserTask {
                         JSONObject lineOfArray = jsonArray.getJSONObject(i);
                         String seen = lineOfArray.getString("hasSeenDeals");
                         newListing.setHasBeenSeen(Boolean.valueOf(seen));
-
-                        //If it has not been seen
-                        if (!(Boolean.valueOf(seen))) {
-                            //We must notify
-                            notify = true;
-                        }
 
                     } catch (JSONException e) {
                         Log.e(TAG, e.getMessage());

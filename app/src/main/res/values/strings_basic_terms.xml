@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common -->
+    <string name="username">Username</string>
+    <string name="placeHolder">placeholder</string>
+
+    <!-- Location -->
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="location_explanation">Use the Button to Get Location</string>
+</resources>

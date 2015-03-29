@@ -194,7 +194,6 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
