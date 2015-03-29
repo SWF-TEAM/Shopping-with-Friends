@@ -17,8 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
-    private MarkerOptions marker = new MarkerOptions();
-    private GoogleMap map;
+    private final MarkerOptions marker = new MarkerOptions();
     private LatLng position = new LatLng(0, 0);
     private boolean viewDeal = false;
 
@@ -56,7 +55,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleM
 
     @Override
     public void onMapReady(GoogleMap map) {
-        this.map = map;
+        GoogleMap map1 = map;
         map.setOnMarkerDragListener(this);
         map.addMarker(marker);
 

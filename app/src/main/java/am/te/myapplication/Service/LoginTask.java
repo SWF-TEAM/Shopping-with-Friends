@@ -10,9 +10,7 @@ import android.widget.EditText;
 
 
 import am.te.myapplication.Model.Agent;
-import am.te.myapplication.Model.User;
 import am.te.myapplication.Register;
-import am.te.myapplication.RegistrationModel;
 import am.te.myapplication.State;
 
 /**
@@ -24,19 +22,17 @@ import am.te.myapplication.State;
  */
 public class LoginTask extends UserTask {
 
-    private View mProgressView;
-    private View mLoginFormView;
-    private String mUsername;
-    private String mPassword;
-    private User userToAuthenticate;
-    private Activity mActivity;
-    private EditText mPasswordView;
+    private final View mProgressView;
+    private final View mLoginFormView;
+    private final String mUsername;
+    private final String mPassword;
+    private final Activity mActivity;
+    private final EditText mPasswordView;
 
     public LoginTask(String username, String password, Activity act,
                 View loginFormView, View progressView, EditText mPasswordView) {
         this.mUsername = username;
         this.mPassword = password;
-        this.userToAuthenticate = new User(mUsername, mPassword);
         this.mActivity = act;
         this.mLoginFormView = loginFormView;
         this.mProgressView = progressView;
@@ -47,17 +43,16 @@ public class LoginTask extends UserTask {
     @Override
     protected Boolean doInBackground(Void... params) {
         showProgress(true);
-        if (State.local) {
-            return RegistrationModel.getUsers().contains(userToAuthenticate);
-        } else {
+        if (!State.local) {
             String loginKey = getLoginKey();
             if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals(""))) {
                 Agent.setUniqueIDofCurrentlyLoggedIn(loginKey);
                 return true;
             }
-            return false;
         }
+        return false;
     }
+
     String getLoginKey() {
 
         String TAG = Register.class.getSimpleName();

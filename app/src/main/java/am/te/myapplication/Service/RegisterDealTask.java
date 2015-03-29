@@ -21,10 +21,10 @@ import am.te.myapplication.State;
  */
 public class RegisterDealTask extends UserTask {
 
-    private String mName;
-    private Double mPrice;
-    private String mLocation;
-    private Activity mActivity;
+    private final String mName;
+    private final Double mPrice;
+    private final String mLocation;
+    private final Activity mActivity;
 
     /**
      * Creates the RegisterDealTask instance.

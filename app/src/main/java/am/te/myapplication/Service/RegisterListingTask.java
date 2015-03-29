@@ -18,10 +18,10 @@ import am.te.myapplication.State;
  */
 public class RegisterListingTask extends UserTask {
 
-    private String mName;
-    private Double mPrice;
-    private String mDescription;
-    private Activity mActivity;
+    private final String mName;
+    private final Double mPrice;
+    private final String mDescription;
+    private final Activity mActivity;
 
     /**
      * Constructs a RegisterListingTask instance.

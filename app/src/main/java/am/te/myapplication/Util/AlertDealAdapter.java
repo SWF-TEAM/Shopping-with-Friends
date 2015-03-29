@@ -2,7 +2,6 @@ package am.te.myapplication.Util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +23,8 @@ import am.te.myapplication.R;
  */
 public class AlertDealAdapter extends BaseAdapter {
 
-    private LayoutInflater inflater;
-    private List<Deal> items;
+    private final LayoutInflater inflater;
+    private final List<Deal> items;
 
     public AlertDealAdapter(Activity context, List<Deal> items) {
         super();

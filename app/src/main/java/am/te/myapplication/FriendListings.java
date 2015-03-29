@@ -31,7 +31,7 @@ public class FriendListings extends ActionBarActivity {
 
     private AlertListingAdapter arrayAdapter;
     private List<Listing> friendListings = new ArrayList<>();
-    private List<User> friends = new ArrayList<>();
+    private final List<User> friends = new ArrayList<>();
     private boolean notify;
 
     public static Listing selectedFriendListing;

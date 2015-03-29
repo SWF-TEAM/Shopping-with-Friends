@@ -16,7 +16,7 @@ import am.te.myapplication.Model.User;
 
 public class PopulateFriendsTask extends UserTask {
 
-    private List<User> toPopulate;
+    private final List<User> toPopulate;
     private ArrayAdapter adapter;
     private Activity activity;
 

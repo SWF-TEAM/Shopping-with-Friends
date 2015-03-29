@@ -23,7 +23,6 @@ public class FriendList extends ActionBarActivity {
     private ArrayAdapter<User> arrayAdapter;
     private List<User> friends = new ArrayList<>();
     static User selectedFriend;
-    private PopulateFriendsTask mPopulateFriendsTask;
 
     @Override
     public void onCreate(Bundle saveInstanceState) {
@@ -50,7 +49,7 @@ public class FriendList extends ActionBarActivity {
             friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getFriends();
         } else { //database
 
-            mPopulateFriendsTask = new PopulateFriendsTask(friends, arrayAdapter, this);
+            PopulateFriendsTask mPopulateFriendsTask = new PopulateFriendsTask(friends, arrayAdapter, this);
             mPopulateFriendsTask.execute();
             mPopulateFriendsTask = null;
 

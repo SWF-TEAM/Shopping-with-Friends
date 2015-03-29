@@ -8,7 +8,6 @@ import android.content.Intent;
 
 
 public class Welcome extends Activity {
-    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,7 @@ public class Welcome extends Activity {
     }
 
     public void ahh(View view){
-        player=MediaPlayer.create(this, R.raw.ahhhh);
+        MediaPlayer player = MediaPlayer.create(this, R.raw.ahhhh);
         player.start();
     }
 }

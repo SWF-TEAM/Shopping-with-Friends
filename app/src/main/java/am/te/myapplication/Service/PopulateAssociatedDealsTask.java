@@ -24,10 +24,10 @@ import am.te.myapplication.Util.AlertDealAdapter;
 public class PopulateAssociatedDealsTask extends UserTask {
 
 
-    private List<Deal> deals;
-    private Listing listing;
-    private AlertDealAdapter arrayAdapter;
-    private Activity activity;
+    private final List<Deal> deals;
+    private final Listing listing;
+    private final AlertDealAdapter arrayAdapter;
+    private final Activity activity;
 
     public PopulateAssociatedDealsTask(List<Deal> deals, Listing listing,
                                        AlertDealAdapter arrayAdapter, Activity activity) {

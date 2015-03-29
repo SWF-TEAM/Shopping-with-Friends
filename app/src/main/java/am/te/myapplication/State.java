@@ -13,6 +13,6 @@ package am.te.myapplication;
  */
 public class State {
 
-    public static boolean local = false;
+    public static final boolean local = false;
 
 }

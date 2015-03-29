@@ -24,8 +24,8 @@ import am.te.myapplication.R;
 public class AlertListingAdapter extends BaseAdapter {
 
     //private static int[] colors = new int[] { 0x99CC00, 0xFFFFFF };
-    private LayoutInflater inflater;
-    private List<Listing> items;
+    private final LayoutInflater inflater;
+    private final List<Listing> items;
 
     public AlertListingAdapter(Activity context, List<Listing> items) {
         super();

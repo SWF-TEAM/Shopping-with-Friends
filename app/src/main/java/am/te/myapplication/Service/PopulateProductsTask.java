@@ -24,10 +24,10 @@ import am.te.myapplication.Util.AlertListingAdapter;
  */
 public class PopulateProductsTask extends UserTask {
 
-    private List<Listing> products;
-    private AlertListingAdapter arrayAdapter;
-    private Activity activity;
-    private String id;
+    private final List<Listing> products;
+    private final AlertListingAdapter arrayAdapter;
+    private final Activity activity;
+    private final String id;
     private boolean notify;
 
     public PopulateProductsTask(List<Listing> products, boolean notify,

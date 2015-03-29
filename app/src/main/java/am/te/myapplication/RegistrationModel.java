@@ -11,9 +11,9 @@ import am.te.myapplication.Model.User;
  * @version 1.0
  * @since 2015 February 9
  */
-public class RegistrationModel {
+class RegistrationModel {
 
-    private static ArrayList<User> users = new ArrayList<>();
+    private static final ArrayList<User> users = new ArrayList<>();
 
     public static ArrayList<User> getUsers() {
         return users;

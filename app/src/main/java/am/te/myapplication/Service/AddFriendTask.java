@@ -28,11 +28,10 @@ import am.te.myapplication.State;
  */
 public class AddFriendTask extends UserTask {
 
-    private boolean success;
-    private String mName;
-    private String mEmail;
-    private EditText mEmailView;
-    private Activity mActivity;
+    private final String mName;
+    private final String mEmail;
+    private final EditText mEmailView;
+    private final Activity mActivity;
 
     /**
      * Constructs the initial AddFriendTask.
