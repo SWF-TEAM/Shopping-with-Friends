@@ -129,9 +129,7 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             boolean loggedIn = false;
             try {
                 loggedIn = mAuthTask.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
             if (loggedIn) {

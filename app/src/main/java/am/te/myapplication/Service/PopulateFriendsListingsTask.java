@@ -40,16 +40,12 @@ public class PopulateFriendsListingsTask extends UserTask {
     @Override
     protected Boolean doInBackground(Void... params) {
         /*Get list of friends to iterate through */
-        List<User> friends = new ArrayList<User>();
+        List<User> friends = new ArrayList<>();
         PopulateFriendsTask mPopulateFriendsTask = new PopulateFriendsTask(friends);
         mPopulateFriendsTask.execute();
         try {
             mPopulateFriendsTask.get(4000, TimeUnit.MILLISECONDS); //wait til friends are gotten
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
             e.printStackTrace();
         }
 

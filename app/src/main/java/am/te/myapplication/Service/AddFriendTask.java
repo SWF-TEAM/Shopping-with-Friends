@@ -88,7 +88,7 @@ public class AddFriendTask extends UserTask {
             HttpResponse response = client.execute(request);
             BufferedReader in = new BufferedReader(
                       new InputStreamReader(response.getEntity().getContent()));
-            StringBuffer sb = new StringBuffer("");
+            StringBuilder sb = new StringBuilder("");
             String line;
             while ((line = in.readLine()) != null) {
                 sb.append(line);

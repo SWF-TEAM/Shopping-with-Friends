@@ -30,8 +30,8 @@ import am.te.myapplication.Util.AlertListingAdapter;
 public class FriendListings extends ActionBarActivity {
 
     private AlertListingAdapter arrayAdapter;
-    List<Listing> friendListings = new ArrayList<Listing>();
-    List<User> friends = new ArrayList<User>();
+    List<Listing> friendListings = new ArrayList<>();
+    List<User> friends = new ArrayList<>();
     private boolean notify;
 
     public static Listing selectedFriendListing;
@@ -56,9 +56,7 @@ public class FriendListings extends ActionBarActivity {
             mPopulateFriendsTask.execute();
             try {
                 mPopulateFriendsTask.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
             /* Get friend listings from the database. */
@@ -70,9 +68,7 @@ public class FriendListings extends ActionBarActivity {
                 mListingsTask.execute(); //should update arrayAdapter automatically with fetch of each friend's listing data
                 try {
                     mListingsTask.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
                 allListings.addAll(currFriendListings);

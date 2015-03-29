@@ -17,7 +17,7 @@ import am.te.myapplication.Model.User;
 
 
 public class AddFriend extends ActionBarActivity {
-    protected List<User> possibleFriends = new ArrayList<User>();
+    protected List<User> possibleFriends = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class AddFriend extends ActionBarActivity {
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        final ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this,
+        final ArrayAdapter<User> arrayAdapter = new ArrayAdapter<>(this,
                                             android.R.layout.simple_list_item_1,
                                                                possibleFriends);
 

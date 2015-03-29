@@ -63,7 +63,7 @@ public class AlertDealAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         Deal item = items.get(position);
-        return Long.valueOf(item.hashCode());
+        return (long) item.hashCode();
     }
 
     @Override

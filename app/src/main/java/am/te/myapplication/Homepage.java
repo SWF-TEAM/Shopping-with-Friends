@@ -36,7 +36,7 @@ public class Homepage extends ActionBarActivity {
 
     private ListView lv;
     private AlertListingAdapter arrayAdapter;
-    List<Listing> products = new ArrayList<Listing>();
+    List<Listing> products = new ArrayList<>();
     List<Deal> deals = new ArrayList<>();
     private PopulateDealsTask mPopulateDealsTask;
     private boolean notify;

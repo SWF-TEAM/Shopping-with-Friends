@@ -21,7 +21,7 @@ public class FriendList extends ActionBarActivity {
 
     // Creates the list-view to hold the users.
     private ArrayAdapter<User> arrayAdapter;
-    List<User> friends = new ArrayList<User>();
+    List<User> friends = new ArrayList<>();
     static User selectedFriend;
 
     PopulateFriendsTask mPopulateFriendsTask = null;
@@ -41,7 +41,7 @@ public class FriendList extends ActionBarActivity {
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        arrayAdapter = new ArrayAdapter<User>(
+        arrayAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 friends);

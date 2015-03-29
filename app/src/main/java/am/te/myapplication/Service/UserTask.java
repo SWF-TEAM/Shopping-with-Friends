@@ -60,7 +60,7 @@ public abstract class UserTask extends AsyncTask<Void, Void, Boolean> {
             //reads html content and converts to string
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     response.getEntity().getContent()));
-            StringBuffer sb = new StringBuffer("");
+            StringBuilder sb = new StringBuilder("");
             String line;
             while ((line = in.readLine()) != null) {
                 sb.append(line);

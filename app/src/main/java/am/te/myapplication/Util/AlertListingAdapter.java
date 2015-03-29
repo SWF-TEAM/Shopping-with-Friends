@@ -64,7 +64,7 @@ public class AlertListingAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         Listing item = items.get(position);
-        return Long.valueOf(item.hashCode());
+        return (long) item.hashCode();
     }
 
     @Override
