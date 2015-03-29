@@ -3,7 +3,11 @@ package am.te.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import am.te.myapplication.Service.RegisterDealTask;
 import am.te.myapplication.Service.UserTask;
@@ -14,6 +18,7 @@ public class AddDeal extends Activity {
     private EditText priceView;
     private String listingName;
     private String location = "0;0";
+    private static final Logger log = Logger.getLogger("AddDeal");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +34,9 @@ public class AddDeal extends Activity {
         this.listingName = getIntent().getExtras().getString("listing");
     }
 
-    public void submitDeal() {
+    public void submitDeal(View v) {
+
+        log.log(Level.INFO, "Submitting deal from view " + v.toString());
 
         boolean cancel = false; // If an error occurs, cancel the operation
         //String name = nameView.getText().toString();
@@ -58,7 +65,10 @@ public class AddDeal extends Activity {
 
     }
 
-    public void openMap() {
+    public void openMap(View v) {
+
+        log.log(Level.INFO, "Openning map from view " + v.toString());
+
         Intent intent = new Intent(this, Map.class);
         startActivityForResult(intent, 1);
 

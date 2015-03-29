@@ -126,8 +126,4 @@ public class FriendList extends ActionBarActivity {
         Intent intent = new Intent(this, SearchFriends.class);
         startActivity(intent);
     }
-
-    public void refreshArrayAdapter() {
-        arrayAdapter.notifyDataSetChanged();
-    }
 }

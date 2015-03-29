@@ -15,7 +15,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
@@ -34,7 +33,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private Toast mLoginStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,10 +170,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
-    private void proceedToWelcome() {
-        Intent intent = new Intent(this, Welcome.class);
-        startActivity(intent);
-    }
 }
 
 

@@ -3,6 +3,7 @@ package am.te.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,11 +15,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
     private final MarkerOptions marker = new MarkerOptions();
     private LatLng position = new LatLng(0, 0);
     private boolean viewDeal = false;
+    private static final Logger log = Logger.getLogger("Map");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +72,9 @@ public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleM
     }
 
 
-    public void submitLocation() {
+    public void submitLocation(View v) {
+
+        log.log(Level.INFO, "Submitting Location, view is " + v.toString());
 
         if (!viewDeal) {
             Intent location = new Intent();

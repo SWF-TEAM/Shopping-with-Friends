@@ -17,11 +17,9 @@ import java.util.List;
 public class Listing implements Comparable<Listing>{
 
     private List<Deal> associatedDeals;
-    private String name;
-    private double desiredPrice;
+    private final String name;
+    private final double desiredPrice;
     private String additionalInfo;
-    private boolean hasBeenSeen;
-    private int productID;
     public String id;
 
     public Listing(String name, double desiredPrice, String additionalInfo, String id) {
@@ -37,48 +35,16 @@ public class Listing implements Comparable<Listing>{
         this.desiredPrice = desiredPrice;
     }
 
-    public Listing(String name, double desiredPrice) {
-        this(name, desiredPrice, null, null);
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public double getDesiredPrice() {
         return desiredPrice;
     }
 
-    public void setDesiredPrice(double desiredPrice) {
-        this.desiredPrice = desiredPrice;
-    }
-
     public String getAdditionalInfo() {
         return additionalInfo;
-    }
-
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
-    }
-
-    public List<Deal> getAssociatedDeals() {
-        return associatedDeals;
-    }
-
-    public void setAssociatedDeals(List<Deal> associatedDeals) {
-        this.associatedDeals = associatedDeals;
-    }
-
-    public boolean hasBeenSeen() {
-        return hasBeenSeen;
-    }
-
-    public void setHasBeenSeen(boolean hasBeenSeen) {
-        this.hasBeenSeen = hasBeenSeen;
     }
 
     @Override

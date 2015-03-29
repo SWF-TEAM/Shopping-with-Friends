@@ -30,10 +30,6 @@ public abstract class Agent {
         return loggedIn;
     }
 
-    public static void setLoggedIn(User loggedInParam) {
-        loggedIn = loggedInParam;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -58,10 +54,6 @@ public abstract class Agent {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
     void setName(String name) {
         this.name = name;
     }
@@ -74,11 +66,4 @@ public abstract class Agent {
         this.id = id;
     }
 
-    public boolean isBanned() {
-        return isBanned;
-    }
-
-    void setBanned(boolean isBanned) {
-        this.isBanned = isBanned;
-    }
 }

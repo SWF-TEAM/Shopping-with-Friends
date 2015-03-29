@@ -10,11 +10,11 @@ import android.support.annotation.NonNull;
  * @since 2015 March 12
  */
 public class Deal implements Comparable<Deal> {
-    private String name;
-    private String description;
-    private double desiredPrice;
-    private String location;
-    private boolean claimed;
+    private final String name;
+    private final String description;
+    private final double desiredPrice;
+    private final String location;
+    private final boolean claimed;
     private int id;
 
     public Deal(String name, String description, double desiredPrice,
@@ -36,40 +36,12 @@ public class Deal implements Comparable<Deal> {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public double getDesiredPrice() {
         return desiredPrice;
     }
 
-    public void setDesiredPrice(double desiredPrice) {
-        this.desiredPrice = desiredPrice;
-    }
-
     public String getLocation() {
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public boolean isClaimed() {
-        return claimed;
-    }
-
-    public void setClaimed(boolean claimed) {
-        this.claimed = claimed;
     }
 
     @Override

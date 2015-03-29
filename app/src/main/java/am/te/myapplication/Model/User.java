@@ -12,10 +12,13 @@ import java.util.List;
  */
 public class User extends Agent {
 
-    private List<User> friendList;
-    private List<Listing> itemList;
-    private List<Deal> deals;
-    private String description;
+    private final List<User> friendList;
+    private final List<Listing> itemList;
+    private String username;
+    private String password;
+    private String email;
+    private String id;
+    private String name;
     private int rating;
 
     /**
@@ -26,17 +29,15 @@ public class User extends Agent {
      * @param password the User's password
      * @param email the User's email
      * @param id the User's id
-     * @param description the User's description
      * @param name the User's name
      */
     public User(String username, String password, String email, String id,
-                String description, String name) {
-        this.setUsername(username);
-        this.setPassword(password);
-        this.setEmail(email);
-        this.setId(id);
-        this.setName(name);
-        this.description = description;
+                String name) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.id = id;
+        this.name = name;
         friendList = new ArrayList<>();
         itemList = new ArrayList<>();
     }

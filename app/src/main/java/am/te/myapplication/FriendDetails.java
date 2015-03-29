@@ -2,7 +2,11 @@ package am.te.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
@@ -20,6 +24,7 @@ import am.te.myapplication.Service.UserTask;
  */
 public class FriendDetails extends Activity {
     private User currentUser;
+    private static final Logger log = Logger.getLogger("FriendDetails");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,9 @@ public class FriendDetails extends Activity {
      * Removes your friends while in details view
      *
      */
-    public void removeFriend() {
+    public void removeFriend(View v) {
+
+        log.log(Level.INFO, "Removing friend, view is " + v.toString());
 
         if (State.local) {
             Agent.getLoggedIn().removeFriend(currentUser);

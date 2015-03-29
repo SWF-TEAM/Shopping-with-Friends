@@ -3,7 +3,6 @@ package am.te.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,8 +10,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateFriendsTask;
@@ -30,9 +30,9 @@ import am.te.myapplication.Util.AlertListingAdapter;
 public class FriendListings extends ActionBarActivity {
 
     private AlertListingAdapter arrayAdapter;
-    private List<Listing> friendListings = new ArrayList<>();
+    private final List<Listing> friendListings = new ArrayList<>();
     private final List<User> friends = new ArrayList<>();
-    private boolean notify;
+    private static final Logger log = Logger.getLogger("FriendListings");
 
     public static Listing selectedFriendListing;
     @Override
@@ -44,49 +44,54 @@ public class FriendListings extends ActionBarActivity {
     @Override
     public void onStart() {
 
-        ListView lv = (ListView) findViewById(R.id.activity_friends_listings_listView);
+        ListView lv = (ListView) findViewById(
+                                       R.id.activity_friends_listings_listView);
 
         //local
         arrayAdapter = new AlertListingAdapter(this, friendListings);
-        if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasItems()) {
-            friendListings = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getItemList();
-        } else {
-            /* get friends from database */
-            UserTask mPopulateFriendsTask = new PopulateFriendsTask(friends);
-            mPopulateFriendsTask.execute();
+        /* get friends from database */
+        UserTask mPopulateFriendsTask = new PopulateFriendsTask(friends);
+        mPopulateFriendsTask.execute();
+
+        try {
+            mPopulateFriendsTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        /* Get friend listings from the database. */
+        List<Listing> allListings = new ArrayList<>();
+
+        for (User friend: friends) {
+            String friendID = friend.getId();
+            List<Listing> currFriendListings = new ArrayList<>();
+            PopulateProductsTask mListingsTask = new PopulateProductsTask(
+                                                             currFriendListings,
+                                                                   arrayAdapter,
+                                                                           this,
+                                                                      friendID);
+
+            // Should update arrayAdapter automatically with fetch of each
+            // friend's listing data
+            mListingsTask.execute();
             try {
-                mPopulateFriendsTask.get();
+                mListingsTask.get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
-            /* Get friend listings from the database. */
-            List<Listing> allListings = new ArrayList<>();
-            for (User friend: friends) {
-                String friendID = friend.getId();
-                List<Listing> currFriendListings = new ArrayList<>();
-                PopulateProductsTask mListingsTask = new PopulateProductsTask(currFriendListings, notify, arrayAdapter, this, friendID);
-                mListingsTask.execute(); //should update arrayAdapter automatically with fetch of each friend's listing data
-                try {
-                    mListingsTask.get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-                allListings.addAll(currFriendListings);
-            }
-            System.out.println(">>>>>>>>size of allListings: " + allListings.size());
-            friendListings.clear();
-            friendListings.addAll(allListings);
+            allListings.addAll(currFriendListings);
         }
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
+        friendListings.clear();
+        friendListings.addAll(allListings);
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
                 //Pass user clicked on to new Friend Details Page
-                Intent i = new Intent(getApplicationContext(), FriendListingDetails.class);
+                Intent i = new Intent(getApplicationContext(),
+                                      FriendListingDetails.class);
                 if (!State.local) {
                     selectedFriendListing = friendListings.get(position);
                 }
@@ -99,53 +104,17 @@ public class FriendListings extends ActionBarActivity {
 
     }
 
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu items for use in the action bar
-//        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
-////        MenuInflater inflater = getMenuInflater();
-////        inflater.inflate(R.menu.menu_homepage, menu);
-////        return super.onCreateOptionsMenu(menu);
-//        return null;
-//    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar
-        // Opens the friends menu if the user presses the 'friends' button
-        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
-        switch (item.getItemId()) {
-            case R.id.friend_menu:
-                openFriends();
-                return true;
-            case R.id.add_product:
-                addProduct();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     @Override
     public void onResume() {
         arrayAdapter.notifyDataSetChanged();
         super.onResume();
     }
 
-    void openFriends() {
-        Intent intent = new Intent(this, FriendList.class);
-        startActivity(intent);
-    }
+    public void addDeal(View v) {
 
-    public void addDeal() {
+        log.log(Level.INFO, "Adding deal, view is " + v.toString());
+
         Intent intent = new Intent(this, AddDeal.class);
-        startActivity(intent);
-        arrayAdapter.notifyDataSetChanged();
-    }
-
-    void addProduct() {
-        Intent intent = new Intent(this, AddListing.class);
         startActivity(intent);
         arrayAdapter.notifyDataSetChanged();
     }

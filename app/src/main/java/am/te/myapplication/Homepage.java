@@ -1,6 +1,5 @@
 package am.te.myapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -10,16 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import am.te.myapplication.Model.Agent;
-import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
-import am.te.myapplication.Service.PopulateDealsTask;
 import am.te.myapplication.Service.PopulateProductsTask;
 import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.AlertListingAdapter;
@@ -37,9 +33,6 @@ public class Homepage extends ActionBarActivity {
     private ListView lv;
     private AlertListingAdapter arrayAdapter;
     private List<Listing> products = new ArrayList<>();
-    private List<Deal> deals = new ArrayList<>();
-    private PopulateDealsTask mPopulateDealsTask;
-    private boolean notify;
     static Listing selectedListing;
 
     @Override
@@ -64,29 +57,11 @@ public class Homepage extends ActionBarActivity {
         } else {
             /* Get products from the database. */
             UserTask mPopulateProductsTask = new PopulateProductsTask(products,
-                                                                      notify,
                                                                    arrayAdapter,
-                                                                      this,
+                                                                           this,
                                          User.getUniqueIDofCurrentlyLoggedIn());
             mPopulateProductsTask.execute();
         }
-
-        System.out.println("Size of products:" + products.size());
-
-        //Continuously search your soul. Do you feel satisfied?
-        if (notify) {
-            //A toast, to all your sins and regrets
-            Context context = getApplicationContext();
-            CharSequence text = "Your listings have new deals!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
-
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,7 +70,6 @@ public class Homepage extends ActionBarActivity {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(),
                                                           ListingDetails.class);
-                products.get(position).setHasBeenSeen(true);
                 if (State.local) {
                     i.putExtra("products", products.get(position).getName());
                 } else {
@@ -160,14 +134,6 @@ public class Homepage extends ActionBarActivity {
         Intent intent = new Intent(this, AddListing.class);
         startActivityForResult(intent, 1);
         arrayAdapter.notifyDataSetChanged();
-    }
-
-    public void addDeal() {
-        Intent intent = new Intent(this, AddDeal.class);
-        startActivity(intent);
-        //arrayAdapter.clear();
-        //arrayAdapter.addAll(User.loggedIn.getItemList());
-//        arrayAdapter.notifyDataSetChanged();
     }
 
     @Override

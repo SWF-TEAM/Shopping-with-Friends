@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
@@ -20,6 +24,7 @@ public class AddListing extends Activity {
     private EditText nameView;
     private EditText priceView;
     private EditText additionalInfoView;
+    private static final Logger log = Logger.getLogger("AddListing");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,9 @@ public class AddListing extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addProduct() {
+    public void addProduct(View v) {
+
+        log.log(Level.INFO, "Submitting listing from view " + v.toString());
 
         boolean cancel = false; /* If an error occurs, cancel the operation */
         String name = nameView.getText().toString();

@@ -3,7 +3,11 @@ package am.te.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import am.te.myapplication.Model.Listing;
 
@@ -16,6 +20,9 @@ import am.te.myapplication.Model.Listing;
  */
 public class FriendListingDetails extends Activity {
     private Listing currentFriendListing;
+
+    private static final Logger log = Logger.getLogger("FriendListingDetails");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +45,10 @@ public class FriendListingDetails extends Activity {
         additionalInfo.setText(currentFriendListing.getAdditionalInfo());
     }
 
-    public void registerDeal() {
+    public void registerDeal(View v) {
+
+        log.log(Level.INFO, "Registering deal, view is " + v.toString());
+
         Intent intent = new Intent(this, AddDeal.class);
         intent.putExtra("listing", currentFriendListing.getName());
         startActivity(intent);

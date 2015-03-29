@@ -5,7 +5,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import am.te.myapplication.Service.AddFriendTask;
 import am.te.myapplication.Service.UserTask;
@@ -15,6 +19,7 @@ public class SearchFriends extends Activity {
 
     private EditText mNameView;
     private EditText mEmailView;
+    private static final Logger log = Logger.getLogger("SearchFriends");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,10 @@ public class SearchFriends extends Activity {
      * with whatever is inside the text-field at the time.
      *
      */
-    public void search() {
+    public void search(View v) {
+
+        log.log(Level.INFO, "Searching, view is " + v.toString());
+
         String name = mNameView.getText().toString();
         String email = mEmailView.getText().toString();
         UserTask mUserAddTask = new AddFriendTask(name, email, mEmailView,
