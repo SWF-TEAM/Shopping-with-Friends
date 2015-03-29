@@ -54,12 +54,10 @@ public class AddDeal extends Activity {
 
 
         if (!cancel) {
-            if (!State.local) {
-                UserTask mRegisterDealTask = new RegisterDealTask(listingName,
+            UserTask mRegisterDealTask = new RegisterDealTask(listingName,
                                                          price, location, this);
-                mRegisterDealTask.execute();
-                mRegisterDealTask = null;
-            }
+            mRegisterDealTask.execute();
+            mRegisterDealTask = null;
             finish();
         }
 

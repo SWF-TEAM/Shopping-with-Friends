@@ -17,6 +17,7 @@ public class User extends Agent {
     private String username;
     private String password;
     private String email;
+    private String description;
     private String id;
     private String name;
     private int rating;
@@ -32,11 +33,12 @@ public class User extends Agent {
      * @param name the User's name
      */
     public User(String username, String password, String email, String id,
-                String name) {
+                String description, String name) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.id = id;
+        this.description = description;
         this.name = name;
         friendList = new ArrayList<>();
         itemList = new ArrayList<>();

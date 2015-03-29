@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Service.PopulateAssociatedDealsTask;
@@ -39,15 +38,13 @@ public class ListingDetails extends Activity {
 //        adapter = new ArrayAdapter<Deal>(this, R.layout.card_contents, deals);
         AlertDealAdapter adapter = new AlertDealAdapter(this, deals);
 
-        if (!(State.local)) {
-            /* Get products from the database. */
-            UserTask mPopulateTask = new PopulateAssociatedDealsTask(deals,
-                                                                 currentListing,
-                                                                     adapter,
-                                                                     this);
-            mPopulateTask.execute();
+        /* Get products from the database. */
+        UserTask mPopulateTask = new PopulateAssociatedDealsTask(deals,
+                                                             currentListing,
+                                                                 adapter,
+                                                                 this);
+        mPopulateTask.execute();
 
-        }
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
@@ -86,15 +83,7 @@ public class ListingDetails extends Activity {
 
 
         Bundle extras = getIntent().getExtras();
-        if (State.local) {
-            if (extras != null) {
-                // grab the listing here.
-                currentListing = Agent.getLoggedIn().getListing(
-                                                  extras.getString("products"));
-            }
-        } else { //database access
-            currentListing = Homepage.selectedListing;
-        }
+        currentListing = Homepage.selectedListing;
         // This is where we'd grab the details to display on screen.
         // Look at friend details for a better hint of what we're trying to do.
         TextView listingName = (TextView) findViewById(R.id.Name);

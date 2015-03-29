@@ -7,7 +7,6 @@ import java.io.UnsupportedEncodingException;
 
 import am.te.myapplication.FriendListings;
 import am.te.myapplication.Model.Agent;
-import am.te.myapplication.State;
 
 /**
  * Registers a deal in the database. This is a singleton because we want only
@@ -44,7 +43,7 @@ public class RegisterDealTask extends UserTask {
     }
     @Override
     protected Boolean doInBackground(Void... params) {
-        return !State.local && registerProduct();
+        return registerProduct();
     }
 
     /**

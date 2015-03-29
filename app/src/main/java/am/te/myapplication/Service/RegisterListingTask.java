@@ -7,7 +7,6 @@ import java.io.UnsupportedEncodingException;
 
 import am.te.myapplication.AddListing;
 import am.te.myapplication.Model.Agent;
-import am.te.myapplication.State;
 
 /**
  * The task used to register a new listing.
@@ -41,7 +40,7 @@ public class RegisterListingTask extends UserTask {
     }
     @Override
     protected Boolean doInBackground(Void... params) {
-        return !State.local && registerProduct();
+        return registerProduct();
     }
 
     /**

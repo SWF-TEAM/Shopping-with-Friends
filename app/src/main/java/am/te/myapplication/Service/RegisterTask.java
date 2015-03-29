@@ -5,7 +5,6 @@ import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
 import am.te.myapplication.Register;
-import am.te.myapplication.State;
 
 /**
  * The task used to register a new user.
@@ -35,7 +34,7 @@ public class RegisterTask extends UserTask {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        return !State.local && registerUser();
+        return registerUser();
     }
 
     /**

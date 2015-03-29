@@ -13,7 +13,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateProductsTask;
@@ -31,8 +30,9 @@ import am.te.myapplication.Util.AlertListingAdapter;
 public class Homepage extends ActionBarActivity {
 
     private ListView lv;
-    private AlertListingAdapter arrayAdapter;
-    private List<Listing> products = new ArrayList<>();
+    private final List<Listing> products = new ArrayList<>();
+    private final AlertListingAdapter arrayAdapter = new AlertListingAdapter(
+                                                                this, products);
     static Listing selectedListing;
 
     @Override
@@ -45,23 +45,13 @@ public class Homepage extends ActionBarActivity {
     public void onStart() {
 
         lv = (ListView) findViewById(R.id.product_listView);
-        arrayAdapter = new AlertListingAdapter(this, products);
 
-        //local
-
-        if (State.local && Agent.getLoggedIn() != null
-                && Agent.getLoggedIn().hasItems()) {
-            products = RegistrationModel.getUsers().get(
-                                           RegistrationModel.getUsers().indexOf(
-                                            Agent.getLoggedIn())).getItemList();
-        } else {
-            /* Get products from the database. */
-            UserTask mPopulateProductsTask = new PopulateProductsTask(products,
-                                                                   arrayAdapter,
-                                                                           this,
+        /* Get products from the database. */
+        UserTask mPopulateProductsTask = new PopulateProductsTask(products,
+                                                                  arrayAdapter,
+                                                                  this,
                                          User.getUniqueIDofCurrentlyLoggedIn());
-            mPopulateProductsTask.execute();
-        }
+        mPopulateProductsTask.execute();
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -70,11 +60,7 @@ public class Homepage extends ActionBarActivity {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(),
                                                           ListingDetails.class);
-                if (State.local) {
-                    i.putExtra("products", products.get(position).getName());
-                } else {
                     selectedListing = products.get(position);
-                }
                 startActivity(i);
 
             }

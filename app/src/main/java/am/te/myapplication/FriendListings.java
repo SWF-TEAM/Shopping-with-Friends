@@ -92,9 +92,7 @@ public class FriendListings extends ActionBarActivity {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(),
                                       FriendListingDetails.class);
-                if (!State.local) {
                     selectedFriendListing = friendListings.get(position);
-                }
                 startActivity(i);
             }
         });

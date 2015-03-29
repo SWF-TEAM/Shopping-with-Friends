@@ -12,9 +12,7 @@ import android.widget.EditText;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Listing;
-import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.RegisterListingTask;
 import am.te.myapplication.Service.UserTask;
 
@@ -33,7 +31,7 @@ public class AddListing extends Activity {
         nameView = (EditText) findViewById(R.id.add_product_name);
         priceView = (EditText) findViewById(R.id.add_product_price);
         additionalInfoView = (EditText) findViewById(
-                                               R.id.add_product_additionalInfo);
+                R.id.add_product_additionalInfo);
 
     }
 
@@ -80,23 +78,16 @@ public class AddListing extends Activity {
         String additionalInfo = additionalInfoView.getText().toString();
         Listing newProduct = new Listing(name, price, additionalInfo);
         if (!cancel) {
-            if (State.local) {
-                User current = Agent.getLoggedIn();
-
-                current.addItem(newProduct); // kek
-            } else {
-                UserTask mRegisterListingTask = new RegisterListingTask(name,
-                                                   price, additionalInfo, this);
-                mRegisterListingTask.execute();
-                mRegisterListingTask = null;
-                Intent listingData = new Intent();
-                listingData.putExtra("Name", name);
-                listingData.putExtra("Price", price);
-                listingData.putExtra("Additional", newProduct.getAdditionalInfo());
-                setResult(1,listingData);
-                finish();
-            }
+            UserTask mRegisterListingTask = new RegisterListingTask(name,
+                    price, additionalInfo, this);
+            mRegisterListingTask.execute();
+            mRegisterListingTask = null;
+            Intent listingData = new Intent();
+            listingData.putExtra("Name", name);
+            listingData.putExtra("Price", price);
+            listingData.putExtra("Additional", newProduct.getAdditionalInfo());
+            setResult(1, listingData);
+            finish();
         }
     }
-
 }

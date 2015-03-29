@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import am.te.myapplication.FriendDetails;
 import am.te.myapplication.Model.Agent;
-import am.te.myapplication.State;
 
 /**
  * Removes a friend from a user.
@@ -31,7 +30,7 @@ public class RemoveFriendTask extends UserTask {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        return !State.local && removeFriend();
+        return removeFriend();
     }
 
     /**

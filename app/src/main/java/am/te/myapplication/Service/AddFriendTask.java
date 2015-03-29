@@ -15,7 +15,6 @@ import java.net.URI;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Register;
-import am.te.myapplication.State;
 
 /**
  * The task used to add a friend.
@@ -50,30 +49,25 @@ public class AddFriendTask extends UserTask {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        if (State.local) {
-            //oh no y r u not using database
-            return true;
-        } else {
-            //database stuff
-            String userToAddKey = getUserKey();
-            if (!userToAddKey.equals("*NOSUCHUSER")) {
-                System.out.println("ADDING USER");
-                String TAG = "login: ";
-                String link = server_url + "/addfriend.php?userID="
-                                        + Agent.getUniqueIDofCurrentlyLoggedIn()
-                                        + "&friendID=" + userToAddKey;
-                try {
-                    String response = fetchHTTPResponseAsStr(TAG, link);
+        //database stuff
+        String userToAddKey = getUserKey();
+        if (!userToAddKey.equals("*NOSUCHUSER")) {
+            System.out.println("ADDING USER");
+            String TAG = "login: ";
+            String link = server_url + "/addfriend.php?userID="
+                                    + Agent.getUniqueIDofCurrentlyLoggedIn()
+                                    + "&friendID=" + userToAddKey;
+            try {
+                String response = fetchHTTPResponseAsStr(TAG, link);
 
-                    //whether or not user has become friends with the other
-                    // in database
-                    return response.equals("success");
-                } catch(Exception e) {
-                    return false;
-                }
+                //whether or not user has become friends with the other
+                // in database
+                return response.equals("success");
+            } catch(Exception e) {
+                return false;
             }
-            return false;
         }
+        return false;
     }
 
     private String getUserKey() {

@@ -11,7 +11,6 @@ import android.widget.EditText;
 
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Register;
-import am.te.myapplication.State;
 
 /**
  * Logs a user from the database into the app.
@@ -43,12 +42,10 @@ public class LoginTask extends UserTask {
     @Override
     protected Boolean doInBackground(Void... params) {
         showProgress(true);
-        if (!State.local) {
-            String loginKey = getLoginKey();
-            if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals(""))) {
-                Agent.setUniqueIDofCurrentlyLoggedIn(loginKey);
-                return true;
-            }
+        String loginKey = getLoginKey();
+        if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals(""))) {
+            Agent.setUniqueIDofCurrentlyLoggedIn(loginKey);
+            return true;
         }
         return false;
     }

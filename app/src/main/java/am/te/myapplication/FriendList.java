@@ -13,7 +13,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.Service.PopulateFriendsTask;
 
@@ -21,7 +20,7 @@ public class FriendList extends ActionBarActivity {
 
     // Creates the list-view to hold the users.
     private ArrayAdapter<User> arrayAdapter;
-    private List<User> friends = new ArrayList<>();
+    private final List<User> friends = new ArrayList<>();
     static User selectedFriend;
 
     @Override
@@ -45,16 +44,9 @@ public class FriendList extends ActionBarActivity {
                 android.R.layout.simple_list_item_1,
                 friends);
 
-        if (State.local && Agent.getLoggedIn() != null && Agent.getLoggedIn().hasFriends()) {
-            friends = RegistrationModel.getUsers().get(RegistrationModel.getUsers().indexOf(Agent.getLoggedIn())).getFriends();
-        } else { //database
-
-            PopulateFriendsTask mPopulateFriendsTask = new PopulateFriendsTask(friends, arrayAdapter, this);
-            mPopulateFriendsTask.execute();
-            mPopulateFriendsTask = null;
-
-        }
-
+        PopulateFriendsTask mPopulateFriendsTask = new PopulateFriendsTask(friends, arrayAdapter, this);
+        mPopulateFriendsTask.execute();
+        mPopulateFriendsTask = null;
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,12 +54,7 @@ public class FriendList extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(), FriendDetails.class);
-                if (State.local) {
-                    i.putExtra("username", friends.get(position).getUsername());
-                    i.putExtra("email", friends.get(position).getEmail());
-                } else { //database
                     selectedFriend = friends.get(position);
-                }
                 startActivity(i);
             }
         });

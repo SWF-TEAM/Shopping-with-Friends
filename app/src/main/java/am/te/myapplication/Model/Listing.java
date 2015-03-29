@@ -17,8 +17,8 @@ import java.util.List;
 public class Listing implements Comparable<Listing>{
 
     private List<Deal> associatedDeals;
-    private final String name;
-    private final double desiredPrice;
+    private String name;
+    private double desiredPrice;
     private String additionalInfo;
     public String id;
 

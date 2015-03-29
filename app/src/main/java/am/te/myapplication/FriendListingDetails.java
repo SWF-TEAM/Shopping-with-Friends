@@ -30,9 +30,6 @@ public class FriendListingDetails extends Activity {
 
 
         Bundle extras = getIntent().getExtras();
-        if (!State.local) {
-            currentFriendListing = FriendListings.selectedFriendListing;
-        }
         // This is where we'd grab the details to display on screen.
         // Look at friend details for a better hint of what we're trying to do.
         TextView listingName = (TextView) findViewById(R.id.Name);

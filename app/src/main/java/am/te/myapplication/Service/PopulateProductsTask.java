@@ -73,7 +73,6 @@ public class PopulateProductsTask extends UserTask {
                     try {
                         JSONObject lineOfArray = jsonArray.getJSONObject(i);
                         String seen = lineOfArray.getString("hasSeenDeals");
-                        newListing.setHasBeenSeen(Boolean.valueOf(seen));
 
                     } catch (JSONException e) {
                         Log.e(TAG, e.getMessage());

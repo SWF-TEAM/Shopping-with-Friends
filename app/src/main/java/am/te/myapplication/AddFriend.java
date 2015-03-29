@@ -12,7 +12,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.User;
 
 
@@ -39,11 +38,6 @@ public class AddFriend extends ActionBarActivity {
                                     long id) {
                 Log.d(AddFriend.class.getSimpleName(), "position" + pos
                                                      + " id" + id);
-                if (State.local) {
-                    Agent.getLoggedIn().addFriend(possibleFriends.get(pos));
-                    possibleFriends.remove(pos);
-                    arrayAdapter.notifyDataSetChanged();
-                }
             }
         });
     }
