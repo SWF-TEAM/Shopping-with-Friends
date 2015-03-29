@@ -28,6 +28,7 @@ import java.util.List;
 
 import am.te.myapplication.Service.RegisterTask;
 import am.te.myapplication.Service.UserTask;
+import am.te.myapplication.Util.Validation;
 
 public class Register extends Activity implements LoaderCallbacks<Cursor> {
 

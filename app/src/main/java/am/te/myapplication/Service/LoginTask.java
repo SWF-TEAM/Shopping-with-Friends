@@ -46,6 +46,7 @@ public class LoginTask extends UserTask {
 
     @Override
     protected Boolean doInBackground(Void... params) {
+        showProgress(true);
         if (State.local) {
             return RegistrationModel.getUsers().contains(userToAuthenticate);
         } else {

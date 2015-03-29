@@ -5,7 +5,11 @@ import am.te.myapplication.Model.User;
 
 
 /**
- * Created by Mike Adkison on 2/9/15.
+ * Serves as a local model of the database to hold user.
+ *
+ * @author Mike Adkison
+ * @version 1.0
+ * @since 2015 February 9
  */
 public class RegistrationModel {
 

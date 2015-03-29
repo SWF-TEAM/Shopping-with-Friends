@@ -1,7 +1,11 @@
-package am.te.myapplication;
+package am.te.myapplication.Util;
 
 /**
- * Created by Collin on 2/7/15.
+ * Provides validation services for login with emails and passwords.
+ *
+ * @author Collin Caldwell
+ * @version 1.0
+ * @since 2015 February 7
  */
 public class Validation {
     protected static boolean isPasswordValid(String password) {

@@ -16,7 +16,11 @@ import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Util.AlertListingAdapter;
 
 /**
- * Created by Collin on 3/22/15.
+ * Populates an array with a user's listings.
+ *
+ * @author Collin Caldwell
+ * @version 1.0
+ * @since 2015 March 22
  */
 public class PopulateProductsTask extends UserTask {
 
@@ -41,12 +45,12 @@ public class PopulateProductsTask extends UserTask {
         // get a list of possible friends from database
         ArrayList<Listing> theListings = new ArrayList<>();
         String TAG = Homepage.class.getSimpleName();
-        String link = "http://artineer.com/sandbox" + "/getlistings.php?userID=" + id;
+        String link = server_url + "/getlistings.php?userID=" + id;
         try {//kek
 
             String result = fetchHTTPResponseAsStr(TAG, link);
 
-            //now need to populate friends with users from result of database query
+            //populate friends with users from result of database query
             if (result.equals("0 results")) {
                 Log.d(TAG, result);
                 return false;
@@ -60,7 +64,8 @@ public class PopulateProductsTask extends UserTask {
                     String price = lineOfArray.getString("price");
                     String description = lineOfArray.getString("description");
                     String id = lineOfArray.getString("listingID");
-                    newListing = new Listing(title, Double.parseDouble(price), description, id);
+                    newListing = new Listing(title, Double.parseDouble(price),
+                                             description, id);
                     theListings.add(newListing);
 
                 } catch (JSONException e) {

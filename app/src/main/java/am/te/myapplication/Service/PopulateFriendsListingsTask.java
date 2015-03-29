@@ -14,7 +14,11 @@ import am.te.myapplication.Util.AlertListingAdapter;
 
 
 /**
- * Created by Mike Adkison on 3/23/15.
+ * Populates an array with all of a user's friends.
+ *
+ * @author Mike Adkison
+ * @version 1.0
+ * @since 2015 March 23
  */
 public class PopulateFriendsListingsTask extends UserTask {
 

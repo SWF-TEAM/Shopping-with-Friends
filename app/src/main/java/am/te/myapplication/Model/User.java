@@ -14,7 +14,7 @@ public class User extends Agent {
 
     private List<User> friendList;
     private List<Listing> itemList;
-    private List<SalesReport> salesReports;
+    private List<Deal> deals;
     private String description;
     private int rating;
 
@@ -72,15 +72,15 @@ public class User extends Agent {
         return rating;
     }
 
-    public List<SalesReport> getSalesReports() {
-        return salesReports;
+    public List<Deal> getDeals() {
+        return deals;
     }
 
-    public void setFriendList(List friendList) {
+    public void setFriendList(List<User> friendList) {
         this.friendList = friendList;
     }
 
-    public void setItemList(List itemList) {
+    public void setItemList(List<Listing> itemList) {
         this.itemList = itemList;
     }
 
@@ -92,8 +92,8 @@ public class User extends Agent {
         }
     }
 
-    public void setSalesReports(List<SalesReport> salesReports) {
-        this.salesReports = salesReports;
+    public void setDeals(List<Deal> salesReports) {
+        this.deals = salesReports;
     }
 
     public void setDescription(String description) {
@@ -168,24 +168,24 @@ public class User extends Agent {
 
 
     public boolean hasSalesReports() {
-        return !salesReports.isEmpty();
+        return !deals.isEmpty();
     }
 
-    public boolean addSalesReport(SalesReport newReport) {
-        if (!salesReports.contains(newReport)) {
-            salesReports.add(newReport);
+    public boolean addSalesReport(Deal newReport) {
+        if (!deals.contains(newReport)) {
+            deals.add(newReport);
             return true;
         }
         return false;
     }
 
-    public boolean hasSalesReport(SalesReport salesReport) {
-        return salesReports.contains(salesReport);
+    public boolean hasSalesReport(Deal salesReport) {
+        return deals.contains(salesReport);
     }
 
     public int getSalesReportNumber() {
         if (hasSalesReports()) {
-            return salesReports.size();
+            return deals.size();
         }
 
         return 0;

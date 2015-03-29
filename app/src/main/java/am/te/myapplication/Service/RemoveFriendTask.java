@@ -48,11 +48,7 @@ public class RemoveFriendTask extends UserTask {
 
         String response = fetchHTTPResponseAsStr(TAG, link);
 
-        if (response.contains("success")) {
-            return true;
-        } else {
-            return false;
-        }
+        return response.contains("success");
     }
 
     @Override

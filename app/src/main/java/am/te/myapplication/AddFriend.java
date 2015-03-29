@@ -27,18 +27,20 @@ public class AddFriend extends ActionBarActivity {
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        final ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, possibleFriends);
+        final ArrayAdapter<User> arrayAdapter = new ArrayAdapter<User>(this,
+                                            android.R.layout.simple_list_item_1,
+                                                               possibleFriends);
 
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //add friend to friend list here
-                Log.d(AddFriend.class.getSimpleName(), "position" + position + " id" + id);
-                //local
+            public void onItemClick(AdapterView<?> parent, View view, int pos,
+                                    long id) {
+                Log.d(AddFriend.class.getSimpleName(), "position" + pos
+                                                     + " id" + id);
                 if (State.local) {
-                    Agent.getLoggedIn().addFriend(possibleFriends.get(position));
-                    possibleFriends.remove(position);
+                    Agent.getLoggedIn().addFriend(possibleFriends.get(pos));
+                    possibleFriends.remove(pos);
                     arrayAdapter.notifyDataSetChanged();
                 }
             }
