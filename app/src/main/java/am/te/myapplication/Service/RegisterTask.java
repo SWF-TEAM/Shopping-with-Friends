@@ -41,9 +41,9 @@ public class RegisterTask extends UserTask {
     /**
      * Sends a request to a php post handler to register a user
      *
-     * @return boolean - true if the query does not throw an exception, else returns false.
+     * @return true if the query does not throw an exception, else returns false
      **/
-    protected boolean registerUser() {
+    private boolean registerUser() {
         String TAG = Register.class.getSimpleName();
 
         try {

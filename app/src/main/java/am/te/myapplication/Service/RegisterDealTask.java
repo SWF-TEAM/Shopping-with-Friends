@@ -52,7 +52,7 @@ public class RegisterDealTask extends UserTask {
      *
      * @return boolean - true if the query does not throw an exception, else returns false.
      */
-    protected boolean registerProduct() {
+    private boolean registerProduct() {
         String TAG = RegisterDealTask.class.getSimpleName();
         String link = null;
         try {

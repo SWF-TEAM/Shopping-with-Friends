@@ -20,7 +20,7 @@ import am.te.myapplication.Service.UserTask;
  * @since 2015 - February - 26
  */
 public class FriendDetails extends Activity {
-    User currentUser;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

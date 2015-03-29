@@ -45,11 +45,12 @@ public class RegisterListingTask extends UserTask {
     }
 
     /**
-     * Sends a request to a php post handler to add a listing (product) to the database.
+     * Sends a request to a php post handler to add a listing (product) to the
+     * database.
      *
-     * @return boolean - true if the query does not throw an exception, else returns false.
+     * @return true if the query does not throw an exception, else returns false
      **/
-    protected boolean registerProduct() {
+    private boolean registerProduct() {
         String TAG = AddListing.class.getSimpleName();
         String link = null;
         try {

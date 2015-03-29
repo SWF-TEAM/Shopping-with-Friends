@@ -116,7 +116,7 @@ public class User extends Agent {
         return null;
     }
 
-    public boolean isFriendsWith(User user) {
+    boolean isFriendsWith(User user) {
         return friendList.contains(user);
     }
 
@@ -162,7 +162,7 @@ public class User extends Agent {
     }
 
 
-    public boolean hasSalesReports() {
+    boolean hasSalesReports() {
         return !deals.isEmpty();
     }
 

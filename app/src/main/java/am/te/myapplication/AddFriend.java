@@ -17,7 +17,7 @@ import am.te.myapplication.Model.User;
 
 
 public class AddFriend extends ActionBarActivity {
-    protected List<User> possibleFriends = new ArrayList<>();
+    private List<User> possibleFriends = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

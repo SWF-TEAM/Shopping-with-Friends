@@ -71,7 +71,7 @@ public class ListingDetails extends Activity {
         super.onStart();
     }
 
-    public void openMap(View view) {
+    void openMap(View view) {
         Intent intent = new Intent(this, Map.class);
         intent.putExtra("latitude", latitude);
         intent.putExtra("longitude", longitude);

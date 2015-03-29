@@ -21,10 +21,10 @@ public class FriendList extends ActionBarActivity {
 
     // Creates the list-view to hold the users.
     private ArrayAdapter<User> arrayAdapter;
-    List<User> friends = new ArrayList<>();
+    private List<User> friends = new ArrayList<>();
     static User selectedFriend;
+    private PopulateFriendsTask mPopulateFriendsTask;
 
-    PopulateFriendsTask mPopulateFriendsTask = null;
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -118,12 +118,12 @@ public class FriendList extends ActionBarActivity {
         return true;
     }
 
-    public void openAddFriends() {
+    void openAddFriends() {
         Intent intent = new Intent(this, AddFriend.class);
         startActivity(intent);
     }
 
-    public void openSearchFriends() {
+    void openSearchFriends() {
         Intent intent = new Intent(this, SearchFriends.class);
         startActivity(intent);
     }

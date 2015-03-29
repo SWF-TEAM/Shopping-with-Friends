@@ -38,7 +38,7 @@ public abstract class Agent {
         return email;
     }
 
-    public void setEmail(String email) {
+    void setEmail(String email) {
         this.email = email;
     }
 
@@ -46,15 +46,15 @@ public abstract class Agent {
         return username;
     }
 
-    public void setUsername(String username) {
+    void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    void setPassword(String password) {
         this.password = password;
     }
 
@@ -62,7 +62,7 @@ public abstract class Agent {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -70,7 +70,7 @@ public abstract class Agent {
         return id;
     }
 
-    public void setId(String id) {
+    void setId(String id) {
         this.id = id;
     }
 
@@ -78,7 +78,7 @@ public abstract class Agent {
         return isBanned;
     }
 
-    public void setBanned(boolean isBanned) {
+    void setBanned(boolean isBanned) {
         this.isBanned = isBanned;
     }
 }

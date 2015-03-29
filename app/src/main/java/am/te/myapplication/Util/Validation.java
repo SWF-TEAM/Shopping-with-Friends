@@ -8,17 +8,17 @@ package am.te.myapplication.Util;
  * @since 2015 February 7
  */
 public class Validation {
-    protected static boolean isPasswordValid(String password) {
+    public static boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() >= 4;
     }
 
-    protected static boolean isEmailValid(String email) {
+    public static boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return true;
     }
 
-    protected static boolean arePasswordsSame(String pass1, String pass2) {
+    public static boolean arePasswordsSame(String pass1, String pass2) {
         return pass1.equals(pass2);
     }
 }

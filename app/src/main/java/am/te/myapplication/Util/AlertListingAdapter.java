@@ -24,31 +24,14 @@ import am.te.myapplication.R;
 public class AlertListingAdapter extends BaseAdapter {
 
     //private static int[] colors = new int[] { 0x99CC00, 0xFFFFFF };
-    LayoutInflater inflater;
-    List<Listing> items;
-    int rowLayout;
-    int alertLayout;
-    int normalLayout;
+    private LayoutInflater inflater;
+    private List<Listing> items;
 
-    public AlertListingAdapter(Activity context, List<Listing> items,
-                             int rowLayout, int alertLayout, int normalLayout) {
+    public AlertListingAdapter(Activity context, List<Listing> items) {
         super();
         this.items = items;
         this.inflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        this.rowLayout = rowLayout;
-        this.alertLayout = alertLayout;
-        this.normalLayout = normalLayout;
-    }
-
-    public AlertListingAdapter(Activity context, List<Listing> items, int rowLayout) {
-        this(context, items, rowLayout, R.drawable.alerted_row,
-                                        R.drawable.normal_row);
-    }
-
-    public AlertListingAdapter(Activity context, List<Listing> items) {
-        this(context, items, R.layout.card_contents, R.drawable.alerted_row,
-                                                     R.drawable.normal_row);
     }
 
     @Override

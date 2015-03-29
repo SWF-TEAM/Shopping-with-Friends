@@ -36,8 +36,8 @@ public class Homepage extends ActionBarActivity {
 
     private ListView lv;
     private AlertListingAdapter arrayAdapter;
-    List<Listing> products = new ArrayList<>();
-    List<Deal> deals = new ArrayList<>();
+    private List<Listing> products = new ArrayList<>();
+    private List<Deal> deals = new ArrayList<>();
     private PopulateDealsTask mPopulateDealsTask;
     private boolean notify;
     static Listing selectedListing;
@@ -146,21 +146,19 @@ public class Homepage extends ActionBarActivity {
         arrayAdapter.notifyDataSetChanged();
         lv.requestLayout();
     }
-    public void openFriendsListings() {
+    void openFriendsListings() {
         Intent intent = new Intent(this, FriendListings.class);
         startActivity(intent);
     }
 
-    public void openFriends() {
+    void openFriends() {
         Intent intent = new Intent(this, FriendList.class);
         startActivity(intent);
     }
 
-    public void addProduct() {
+    void addProduct() {
         Intent intent = new Intent(this, AddListing.class);
         startActivityForResult(intent, 1);
-        //arrayAdapter.clear();
-        //arrayAdapter.addAll(User.loggedIn.getItemList());
         arrayAdapter.notifyDataSetChanged();
     }
 

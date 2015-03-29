@@ -76,7 +76,8 @@ public class AddFriendTask extends UserTask {
             return false;
         }
     }
-    protected String getUserKey() {
+
+    private String getUserKey() {
         String TAG = Register.class.getSimpleName();
 
         try {

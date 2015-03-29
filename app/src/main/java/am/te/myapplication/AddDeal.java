@@ -13,7 +13,7 @@ import am.te.myapplication.Service.UserTask;
 public class AddDeal extends Activity {
 
     private EditText priceView;
-    String listingName = "";
+    private String listingName;
     private String location = "0;0";
 
     private String friendListingId;

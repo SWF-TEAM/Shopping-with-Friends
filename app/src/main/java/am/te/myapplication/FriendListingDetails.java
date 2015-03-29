@@ -16,7 +16,7 @@ import am.te.myapplication.Model.Listing;
  * @since not 2015 - February - 26
  */
 public class FriendListingDetails extends Activity {
-    Listing currentFriendListing;
+    private Listing currentFriendListing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -17,10 +17,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
-    MarkerOptions marker = new MarkerOptions();
-    GoogleMap map;
+    private MarkerOptions marker = new MarkerOptions();
+    private GoogleMap map;
     private LatLng position = new LatLng(0, 0);
-    boolean viewDeal = false;
+    private boolean viewDeal = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

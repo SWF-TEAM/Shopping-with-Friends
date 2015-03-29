@@ -15,7 +15,7 @@ public class Deal implements Comparable<Deal> {
     private double desiredPrice;
     private String location;
     private boolean claimed;
-    public int id;
+    private int id;
 
     public Deal(String name, String description, double desiredPrice,
                              String location, boolean claimed, int id) {
@@ -79,8 +79,7 @@ public class Deal implements Comparable<Deal> {
 
         Deal deal = (Deal) o;
 
-        if (claimed != deal.claimed) return false;
-        return Double.compare(deal.desiredPrice, desiredPrice) == 0 && id == deal.id && !(description != null ? !description.equals(deal.description) : deal.description != null) && !(location != null ? !location.equals(deal.location) : deal.location != null) && !(name != null ? !name.equals(deal.name) : deal.name != null);
+        return claimed == deal.claimed && Double.compare(deal.desiredPrice, desiredPrice) == 0 && id == deal.id && !(description != null ? !description.equals(deal.description) : deal.description != null) && !(location != null ? !location.equals(deal.location) : deal.location != null) && !(name != null ? !name.equals(deal.name) : deal.name != null);
     }
 
     @Override

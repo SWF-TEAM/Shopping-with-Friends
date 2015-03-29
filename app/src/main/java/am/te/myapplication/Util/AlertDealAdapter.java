@@ -2,6 +2,7 @@ package am.te.myapplication.Util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,31 +24,14 @@ import am.te.myapplication.R;
  */
 public class AlertDealAdapter extends BaseAdapter {
 
-    LayoutInflater inflater;
-    List<Deal> items;
-    int rowLayout;
-    int alertLayout;
-    int normalLayout;
-
-    public AlertDealAdapter(Activity context, List<Deal> items,
-                               int rowLayout, int alertLayout, int normalLayout) {
-        super();
-        this.items = items;
-        this.inflater = (LayoutInflater) context.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-        this.rowLayout = rowLayout;
-        this.alertLayout = alertLayout;
-        this.normalLayout = normalLayout;
-    }
-
-    public AlertDealAdapter(Activity context, List<Deal> items, int rowLayout) {
-        this(context, items, rowLayout, R.drawable.alerted_row,
-                R.drawable.normal_row);
-    }
+    private LayoutInflater inflater;
+    private List<Deal> items;
 
     public AlertDealAdapter(Activity context, List<Deal> items) {
-        this(context, items, R.layout.card_contents, R.drawable.alerted_row,
-                R.drawable.normal_row);
+        super();
+        this.inflater = (LayoutInflater) context.getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+        this.items = items;
     }
 
     @Override

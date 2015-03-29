@@ -30,8 +30,8 @@ import am.te.myapplication.Util.AlertListingAdapter;
 public class FriendListings extends ActionBarActivity {
 
     private AlertListingAdapter arrayAdapter;
-    List<Listing> friendListings = new ArrayList<>();
-    List<User> friends = new ArrayList<>();
+    private List<Listing> friendListings = new ArrayList<>();
+    private List<User> friends = new ArrayList<>();
     private boolean notify;
 
     public static Listing selectedFriendListing;
@@ -133,7 +133,7 @@ public class FriendListings extends ActionBarActivity {
         super.onResume();
     }
 
-    public void openFriends() {
+    void openFriends() {
         Intent intent = new Intent(this, FriendList.class);
         startActivity(intent);
     }
@@ -141,12 +141,10 @@ public class FriendListings extends ActionBarActivity {
     public void addDeal() {
         Intent intent = new Intent(this, AddDeal.class);
         startActivity(intent);
-        //arrayAdapter.clear();
-        //arrayAdapter.addAll(User.loggedIn.getItemList());
         arrayAdapter.notifyDataSetChanged();
     }
 
-    public void addProduct() {
+    void addProduct() {
         Intent intent = new Intent(this, AddListing.class);
         startActivity(intent);
         arrayAdapter.notifyDataSetChanged();

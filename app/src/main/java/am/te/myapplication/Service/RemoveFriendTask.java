@@ -39,7 +39,7 @@ public class RemoveFriendTask extends UserTask {
      *
      * @return boolean - true if the query does not throw an exception, else returns false.
      **/
-    protected boolean removeFriend() {
+    private boolean removeFriend() {
         String TAG = FriendDetails.class.getSimpleName();
 
         String link = server_url + "/deletefriend.php?userID="

@@ -8,7 +8,7 @@ import android.content.Intent;
 
 
 public class Welcome extends Activity {
-    MediaPlayer player;
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

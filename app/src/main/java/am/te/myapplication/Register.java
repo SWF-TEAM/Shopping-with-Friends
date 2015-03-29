@@ -113,7 +113,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         startActivity(shoppingIntent);
 
     }
-    public void attemptRegister(View v) {
+    void attemptRegister(View v) {
 
         // Reset errors.
         mEmailView.setError(null);

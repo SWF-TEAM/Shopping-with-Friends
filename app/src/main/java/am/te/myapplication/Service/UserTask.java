@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
  */
 public abstract class UserTask extends AsyncTask<Void, Void, Boolean> {
 
-    protected static final String server_url = "http://artineer.com/sandbox";
+    static final String server_url = "http://artineer.com/sandbox";
 
     /**
      * Encodes a String, so that it may be used in a URL.
@@ -31,7 +31,7 @@ public abstract class UserTask extends AsyncTask<Void, Void, Boolean> {
      * @return the encoded string
      * @throws UnsupportedEncodingException
      */
-    public static String encode(String toEncode) throws
+    static String encode(String toEncode) throws
                                                   UnsupportedEncodingException {
         return java.net.URLEncoder.encode(toEncode, "UTF-8");
     }
@@ -45,7 +45,7 @@ public abstract class UserTask extends AsyncTask<Void, Void, Boolean> {
      * @return a string representing the data in the html response.
      * @since 2015 March 23
      */
-    public static String fetchHTTPResponseAsStr(String TAG, String link){
+    static String fetchHTTPResponseAsStr(String TAG, String link){
         String parsedResponse = "";
 
         try {

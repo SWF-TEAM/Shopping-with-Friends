@@ -79,8 +79,10 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid username, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
+     *
+     * @param v the View that the onClick's button sends out
      */
-    public void attemptLogin(View v) {
+    void attemptLogin(View v) {
         if (mAuthTask != null) {
             return;
         }
