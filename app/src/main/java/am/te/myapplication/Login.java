@@ -95,25 +95,12 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         boolean cancel = false;
         View focusView = null;
 
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
         // Check for a valid username address.
         if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
-        } else if (!isUsernameValid(username)) {
-            mUsernameView.setError("invalid username");
-            focusView = mUsernameView;
-            cancel = true;
         }
-
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -136,16 +123,6 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
             }
             mAuthTask = null;
         }
-    }
-
-    private boolean isUsernameValid(String username) {
-        return username != null && username.length() >= 4
-                                && username.matches("[a-zA-Z0-9]++");
-    }
-
-    private boolean isPasswordValid(String password) {
-        return password != null && password.length() >= 4
-                && password.matches("[a-zA-Z0-9]++");
     }
 
     @Override
