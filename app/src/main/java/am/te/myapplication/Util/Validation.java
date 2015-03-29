@@ -3,19 +3,27 @@ package am.te.myapplication.Util;
 /**
  * Provides validation services for login with emails and passwords.
  *
- * @author Collin Caldwell
- * @version 1.0
- * @since 2015 February 7
+ * @author Mitchell Manguno
+ * @version 2.0
+ * @since 2015 March 28
  */
 public class Validation {
+
     public static boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() >= 4;
+        return password != null && password.length() >= 4
+                                && password.matches("[a-zA-Z0-9]++");
     }
 
     public static boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return true;
+        if (email != null) {
+            int dot = email.lastIndexOf('.');
+            String dom = email.substring(dot);
+            return email.matches("[a-zA-Z]++@[a-zA-Z]++.[a-zA-Z]++")
+                   && (dom.equals(".com") || dom.equals(".net")
+                    || dom.equals(".edu") || dom.equals(".gov")
+                    || dom.equals(".mil") || dom.equals("org"));
+        }
+        return false;
     }
 
     public static boolean arePasswordsSame(String pass1, String pass2) {

@@ -55,7 +55,6 @@ public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleM
 
     @Override
     public void onMapReady(GoogleMap map) {
-        GoogleMap map1 = map;
         map.setOnMarkerDragListener(this);
         map.addMarker(marker);
 
