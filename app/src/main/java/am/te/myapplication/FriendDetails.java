@@ -51,7 +51,7 @@ public class FriendDetails extends Activity {
     /**
      * Removes your friends while in details view
      *
-     * @param view
+     * @param view the View that the onClick's button sends
      */
     public void removeFriend(View view) {
 

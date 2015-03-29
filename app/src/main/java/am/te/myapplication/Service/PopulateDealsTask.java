@@ -32,16 +32,17 @@ public class PopulateDealsTask extends UserTask {
     }
 
     /**
-     * populates deals ArrayList with info from database
+     * Populates deals ArrayList with info from database
      *
-     * @param params
+     * @param params the Void... that async tasks need to show progress
      * @return true if population was successful
      */
     @Override
     protected Boolean doInBackground(Void... params) {
         //DATABASE SHIT (get a list of possible friends from database)
         String TAG = Homepage.class.getSimpleName();
-        String link = "http://artineer.com/sandbox" + "/getdeals2.php?userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
+        String link = server_url + "/getdeals2.php?userID="
+                                 + Agent.getUniqueIDofCurrentlyLoggedIn();
 
         try {//kek
             Log.d(TAG, ">>>>>>>>>>>>>>>>>trying>>>>>");

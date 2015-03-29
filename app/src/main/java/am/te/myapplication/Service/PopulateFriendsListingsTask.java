@@ -32,9 +32,9 @@ public class PopulateFriendsListingsTask extends UserTask {
     }
 
     /**
-     * populates deals ArrayList with info from database
+     * Populates deals ArrayList with info from database.
      *
-     * @param params
+     * @param params the Void... that async tasks need to show progress
      * @return true if population was successful
      */
     @Override
