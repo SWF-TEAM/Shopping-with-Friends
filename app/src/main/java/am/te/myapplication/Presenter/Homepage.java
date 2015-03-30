@@ -32,14 +32,14 @@ public class Homepage extends ActionBarActivity {
 
     private ListView lv;
     private final List<Listing> products = new ArrayList<>();
-    private final AlertListingAdapter arrayAdapter = new AlertListingAdapter(
-                                                                this, products);
+    private AlertListingAdapter arrayAdapter;
     static Listing selectedListing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
+        arrayAdapter = new AlertListingAdapter(this, products);
     }
 
     @Override
