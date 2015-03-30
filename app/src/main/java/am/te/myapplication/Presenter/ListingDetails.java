@@ -39,7 +39,7 @@ public class ListingDetails extends Activity {
 //        adapter = new ArrayAdapter<Deal>(this, R.layout.card_contents, deals);
         AlertDealAdapter adapter = new AlertDealAdapter(this, deals);
 
-        /* Get products from the database. */
+        /* Get listings from the database. */
         UserTask mPopulateTask = new PopulateAssociatedDealsTask(deals,
                                                              currentListing,
                                                                  adapter,

@@ -29,17 +29,17 @@ public class AddListing extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
-        nameView = (EditText) findViewById(R.id.add_product_name);
-        priceView = (EditText) findViewById(R.id.add_product_price);
+        nameView = (EditText) findViewById(R.id.add_listing_name);
+        priceView = (EditText) findViewById(R.id.add_listing_price);
         additionalInfoView = (EditText) findViewById(
-                R.id.add_product_additionalInfo);
+                R.id.add_listing_additionalInfo);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_product, menu);
+        getMenuInflater().inflate(R.menu.menu_add_listing, menu);
         return true;
     }
 
@@ -58,7 +58,7 @@ public class AddListing extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addProduct(View v) {
+    public void addListing(View v) {
 
         log.log(Level.INFO, "Submitting listing from view " + v.toString());
 
@@ -77,7 +77,7 @@ public class AddListing extends Activity {
         }
 
         String additionalInfo = additionalInfoView.getText().toString();
-        Listing newProduct = new Listing(name, price, additionalInfo);
+        Listing newListing = new Listing(name, price, additionalInfo);
         if (!cancel) {
             UserTask mRegisterListingTask = new RegisterListingTask(name,
                     price, additionalInfo, this);
@@ -86,7 +86,7 @@ public class AddListing extends Activity {
             Intent listingData = new Intent();
             listingData.putExtra("Name", name);
             listingData.putExtra("Price", price);
-            listingData.putExtra("Additional", newProduct.getAdditionalInfo());
+            listingData.putExtra("Additional", newListing.getAdditionalInfo());
             setResult(1, listingData);
             finish();
         }

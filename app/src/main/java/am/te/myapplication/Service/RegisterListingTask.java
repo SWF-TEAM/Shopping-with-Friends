@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 
-import am.te.myapplication.AddListing;
+import am.te.myapplication.Presenter.AddListing;
 import am.te.myapplication.Model.Agent;
 
 /**
@@ -40,16 +40,16 @@ public class RegisterListingTask extends UserTask {
     }
     @Override
     protected Boolean doInBackground(Void... params) {
-        return registerProduct();
+        return registerListing();
     }
 
     /**
-     * Sends a request to a php post handler to add a listing (product) to the
+     * Sends a request to a php post handler to add a listing (listing) to the
      * database.
      *
      * @return true if the query does not throw an exception, else returns false
      **/
-    private boolean registerProduct() {
+    private boolean registerListing() {
         String TAG = AddListing.class.getSimpleName();
         String link = null;
         try {

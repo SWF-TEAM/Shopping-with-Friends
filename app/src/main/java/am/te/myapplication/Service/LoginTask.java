@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 
 import am.te.myapplication.Model.Agent;
-import am.te.myapplication.Register;
+import am.te.myapplication.Presenter.Register;
 
 /**
  * Logs a user from the database into the app.
@@ -41,7 +41,7 @@ public class LoginTask extends UserTask {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        showProgress(true);
+        //showProgress(true);
         String loginKey = getLoginKey();
         if (!(loginKey.equals("*NOSUCHUSER") || loginKey.equals(""))) {
             Agent.setUniqueIDofCurrentlyLoggedIn(loginKey);
@@ -60,22 +60,24 @@ public class LoginTask extends UserTask {
     }
     @Override
     protected void onPostExecute(final Boolean success) {
-       showProgress(false);
+       //showProgress(false);
         if (!success) {
             mPasswordView.setError("Invalid password or username.");
             mPasswordView.requestFocus();
         }
     }
 
+    /*
     @Override
     protected void onCancelled() {
         showProgress(false);
     }
+    */
 
-
+/*
     /**
      * Shows the progress UI and hides the login form.
-     */
+     ** /
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -108,4 +110,5 @@ public class LoginTask extends UserTask {
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+*/
 }

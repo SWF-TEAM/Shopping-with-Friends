@@ -17,7 +17,7 @@ import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.R;
 import am.te.myapplication.Service.PopulateFriendsTask;
-import am.te.myapplication.Service.PopulateProductsTask;
+import am.te.myapplication.Service.PopulateListingsTask;
 import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.AlertListingAdapter;
 
@@ -66,7 +66,7 @@ public class FriendListings extends ActionBarActivity {
         for (User friend: friends) {
             String friendID = friend.getId();
             List<Listing> currFriendListings = new ArrayList<>();
-            PopulateProductsTask mListingsTask = new PopulateProductsTask(
+            PopulateListingsTask mListingsTask = new PopulateListingsTask(
                                                              currFriendListings,
                                                                    arrayAdapter,
                                                                            this,

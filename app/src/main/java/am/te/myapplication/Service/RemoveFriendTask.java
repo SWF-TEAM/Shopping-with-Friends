@@ -2,7 +2,7 @@ package am.te.myapplication.Service;
 
 import android.app.Activity;
 
-import am.te.myapplication.FriendDetails;
+import am.te.myapplication.Presenter.FriendDetails;
 import am.te.myapplication.Model.Agent;
 
 /**

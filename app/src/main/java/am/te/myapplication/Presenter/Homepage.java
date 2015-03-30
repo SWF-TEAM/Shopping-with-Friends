@@ -16,7 +16,7 @@ import java.util.List;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
 import am.te.myapplication.R;
-import am.te.myapplication.Service.PopulateProductsTask;
+import am.te.myapplication.Service.PopulateListingsTask;
 import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.AlertListingAdapter;
 
@@ -45,10 +45,10 @@ public class Homepage extends ActionBarActivity {
     @Override
     public void onStart() {
 
-        lv = (ListView) findViewById(R.id.product_listView);
+        lv = (ListView) findViewById(R.id.listing_listView);
 
         /* Get products from the database. */
-        UserTask mPopulateProductsTask = new PopulateProductsTask(products,
+        UserTask mPopulateProductsTask = new PopulateListingsTask(products,
                                                                   arrayAdapter,
                                                                   this,
                                          User.getUniqueIDofCurrentlyLoggedIn());
@@ -90,7 +90,7 @@ public class Homepage extends ActionBarActivity {
             case R.id.friend_menu:
                 openFriends();
                 return true;
-            case R.id.add_product:
+            case R.id.add_listing:
                 addProduct();
                 return true;
             case R.id.friends_listings:

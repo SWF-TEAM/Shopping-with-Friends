@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 
 import am.te.myapplication.Model.Agent;
-import am.te.myapplication.Register;
+import am.te.myapplication.Presenter.Register;
 
 /**
  * The task used to add a friend.
@@ -60,8 +60,7 @@ public class AddFriendTask extends UserTask {
             try {
                 String response = fetchHTTPResponseAsStr(TAG, link);
 
-                //whether or not user has become friends with the other
-                // in database
+                //whether or not user has become friends with the other in db
                 return response.equals("success");
             } catch(Exception e) {
                 return false;
@@ -72,30 +71,17 @@ public class AddFriendTask extends UserTask {
 
     private String getUserKey() {
         String TAG = Register.class.getSimpleName();
+        String response = "";
 
         try {
             String link = server_url + "/getuser.php?name=" + encode(mName)
                                      + "&email=" + encode(mEmail);
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet();
-            request.setURI(new URI(link));
-            HttpResponse response = client.execute(request);
-            BufferedReader in = new BufferedReader(
-                      new InputStreamReader(response.getEntity().getContent()));
-            StringBuilder sb = new StringBuilder("");
-            String line;
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-                break;
-            }
-            in.close();
-            Log.e(TAG, sb.toString());
-
-            return sb.toString();
-        }catch(Exception e){
+            response = fetchHTTPResponseAsStr(TAG, link);
+        }catch(Exception e){ //checks for encoding exception
             Log.e(TAG, "EXCEPTION>>>>", e);
-            return "";
         }
+
+        return response;
     }
     @Override
     protected void onPostExecute(final Boolean success) {

@@ -86,16 +86,16 @@ public class User extends Agent {
         return !itemList.isEmpty();
     }
 
-    public void addItem(Listing newProduct) {
-        if (!itemList.contains(newProduct)) {
-            itemList.add(newProduct);
+    public void addItem(Listing newListing) {
+        if (!itemList.contains(newListing)) {
+            itemList.add(newListing);
         }
     }
 
-    public Listing getListing(String product) {
-        for (Listing listing: itemList) {
-            if (product.equals(listing.getName())) {
-                return listing;
+    public Listing getListing(String listing) {
+        for (Listing aListing: itemList) {
+            if (listing.equals(aListing.getName())) {
+                return aListing;
             }
         }
         return null;

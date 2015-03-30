@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 /**
- * The product class represents a product that a user desires.
+ * The listing class represents a listing that a user desires.
  *
  * @author Mitchell Manguno
  * @since 2015 February 23

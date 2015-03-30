@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
-import am.te.myapplication.Register;
+import am.te.myapplication.Presenter.Register;
 
 /**
  * The task used to register a new user.

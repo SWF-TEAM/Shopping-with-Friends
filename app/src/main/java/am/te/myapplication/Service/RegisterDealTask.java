@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 
-import am.te.myapplication.FriendListings;
+import am.te.myapplication.Presenter.FriendListings;
 import am.te.myapplication.Model.Agent;
 
 /**
@@ -43,7 +43,7 @@ public class RegisterDealTask extends UserTask {
     }
     @Override
     protected Boolean doInBackground(Void... params) {
-        return registerProduct();
+        return registerListing();
     }
 
     /**
@@ -51,7 +51,7 @@ public class RegisterDealTask extends UserTask {
      *
      * @return boolean - true if the query does not throw an exception, else returns false.
      */
-    private boolean registerProduct() {
+    private boolean registerListing() {
         String TAG = RegisterDealTask.class.getSimpleName();
         String link = null;
         try {

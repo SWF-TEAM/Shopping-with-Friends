@@ -77,7 +77,7 @@ public class AddDeal extends Activity {
                                      Intent data) {
 //        if (data != null) {
 //            Listing newListing = Listing.getListingFromIntent(data);
-//            products.add(newListing);
+//            listings.add(newListing);
 //            arrayAdapter.notifyDataSetChanged();
 //        }
         Bundle extras = data.getExtras();

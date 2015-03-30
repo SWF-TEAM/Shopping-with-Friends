@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import am.te.myapplication.Homepage;
+import am.te.myapplication.Presenter.Homepage;
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Util.AlertDealAdapter;
