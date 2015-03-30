@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import java.util.List;
 
 import am.te.myapplication.Model.Deal;
 import am.te.myapplication.Model.Listing;
+import am.te.myapplication.R;
 import am.te.myapplication.Service.PopulateAssociatedDealsTask;
 import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.AlertDealAdapter;

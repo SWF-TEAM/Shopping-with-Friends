@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import java.util.concurrent.ExecutionException;
 
+import am.te.myapplication.R;
 import am.te.myapplication.Service.LoginTask;
 
 

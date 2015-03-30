@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.app.Activity;
 import android.content.CursorLoader;
@@ -26,6 +26,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.R;
 import am.te.myapplication.Service.RegisterTask;
 import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.Validation;

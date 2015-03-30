@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import am.te.myapplication.R;
 import am.te.myapplication.Service.RegisterDealTask;
 import am.te.myapplication.Service.UserTask;
 

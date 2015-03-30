@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
@@ -8,6 +8,8 @@ import android.view.View;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import am.te.myapplication.R;
 
 
 public class Welcome extends Activity {

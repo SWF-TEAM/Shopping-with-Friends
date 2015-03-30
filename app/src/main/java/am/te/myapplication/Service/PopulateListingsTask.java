@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import am.te.myapplication.Homepage;
+import am.te.myapplication.Presenter.Homepage;
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Util.AlertListingAdapter;
 
@@ -22,16 +22,16 @@ import am.te.myapplication.Util.AlertListingAdapter;
  * @version 1.0
  * @since 2015 March 22
  */
-public class PopulateProductsTask extends UserTask {
+public class PopulateListingsTask extends UserTask {
 
-    private final List<Listing> products;
+    private final List<Listing> listings;
     private final AlertListingAdapter arrayAdapter;
     private final Activity activity;
     private final String id;
 
-    public PopulateProductsTask(List<Listing> products,
+    public PopulateListingsTask(List<Listing> listings,
                AlertListingAdapter arrayAdapter, Activity activity, String id) {
-        this.products = products;
+        this.listings = listings;
         this.arrayAdapter = arrayAdapter;
         this.activity = activity;
         this.id = id;
@@ -80,10 +80,10 @@ public class PopulateProductsTask extends UserTask {
                 }
             }
 
-            products.clear();
-            products.addAll(theListings);
+            listings.clear();
+            listings.addAll(theListings);
             System.out.println("the listings size: " + theListings.size());
-            Collections.sort(products);
+            Collections.sort(listings);
 
             activity.runOnUiThread(new Runnable() {
 

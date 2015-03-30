@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import am.te.myapplication.Model.User;
+import am.te.myapplication.R;
 
 
 public class AddFriend extends ActionBarActivity {

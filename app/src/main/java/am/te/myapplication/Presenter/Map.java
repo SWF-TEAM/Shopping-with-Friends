@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import am.te.myapplication.R;
 
 public class Map extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 

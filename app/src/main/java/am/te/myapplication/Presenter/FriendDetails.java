@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import am.te.myapplication.Model.User;
 
+import am.te.myapplication.R;
 import am.te.myapplication.Service.RemoveFriendTask;
 import am.te.myapplication.Service.UserTask;
 

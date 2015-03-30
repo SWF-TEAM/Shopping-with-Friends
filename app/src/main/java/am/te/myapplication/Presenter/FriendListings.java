@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
+import am.te.myapplication.R;
 import am.te.myapplication.Service.PopulateFriendsTask;
 import am.te.myapplication.Service.PopulateProductsTask;
 import am.te.myapplication.Service.UserTask;

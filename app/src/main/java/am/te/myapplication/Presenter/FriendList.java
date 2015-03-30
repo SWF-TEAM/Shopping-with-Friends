@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import am.te.myapplication.Model.User;
+import am.te.myapplication.R;
 import am.te.myapplication.Service.PopulateFriendsTask;
 
 public class FriendList extends ActionBarActivity {

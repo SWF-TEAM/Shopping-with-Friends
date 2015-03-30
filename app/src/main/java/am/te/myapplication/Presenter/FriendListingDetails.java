@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import am.te.myapplication.Model.Listing;
+import am.te.myapplication.R;
 
 /**
  * This displays the details of your friend that you clicked on

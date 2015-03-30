@@ -1,4 +1,4 @@
-package am.te.myapplication;
+package am.te.myapplication.Presenter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import java.util.List;
 
 import am.te.myapplication.Model.Listing;
 import am.te.myapplication.Model.User;
+import am.te.myapplication.R;
 import am.te.myapplication.Service.PopulateProductsTask;
 import am.te.myapplication.Service.UserTask;
 import am.te.myapplication.Util.AlertListingAdapter;
