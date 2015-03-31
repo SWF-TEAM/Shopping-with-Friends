@@ -10,39 +10,95 @@ import android.support.annotation.NonNull;
  * @since 2015 March 12
  */
 public class Deal implements Comparable<Deal> {
-    private final String name;
-    private final String description;
-    private final double desiredPrice;
-    private final String location;
-    private final boolean claimed;
-    private int id;
+    private String listingID;
+    private String id;
 
-    public Deal(String name, String description, double desiredPrice,
-                             String location, boolean claimed, int id) {
+    private String name;
+    private String description;
+    private double price;
+    private String location;
+    private boolean claimed;
+
+    /**
+     * Constructor for the Deal class
+     *
+     * @param listingID id of the listing which is associated with the deal
+     * @param id id of the deal
+     *
+     * @param name name of the deal
+     * @param description description of the deal
+     * @param price price of the deal
+     * @param location latitude/longitude of the deal
+     * @param claimed whether or not the deal has been claimed
+     **/
+    public Deal(String listingID, String id, String name, String description, double price,
+                String location, boolean claimed) {
+        this.listingID = listingID;
+        this.id = id;
+
         this.name = name;
         this.description = description;
-        this.desiredPrice = desiredPrice;
+        this.price = price;
         this.location = location;
         this.claimed = claimed;
-        this.id = id;
     }
 
-    public Deal(String name, double price, String location) {
-        this(name, "", price, location, false, 0);
-        id = this.hashCode();
+    /**
+     * Constructor for deal class that generates ID code in java, rather than on php server code
+     * @param listingID id of the listing which is associated with the deal
+     * @param name name of the deal
+     * @param price price of the deal
+     * @param location latitude/longitude of the deal
+     */
+    public Deal(String listingID, String name, double price, String location) {
+        this(listingID, "", name, "", price, location, false);
+        id = "D" + this.hashCode();
     }
 
+    //getters
+    public String getListingID(){
+        return listingID;
+    }
+    public String getID() {
+        return id;
+    }
     public String getName() {
         return name;
     }
-
-    public double getDesiredPrice() {
-        return desiredPrice;
+    public String getDescription() {
+        return description;
     }
-
+    public double getPrice() {
+        return price;
+    }
     public String getLocation() {
         return location;
     }
+    public boolean getClaimed() {
+        return claimed;
+    }
+
+    /*
+    //setters
+    public void setListingID(String listingID) {
+        this.listingID = listingID;
+    }
+    public void setID(String id) {
+        this.id = id;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setDescription(String description){
+        this.description = description;
+    }
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+    public void setClaimed(boolean claimed) {
+        this.claimed = claimed;
+    }
+    */
 
     @Override
     public boolean equals(Object o) {
@@ -51,7 +107,7 @@ public class Deal implements Comparable<Deal> {
 
         Deal deal = (Deal) o;
 
-        return claimed == deal.claimed && Double.compare(deal.desiredPrice, desiredPrice) == 0 && id == deal.id && !(description != null ? !description.equals(deal.description) : deal.description != null) && !(location != null ? !location.equals(deal.location) : deal.location != null) && !(name != null ? !name.equals(deal.name) : deal.name != null);
+        return deal.getID() == id && deal.getListingID() == listingID;
     }
 
     @Override
@@ -60,7 +116,7 @@ public class Deal implements Comparable<Deal> {
         long temp;
         ret = name != null ? name.hashCode() : 0;
         ret = 31 * ret + (description != null ? description.hashCode() : 0);
-        temp = Double.doubleToLongBits(desiredPrice);
+        temp = Double.doubleToLongBits(price);
         ret = 31 * ret + (int) (temp ^ (temp >>> 32));
         ret = 31 * ret + (location != null ? location.hashCode() : 0);
         ret = 31 * ret + (claimed ? 1 : 0);

@@ -6,45 +6,122 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="am.te.myapplication.Presenter.AddDeal">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:id="@+id/add_price"
-        android:hint="@string/ent_price"
-        android:layout_marginTop="99dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/submit"
-        android:id="@+id/button3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="submitDeal"
-        android:layout_alignRight="@+id/add_price"
-        android:layout_alignEnd="@+id/add_price" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/add_deal_title"
-        android:id="@+id/textView2"
+        android:id="@+id/add_deal_title"
+
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_deal_name"
+
+        android:hint="@string/add_deal_name_hint"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/add_deal_title"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:id="@+id/add_deal_price"
+
+        android:hint="@string/ent_price"
+        android:layout_marginTop="4dp"
+        android:layout_below="@+id/add_deal_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/add_deal_additionalInfo"
+
+        android:background="@drawable/rectangle"
+        android:layout_below="@+id/add_deal_price"
+        android:layout_marginTop="4dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="@string/add_deal_additionalInfo_hint"
+        android:gravity="bottom"
+        android:paddingTop="1dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="1dp"
+        android:padding="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/latitude"
+        android:id="@+id/add_deal_latitude"
+        android:layout_below="@+id/add_deal_additionalInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lat"
+
+        android:focusable="false"
+        android:hint="@string/latitude_hint"
+        android:inputType="numberDecimal"
+        android:layout_below="@+id/add_deal_latitude"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/add_deal_price"
+        android:layout_alignEnd="@+id/add_deal_price"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/longitude"
+        android:id="@+id/add_deal_longitude"
+        android:layout_below="@+id/lat"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lng"
+
+        android:focusable="false"
+        android:hint="@string/longitude_hint"
+        android:inputType="numberDecimal"
+        android:layout_below="@+id/add_deal_longitude"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/lat"
+        android:layout_alignEnd="@+id/lat"
+        android:gravity="center" />
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/get_location"
         android:id="@+id/get_location"
+
         android:onClick="openMap"
         android:layout_below="@+id/lng"
         android:layout_alignParentLeft="true"
@@ -52,61 +129,17 @@
         android:layout_alignRight="@+id/lng"
         android:layout_alignEnd="@+id/lng" />
 
-    <EditText
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lat"
-        android:focusable="false"
-        android:hint="@string/latitude_hint"
-        android:inputType="numberDecimal"
-        android:layout_below="@+id/textView4"
+        android:text="@string/submit"
+        android:id="@+id/button3"
+
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/add_price"
-        android:layout_alignEnd="@+id/add_price"
-        android:gravity="center" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lng"
-        android:focusable="false"
-        android:hint="@string/longitude_hint"
-        android:inputType="numberDecimal"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/lat"
-        android:layout_alignEnd="@+id/lat"
-        android:gravity="center" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/location_explanation"
-        android:id="@+id/textView3"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/add_price"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/latitude"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/longitude"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/lat"
-        android:layout_centerHorizontal="true" />
+        android:onClick="submitDeal"
+        android:layout_alignRight="@+id/add_deal_price"
+        android:layout_alignEnd="@+id/add_deal_price" />
 
 </RelativeLayout>

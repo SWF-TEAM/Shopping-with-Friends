@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 
 import am.te.myapplication.Presenter.FriendListings;
 import am.te.myapplication.Model.Agent;
+import am.te.myapplication.Model.Deal;
 
 /**
  * Registers a deal in the database. This is a singleton because we want only
@@ -20,27 +21,18 @@ import am.te.myapplication.Model.Agent;
  */
 public class RegisterDealTask extends UserTask {
 
-    private final String mName;
-    private final Double mPrice;
-    private final String mLocation;
-    private final Activity mActivity;
-
+    private final Activity activity;
+    private final Deal deal;
     /**
      * Creates the RegisterDealTask instance.
      *
-     * @param name the name of the deal to send
-     * @param price the price of the deal to send
-     * @param location the location of the deal to send
-     * @param activity the initial activity that calls this task
+     * @param deal the deal which is to be added to the db
      */
-    public RegisterDealTask(String name, Double price, String location,
-                            Activity activity) {
-        mName = name;
-        mPrice = price;
-        mLocation = location;
-        mActivity = activity;
-
+    public RegisterDealTask(Deal deal, Activity activity) {
+        this.activity = activity;
+        this.deal = deal;
     }
+
     @Override
     protected Boolean doInBackground(Void... params) {
         return registerListing();
@@ -55,15 +47,18 @@ public class RegisterDealTask extends UserTask {
         String TAG = RegisterDealTask.class.getSimpleName();
         String link = null;
         try {
-            link = server_url + "/adddeal.php?Title=" + encode(mName)
-                          + "&Location=" + encode(mLocation)
-                          + "&Price=" + mPrice
-                          + "&userID=" + encode(Agent.getUniqueIDofCurrentlyLoggedIn())
-                          + "&listingID=" + encode(FriendListings.selectedFriendListing.id);
+            link = server_url + "/adddeal.php?title=" + encode(deal.getName())
+                          + "&location=" + encode(deal.getLocation())
+                          + "&price=" + deal.getPrice()
+                          + "&description=" + encode(deal.getDescription())
+                          + "&userID=" + encode(Agent.getUniqueIDofCurrentlyLoggedIn()) //violates law of demeter?
+                          + "&listingID=" + encode(deal.getLocation());
             System.out.println("using link: " + link);
+
         } catch(UnsupportedEncodingException e){
             Log.e(TAG, "url encoding failed");
         }
+
         try {
             String response = fetchHTTPResponseAsStr(TAG, link);
             Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -78,7 +73,7 @@ public class RegisterDealTask extends UserTask {
     @Override
     protected void onPostExecute(final Boolean success) {
         if (success) {
-            mActivity.finish();
+            activity.finish();
         }
     }
 }

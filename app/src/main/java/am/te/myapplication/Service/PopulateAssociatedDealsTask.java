@@ -23,7 +23,6 @@ import am.te.myapplication.Util.AlertDealAdapter;
  */
 public class PopulateAssociatedDealsTask extends UserTask {
 
-
     private final List<Deal> deals;
     private final Listing listing;
     private final AlertDealAdapter arrayAdapter;
@@ -58,16 +57,17 @@ public class PopulateAssociatedDealsTask extends UserTask {
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                    String title = lineOfArray.getString("Title");
-                    String description = lineOfArray.getString("Description");
-                    String price = lineOfArray.getString("Price");
+                    String listingID = lineOfArray.getString("listingID");
+                    String title = lineOfArray.getString("title");
+                    String description = lineOfArray.getString("description");
+                    String price = lineOfArray.getString("price");
                     System.out.println(title);
                     System.out.println(price);
-                    String location = lineOfArray.getString("Location");
+                    String location = lineOfArray.getString("location");
                     String claimed = lineOfArray.getString("claimed");
-                    Deal newDeal = new Deal(title, description,
+                    Deal newDeal = new Deal(listingID, "", title, description,
                                             Double.valueOf(price), location,
-                                 Boolean.valueOf(claimed), 1);
+                                 Boolean.valueOf(claimed));
                     theDeals.add(newDeal);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage());

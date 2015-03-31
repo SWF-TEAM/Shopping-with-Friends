@@ -31,9 +31,10 @@ import am.te.myapplication.Util.AlertListingAdapter;
 public class Homepage extends ActionBarActivity {
 
     private ListView lv;
-    private final List<Listing> products = new ArrayList<>();
+    private final List<Listing> listings = new ArrayList<>();
     private final AlertListingAdapter arrayAdapter = new AlertListingAdapter(
-                                                                this, products);
+                                                                this, listings);
+
     static Listing selectedListing;
 
     @Override
@@ -48,7 +49,7 @@ public class Homepage extends ActionBarActivity {
         lv = (ListView) findViewById(R.id.listing_listView);
 
         /* Get products from the database. */
-        UserTask mPopulateProductsTask = new PopulateListingsTask(products,
+        UserTask mPopulateProductsTask = new PopulateListingsTask(listings,
                                                                   arrayAdapter,
                                                                   this,
                                          User.getUniqueIDofCurrentlyLoggedIn());
@@ -61,7 +62,7 @@ public class Homepage extends ActionBarActivity {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(),
                                                           ListingDetails.class);
-                    selectedListing = products.get(position);
+                    selectedListing = listings.get(position);
                 startActivity(i);
 
             }
@@ -91,7 +92,7 @@ public class Homepage extends ActionBarActivity {
                 openFriends();
                 return true;
             case R.id.add_listing:
-                addProduct();
+                addListing();
                 return true;
             case R.id.friends_listings:
                 openFriendsListings();
@@ -117,7 +118,7 @@ public class Homepage extends ActionBarActivity {
         startActivity(intent);
     }
 
-    void addProduct() {
+    void addListing() {
         Intent intent = new Intent(this, AddListing.class);
         startActivityForResult(intent, 1);
         arrayAdapter.notifyDataSetChanged();
@@ -128,7 +129,7 @@ public class Homepage extends ActionBarActivity {
                                                                   Intent data) {
         if (data != null) {
             Listing newListing = Listing.getListingFromIntent(data);
-            products.add(newListing);
+            listings.add(newListing);
             arrayAdapter.notifyDataSetChanged();
         }
     }

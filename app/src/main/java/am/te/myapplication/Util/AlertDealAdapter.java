@@ -79,7 +79,7 @@ public class AlertDealAdapter extends BaseAdapter {
 
 
         holder.nameView.setText(item.getName());
-        holder.priceView.setText(String.valueOf(item.getDesiredPrice()));
+        holder.priceView.setText(String.valueOf(item.getPrice()));
 
         return v;
     }

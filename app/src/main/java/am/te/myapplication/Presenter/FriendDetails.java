@@ -36,12 +36,15 @@ public class FriendDetails extends Activity {
         // Put the username onto the details screen
         TextView usernameText = (TextView) findViewById(R.id.Username);
         usernameText.setText(currentUser.getUsername());
+
         // Put the email onto the details screen
         TextView emailText = (TextView) findViewById(R.id.Email);
         emailText.setText(currentUser.getEmail());
+
         // Put the rating onto the details screen
         TextView ratingText = (TextView) findViewById(R.id.Rating);
         ratingText.setText("Rating: "+ String.valueOf(currentUser.getRating()));
+
         // Put the email onto the details screen
         TextView salesText = (TextView) findViewById(R.id.salesReports);
         salesText.setText("");

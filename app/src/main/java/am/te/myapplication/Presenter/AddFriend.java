@@ -16,6 +16,12 @@ import am.te.myapplication.Model.User;
 import am.te.myapplication.R;
 
 
+/**
+ * This is the page which enables a user to add a friend
+ * by displaying a list of potential friends and allowing you to click
+ * one to retrieve his id.
+ *
+ */
 public class AddFriend extends ActionBarActivity {
 
     private final List<User> possibleFriends = new ArrayList<>();

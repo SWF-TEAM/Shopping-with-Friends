@@ -12,12 +12,15 @@ import java.util.logging.Logger;
 import am.te.myapplication.R;
 import am.te.myapplication.Service.RegisterDealTask;
 import am.te.myapplication.Service.UserTask;
-
+import am.te.myapplication.Model.Deal;
 
 public class AddDeal extends Activity {
 
     private EditText priceView;
-    private String listingName;
+    private EditText nameView;
+    private EditText descriptionView;
+
+    private String listingID;
     private String location = "0;0";
     private static final Logger log = Logger.getLogger("AddDeal");
 
@@ -25,23 +28,34 @@ public class AddDeal extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_deal);
-        priceView = (EditText) findViewById(R.id.add_price);
-//        friendListingId = FriendListings.selectedFriendListing.id;
+
+        nameView = (EditText) findViewById(R.id.add_deal_name);
+        priceView = (EditText) findViewById(R.id.add_deal_price);
+        descriptionView = (EditText)
+                findViewById(R.id.add_deal_additionalInfo);
+        //friendListingId = FriendListings.selectedFriendListing.id;
+
         EditText latText = (EditText) findViewById(R.id.lat);
         latText.setText(String.valueOf(0.0));
         EditText lngText = (EditText) findViewById(R.id.lng);
         lngText.setText(String.valueOf(0.0));
 
-        this.listingName = getIntent().getExtras().getString("listing");
+        this.listingID = FriendListings.selectedFriendListing.id; //violates law of demeter??
     }
 
+    /**
+     * This method validates form entry from the view, then attempts to register it
+     * 
+     * @param v the addDeal view
+     */
     public void submitDeal(View v) {
-
-        log.log(Level.INFO, "Submitting deal from view " + v.toString());
+        log.log(Level.INFO, "Attempting to submit deal from view " + v.toString());
 
         boolean cancel = false; // If an error occurs, cancel the operation
-        //String name = nameView.getText().toString();
         double price = 0.0;
+
+        String name = nameView.getText().toString();
+        String description = descriptionView.getText().toString();
 
         try {
             price = Double.valueOf(priceView.getText().toString());
@@ -53,10 +67,11 @@ public class AddDeal extends Activity {
             cancel = true;
         }
 
+        //listingID, dealID, name, description, price, location, claimed
+        Deal newDeal = new Deal(listingID, "", name, description, price, location, false);
 
         if (!cancel) {
-            UserTask mRegisterDealTask = new RegisterDealTask(listingName,
-                                                         price, location, this);
+            UserTask mRegisterDealTask = new RegisterDealTask(newDeal, this);
             mRegisterDealTask.execute();
             mRegisterDealTask = null;
             finish();
