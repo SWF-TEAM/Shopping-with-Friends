@@ -14,12 +14,7 @@ public class User extends Agent {
 
     private final List<User> friendList;
     private final List<Listing> itemList;
-    private String username;
-    private String password;
-    private String email;
     private String description;
-    private String id;
-    private String name;
     private int rating;
 
     /**
@@ -34,12 +29,13 @@ public class User extends Agent {
      */
     public User(String username, String password, String email, String id,
                 String description, String name) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.id = id;
+        System.out.println("SETTING THE USERNAME: " + username);
+        super.setUsername(username);
+        super.setPassword(password);
+        super.setEmail(email);
+        super.setId(id);
         this.description = description;
-        this.name = name;
+        super.setName(name);
         friendList = new ArrayList<>();
         itemList = new ArrayList<>();
     }
