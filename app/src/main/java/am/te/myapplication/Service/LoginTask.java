@@ -1,10 +1,6 @@
 package am.te.myapplication.Service;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
 import android.view.View;
 import android.widget.EditText;
 

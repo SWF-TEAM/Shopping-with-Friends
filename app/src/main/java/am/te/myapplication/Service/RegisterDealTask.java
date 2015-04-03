@@ -5,7 +5,6 @@ import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 
-import am.te.myapplication.Presenter.FriendListings;
 import am.te.myapplication.Model.Agent;
 import am.te.myapplication.Model.Deal;
 
