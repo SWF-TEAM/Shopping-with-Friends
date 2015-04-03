@@ -112,7 +112,7 @@ public class AddFriendTask extends UserTask {
         if (success) {
             mActivity.finish();
         } else {
-            mEmailView.setError("try a different user");
+            mEmailView.setError("wrong user or email");
         }
     }
 
