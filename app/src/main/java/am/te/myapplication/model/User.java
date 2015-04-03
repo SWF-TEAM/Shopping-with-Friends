@@ -14,7 +14,7 @@ public class User extends Agent {
 
     private final List<User> friendList;
     private final List<Listing> itemList;
-    private String description;
+    private final String description;
     private int rating;
 
     /**

@@ -10,14 +10,14 @@ import android.support.annotation.NonNull;
  * @since 2015 March 12
  */
 public class Deal implements Comparable<Deal> {
-    private String listingID;
+    private final String listingID;
     private String id;
 
-    private String name;
-    private String description;
-    private double price;
-    private String location;
-    private boolean claimed;
+    private final String name;
+    private final String description;
+    private final double price;
+    private final String location;
+    private final boolean claimed;
 
     /**
      * Constructor for the Deal class
