@@ -62,9 +62,8 @@ public abstract class UserTask extends AsyncTask<Void, Void, Boolean> {
                     response.getEntity().getContent()));
             StringBuilder sb = new StringBuilder("");
             String line;
-            while ((line = in.readLine()) != null) {
+            if((line = in.readLine()) != null) {
                 sb.append(line);
-                break;
             }
             in.close();
 
