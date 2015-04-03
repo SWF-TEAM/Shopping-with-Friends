@@ -29,7 +29,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Presenter.Welcome"
+            android:name=".presenter.Welcome"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Presenter.SearchFriends" >
+        <activity android:name=".presenter.SearchFriends" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -49,17 +49,17 @@
             -->
         </activity>
         <activity
-            android:name=".Presenter.Login"
+            android:name=".presenter.Login"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name=".Presenter.Homepage"
+            android:name=".presenter.Homepage"
             android:label="Home"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".Presenter.FriendList"
+            android:name=".presenter.FriendList"
             android:label="@string/title_activity_friend_list" >
 
             <!--
@@ -68,35 +68,35 @@
             -->
         </activity>
         <activity
-            android:name=".Presenter.Register"
+            android:name=".presenter.Register"
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name=".Presenter.AddFriend"
+            android:name=".presenter.AddFriend"
             android:label="@string/title_activity_add_friend" >
         </activity>
         <activity
-            android:name=".Presenter.AddListing"
+            android:name=".presenter.AddListing"
             android:label="@string/title_activity_add_listing" >
         </activity>
         <activity
-            android:name=".Presenter.FriendDetails"
+            android:name=".presenter.FriendDetails"
             android:label="Friend Details" >
         </activity>
         <activity
-            android:name=".Presenter.FriendListings"
+            android:name=".presenter.FriendListings"
             android:label="Friend Listings" >
         </activity>
         <activity
-            android:name=".Presenter.FriendListingDetails"
+            android:name=".presenter.FriendListingDetails"
             android:label=" Friend Listing Details" >
         </activity>
         <activity
-            android:name=".Presenter.ListingDetails"
+            android:name=".presenter.ListingDetails"
             android:label="@string/title_activity_listing_details" >
         </activity>
         <activity
-            android:name=".Presenter.AddDeal"
+            android:name=".presenter.AddDeal"
             android:label="@string/title_activity_deal_report" >
         </activity>
 
@@ -108,7 +108,7 @@
             android:value="AIzaSyCQdb-N7uwKlPK70FKrKwCOcDq5o9G6aHg" />
 
         <activity
-            android:name=".Presenter.Map"
+            android:name=".presenter.Map"
             android:label="@string/title_activity_main" >
         </activity>
     </application>
