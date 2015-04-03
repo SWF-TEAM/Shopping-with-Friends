@@ -51,7 +51,7 @@ public class RegisterDealTask extends UserTask {
                           + "&price=" + deal.getPrice()
                           + "&description=" + encode(deal.getDescription())
                           + "&userID=" + encode(Agent.getUniqueIDofCurrentlyLoggedIn()) //violates law of demeter?
-                          + "&listingID=" + encode(deal.getLocation());
+                          + "&listingID=" + encode(deal.getListingID());
             System.out.println("using link: " + link);
 
         } catch(UnsupportedEncodingException e){
