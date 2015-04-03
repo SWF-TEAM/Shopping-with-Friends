@@ -110,14 +110,6 @@ public class FriendListings extends ActionBarActivity {
         super.onResume();
     }
 
-    public void addDeal(View v) {
-
-        log.log(Level.INFO, "Adding deal, view is " + v.toString());
-
-        Intent intent = new Intent(this, AddDeal.class);
-        startActivity(intent);
-        arrayAdapter.notifyDataSetChanged();
-    }
     protected static Listing getSelectedFriendListing() {
         return selectedFriendListing;
     }

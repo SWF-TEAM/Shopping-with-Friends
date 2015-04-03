@@ -20,5 +20,6 @@
     <string name="add_deal">Add Deal</string>
     <string name="title_activity_deal_details">DealDetails</string>
     <string name="title_activity_main">MainActivity</string>
-
+    <string name="enter_pass_again">Enter Password Again</string>
+    <string name="add_listing">Add Listing</string>
 </resources>

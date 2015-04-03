@@ -63,7 +63,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Listing"
+        android:text="@string/add_listing"
         android:id="@+id/add_listing_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

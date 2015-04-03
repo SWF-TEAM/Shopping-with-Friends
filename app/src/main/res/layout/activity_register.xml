@@ -56,7 +56,7 @@
                 android:singleLine="true" />
 
             <AutoCompleteTextView android:id="@+id/reg_pass2"
-                android:hint="Enter Password Again"
+                android:hint="@string/enter_pass_again"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeActionId="@+id/login"
