@@ -59,7 +59,7 @@ public class Deal implements Comparable<Deal> {
     public String getListingID(){
         return listingID;
     }
-    public String getID() {
+    String getID() {
         return id;
     }
     public String getName() {

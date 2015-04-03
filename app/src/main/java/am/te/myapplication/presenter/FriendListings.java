@@ -109,7 +109,7 @@ public class FriendListings extends ActionBarActivity {
         super.onResume();
     }
 
-    protected static Listing getSelectedFriendListing() {
+    static Listing getSelectedFriendListing() {
         return selectedFriendListing;
     }
 }
