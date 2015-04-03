@@ -55,56 +55,60 @@ public class RegisterTaskTest extends ActivityInstrumentationTestCase2 {
 
     @Override
     protected void tearDown() throws Exception {
-        emailView.setText(email);
-        usernameView.setText(username);
-        nameView.setText(name);
-        passView.setText(pass);
-        pass2View.setText(pass);
-        emailView = (AutoCompleteTextView) activity.findViewById(R.id.reg_email);
-        passView = (EditText) activity.findViewById(R.id.reg_pass1);
-        regButton = (Button) activity.findViewById(R.id.reg_register);
+        super.tearDown();
 
     }
 
     @UiThreadTest
-     public void testAAShortSamePassword() {
+     public void testAll() {
         emailView.setText("an@stuff.com");
         usernameView.setText(username);
         nameView.setText(name);
         passView.setText("a");
         pass2View.setText("a");
 
-        final boolean success = regButton.performClick();
+        boolean success = regButton.performClick();
 
-//        assertEquals("An error appeared",passView.getError());
+        assertEquals("This password is too short",passView.getError());
 
-    }
-
-    @UiThreadTest
-    public void testNoEmail() {
         emailView.setText("");
-        usernameView.setText(username);
-        nameView.setText(name);
+        success = regButton.performClick();
+        assertEquals("This field is required",emailView.getError());
+
         passView.setText(pass);
         pass2View.setText(pass);
-        final boolean success = regButton.performClick();
-
-        assertNull("An error appeared", emailView.getError());
-    }
-
-    @UiThreadTest
-    public void testZeGoodRegister() {
-        emailView.setText(email);
-        usernameView.setText(username);
-        nameView.setText(name);
-        passView.setText(pass);
-        pass2View.setText(pass2);
-
-        final boolean success = regButton.performClick();
-        assertNull("This email address is invalid", emailView.getError());
-        assertNull("This email address is invalid", passView.getError());
+        success = regButton.performClick();
+        assertTrue(success);
 
     }
+//
+//    @UiThreadTest
+//    public void testNoEmail() {
+//        emailView.setError(null);
+//        passView.setError(null);
+//        emailView.setText("");
+//        usernameView.setText(username);
+//        nameView.setText(name);
+//        passView.setText(pass);
+//        pass2View.setText(pass);
+//        final boolean success = regButton.performClick();
+//
+//        assertNull("An error appeared", emailView.getError());
+//    }
+//
+//    @UiThreadTest
+//    public void testZeGoodRegister() {
+//        emailView.setText(email);
+//        usernameView.setText(username);
+//        nameView.setText(name);
+//        passView.setText(pass);
+//        pass2View.setText(pass2);
+//
+//        final boolean success = regButton.performClick();
+//        assertNull("This email address is invalid", emailView.getError());
+//        assertNull("This email address is invalid", passView.getError());
+//
+//    }
 
     // Check for a valid password, if the user entered one.
     // Check for a valid email address.
