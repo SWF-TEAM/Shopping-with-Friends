@@ -32,7 +32,7 @@ public class FriendListingDetails extends Activity {
         setContentView(R.layout.activity_friend_listing_details);
 
 
-        Bundle extras = getIntent().getExtras();
+        //Bundle extras = getIntent().getExtras();
         // This is where we'd grab the details to display on screen.
         // Look at friend details for a better hint of what we're trying to do.
         TextView listingName = (TextView) findViewById(R.id.Name);

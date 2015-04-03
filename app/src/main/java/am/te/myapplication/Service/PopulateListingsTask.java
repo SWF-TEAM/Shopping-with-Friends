@@ -72,7 +72,7 @@ public class PopulateListingsTask extends UserTask {
                 if (newListing != null) {
                     try {
                         JSONObject lineOfArray = jsonArray.getJSONObject(i);
-                        String seen = lineOfArray.getString("hasSeenDeals");
+                        //String seen = lineOfArray.getString("hasSeenDeals");
 
                     } catch (JSONException e) {
                         Log.e(TAG, e.getMessage());

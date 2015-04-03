@@ -83,7 +83,7 @@ public class ListingDetails extends Activity {
         setContentView(R.layout.activity_listing_details);
 
 
-        Bundle extras = getIntent().getExtras();
+        //Bundle extras = getIntent().getExtras();
         currentListing = Homepage.selectedListing;
         // This is where we'd grab the details to display on screen.
         // Look at friend details for a better hint of what we're trying to do.
