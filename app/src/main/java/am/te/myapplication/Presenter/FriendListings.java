@@ -60,9 +60,10 @@ public class FriendListings extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        /* Get friend listings from the database. */
-        List<Listing> allListings = new ArrayList<>();
+        System.out.println(friends);
 
+        /* Get friends' listings from the database. */
+        List<Listing> allListings = new ArrayList<>();
         for (User friend: friends) {
             String friendID = friend.getId();
             List<Listing> currFriendListings = new ArrayList<>();
@@ -93,7 +94,7 @@ public class FriendListings extends ActionBarActivity {
                 //Pass user clicked on to new Friend Details Page
                 Intent i = new Intent(getApplicationContext(),
                                       FriendListingDetails.class);
-                    selectedFriendListing = friendListings.get(position);
+                selectedFriendListing = friendListings.get(position);
                 startActivity(i);
             }
         });
@@ -116,5 +117,8 @@ public class FriendListings extends ActionBarActivity {
         Intent intent = new Intent(this, AddDeal.class);
         startActivity(intent);
         arrayAdapter.notifyDataSetChanged();
+    }
+    protected static Listing getSelectedFriendListing() {
+        return selectedFriendListing;
     }
 }

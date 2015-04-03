@@ -26,6 +26,8 @@ public class FriendListingDetails extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        currentFriendListing = FriendListings.getSelectedFriendListing();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_listing_details);
 
