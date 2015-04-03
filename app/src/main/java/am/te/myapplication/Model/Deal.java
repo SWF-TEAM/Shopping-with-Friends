@@ -107,7 +107,7 @@ public class Deal implements Comparable<Deal> {
 
         Deal deal = (Deal) o;
 
-        return deal.getID() == id && deal.getListingID() == listingID;
+        return deal.getID().equals(id) && deal.getListingID().equals(listingID);
     }
 
     @Override
