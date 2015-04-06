@@ -5,37 +5,32 @@ import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 
+import am.te.myapplication.model.Listing;
 import am.te.myapplication.presenter.AddListing;
 import am.te.myapplication.model.Agent;
 
 /**
  * The task used to register a new listing.
  *
- * @author Mitchell Manguno, Mike Adkison
+ * @author Mitchell Manguno, Mike Adkison, Veronica LeBlanc
  * @version 1.0
  * @since 2015 March 22
  */
 public class RegisterListingTask extends UserTask {
 
-    private final String mName;
-    private final Double mPrice;
-    private final String mDescription;
-    private final Activity mActivity;
+    private final Listing listing;
+    private final Activity activity;
 
     /**
      * Constructs a RegisterListingTask instance.
      *
-     * @param name the name of the listing to send
-     * @param price the price of the listing to send
-     * @param description the location of the listing to send
+     * @param listing the listing that will be registered
      * @param activity the activity that calls this task
      */
-    public RegisterListingTask(String name, Double price, String description,
+    public RegisterListingTask(Listing listing,
                                 Activity activity) {
-        mName = name;
-        mPrice = price;
-        mDescription = description;
-        mActivity = activity;
+        this.listing = listing;
+        this.activity = activity;
 
     }
     @Override
@@ -53,9 +48,9 @@ public class RegisterListingTask extends UserTask {
         String TAG = AddListing.class.getSimpleName();
         String link = null;
         try {
-            link = server_url + "/addlisting.php?title=" + encode(mName)
-                          + "&description=" + encode(mDescription)
-                          + "&price=" + mPrice
+            link = server_url + "/addlisting.php?title=" + encode(listing.getName())
+                          + "&description=" + encode(listing.getDescription())
+                          + "&price=" + listing.getDesiredPrice()
                           + "&userID=" + Agent.getUniqueIDofCurrentlyLoggedIn();
         } catch(UnsupportedEncodingException e){
             Log.e(TAG, "url encoding failed");
@@ -63,8 +58,8 @@ public class RegisterListingTask extends UserTask {
 
         try {
             String response = fetchHTTPResponseAsStr(TAG, link);
-            Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-                                                            + ">>>>>>>>>>>>>>");
+            Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>" +
+                    ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Log.d(TAG, response);
             return response.equals("success");
         }catch(Exception e){
@@ -77,7 +72,7 @@ public class RegisterListingTask extends UserTask {
     @Override
     protected void onPostExecute(final Boolean success) {
         if (success) {
-            mActivity.finish();
+            activity.finish();
         }
     }
 }

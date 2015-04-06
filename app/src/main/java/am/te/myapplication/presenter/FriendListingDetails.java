@@ -42,7 +42,7 @@ public class FriendListingDetails extends Activity {
         desiredPrice.setText(String.valueOf(currentFriendListing.getDesiredPrice()));
 
         TextView additionalInfo = (TextView) findViewById(R.id.AdditionalInfo);
-        additionalInfo.setText(currentFriendListing.getAdditionalInfo());
+        additionalInfo.setText(currentFriendListing.getDescription());
     }
 
     public void registerDeal(View v) {

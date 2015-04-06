@@ -1,5 +1,6 @@
 package am.te.myapplication.model;
 
+
 /**
  * The parent of all agents in the application.
  *
@@ -42,11 +43,15 @@ public abstract class Agent {
         return username;
     }
 
+    public String getName() { return name;}
+
+    void setName() { this.name = name;}
+
     void setUsername(String username) {
         this.username = username;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
     }
 

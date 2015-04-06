@@ -34,6 +34,7 @@ public class User extends Agent {
         super.setPassword(password);
         super.setEmail(email);
         super.setId(id);
+        super.setName(name);
         this.description = description;
         super.setName(name);
         friendList = new ArrayList<>();
@@ -51,7 +52,6 @@ public class User extends Agent {
     public int getRating() {
         return rating;
     }
-
 
     public boolean hasFriends() {
         return !friendList.isEmpty();

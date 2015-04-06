@@ -27,17 +27,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import am.te.myapplication.R;
+import am.te.myapplication.model.User;
 import am.te.myapplication.service.RegisterTask;
 import am.te.myapplication.service.UserTask;
 import am.te.myapplication.util.Validation;
 
 public class Register extends Activity implements LoaderCallbacks<Cursor> {
 
-    private AutoCompleteTextView mEmailView;
-    private EditText mUsernameView;
-    private EditText mNameView;
-    private EditText mPasswordView;
-    private EditText mPasswordView2;
+    private AutoCompleteTextView emailView;
+    private EditText usernameView;
+    private EditText nameView;
+    private EditText passwordView;
+    private EditText passwordView2;
 
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
@@ -49,13 +50,13 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         setContentView(R.layout.activity_register);
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.reg_email);
-        mUsernameView = (EditText) findViewById(R.id.reg_username);
-        mNameView = (EditText) findViewById(R.id.reg_name);
+        emailView = (AutoCompleteTextView) findViewById(R.id.reg_email);
+        usernameView = (EditText) findViewById(R.id.reg_username);
+        nameView = (EditText) findViewById(R.id.reg_name);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.reg_pass1);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        passwordView = (EditText) findViewById(R.id.reg_pass1);
+        passwordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -65,8 +66,8 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
                 return false;
             }
         });
-        mPasswordView2 = (EditText) findViewById(R.id.reg_pass2);
-        mPasswordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        passwordView2 = (EditText) findViewById(R.id.reg_pass2);
+        passwordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -117,32 +118,32 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
     void attemptRegister() {
 
         // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
-        mPasswordView2.setError(null);
+        emailView.setError(null);
+        passwordView.setError(null);
+        passwordView2.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String username = mUsernameView.getText().toString();
-        String name = mNameView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        String password2 = mPasswordView2.getText().toString();
+        String email = emailView.getText().toString();
+        String username = usernameView.getText().toString();
+        String name = nameView.getText().toString();
+        String password = passwordView.getText().toString();
+        String password2 = passwordView2.getText().toString();
 
         boolean cancel = false;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password)
          && !Validation.isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            passwordView.setError(getString(R.string.error_invalid_password));
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+            emailView.setError(getString(R.string.error_field_required));
             cancel = true;
         } else if (!Validation.isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            emailView.setError(getString(R.string.error_invalid_email));
             cancel = true;
         }
         // Check for same passwords
@@ -159,11 +160,11 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            mPasswordView.requestFocus();
+            passwordView.requestFocus();
         } else {
-
-            UserTask mAuthTask = new RegisterTask(username, name, email,
-                                                  password, this, mEmailView);
+            //String username, String password, String email, String id, String description, String name
+            User newUser = new User(username,password,email,"","",name);
+            UserTask mAuthTask = new RegisterTask(newUser, this, emailView);
             mAuthTask.execute((Void) null);
 
         }
@@ -186,7 +187,7 @@ public class Register extends Activity implements LoaderCallbacks<Cursor> {
                 new ArrayAdapter<>(Register.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+        emailView.setAdapter(adapter);
     }
     private interface ProfileQuery {
         String[] PROJECTION = {
