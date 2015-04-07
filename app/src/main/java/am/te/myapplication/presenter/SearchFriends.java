@@ -48,7 +48,7 @@ public class SearchFriends extends Activity {
         //String username, String password, String email, String id,
         //String description, String name
         User newFriend = new User(name,email);
-        UserTask addFriendTask = new AddFriendTask(newFriend, this);
+        UserTask addFriendTask = new AddFriendTask(newFriend, this, emailView);
 
         addFriendTask.execute();
         addFriendTask = null;
