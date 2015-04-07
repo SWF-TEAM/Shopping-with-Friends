@@ -18,9 +18,11 @@ import am.te.myapplication.presenter.Register;
 public class RegisterTask extends UserTask {
     private final User user;
     private final Activity activity;
+    private final AutoCompleteTextView emailView;
 
     public RegisterTask(User user, Activity activity, AutoCompleteTextView emailView) {
         this.activity = activity;
+        this.emailView = emailView;
         this.user = user;
     }
 
@@ -59,7 +61,6 @@ public class RegisterTask extends UserTask {
             activity.finish();
         } else {
             //database says this username already exists
-            AutoCompleteTextView emailView = (AutoCompleteTextView) activity.findViewById(R.id.reg_email);
             emailView.setError("Try a different username or email");
             emailView.requestFocus();
         }

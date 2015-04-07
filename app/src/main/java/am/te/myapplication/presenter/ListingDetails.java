@@ -94,6 +94,6 @@ public class ListingDetails extends Activity {
         desiredPrice.setText(String.valueOf(currentListing.getDesiredPrice()));
 
         TextView additionalInfo = (TextView) findViewById(R.id.AdditionalInfo);
-        additionalInfo.setText(currentListing.getAdditionalInfo());
+        additionalInfo.setText(currentListing.getDescription());
     }
 }

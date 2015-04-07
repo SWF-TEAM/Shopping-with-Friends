@@ -41,6 +41,13 @@ public class User extends Agent {
         itemList = new ArrayList<>();
     }
 
+    public User(String name, String email){
+        super.setName(name);
+        super.setEmail(email);
+        description = "";
+        friendList = null;
+        itemList = null;
+    }
     public List<User> getFriends() {
         return friendList;
     }

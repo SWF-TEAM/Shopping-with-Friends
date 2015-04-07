@@ -12,22 +12,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import am.te.myapplication.R;
+import am.te.myapplication.model.User;
 import am.te.myapplication.service.AddFriendTask;
 import am.te.myapplication.service.UserTask;
 
 
 public class SearchFriends extends Activity {
 
-    private EditText mNameView;
-    private EditText mEmailView;
+    private EditText nameView;
+    private EditText emailView;
     private static final Logger log = Logger.getLogger("SearchFriends");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_friends);
-        mNameView = (EditText) findViewById(R.id.name);
-        mEmailView = (EditText) findViewById(R.id.email);
+        nameView = (EditText) findViewById(R.id.name);
+        emailView = (EditText) findViewById(R.id.email);
         super.onStart();
     }
 
@@ -41,14 +42,17 @@ public class SearchFriends extends Activity {
 
         log.log(Level.INFO, "Searching, view is " + v.toString());
 
-        String name = mNameView.getText().toString();
-        String email = mEmailView.getText().toString();
-        UserTask mUserAddTask = new AddFriendTask(name, email, mEmailView,
-                                                  this);
-        mUserAddTask.execute();
-        mUserAddTask = null;
-    }
+        String name = nameView.getText().toString();
+        String email = emailView.getText().toString();
 
+        //String username, String password, String email, String id,
+        //String description, String name
+        User newFriend = new User(name,email);
+        UserTask addFriendTask = new AddFriendTask(newFriend, this);
+
+        addFriendTask.execute();
+        addFriendTask = null;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
