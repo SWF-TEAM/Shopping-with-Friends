@@ -3,7 +3,7 @@
     <!-- Add Deal Hints -->
     <string name="add_deal_name_hint">Enter Deal Name</string>
     <string name="add_deal_price_hint">Enter Desired Price</string>
-    <string name="add_deal_additionalInfo_hint">Anything Else?</string>
+    <string name="add_deal_additionalInfo_hint">Additional Deal Details:\nEx. To get this deal, you have to buy an item of equal or lesser value  (optional)</string>
 
     <!-- Add Deal Titles -->
     <string name="add_deal_title">Add New Deal</string>

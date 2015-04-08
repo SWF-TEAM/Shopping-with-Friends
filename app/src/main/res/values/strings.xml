@@ -11,12 +11,12 @@
     <string name="prompt_username">Username</string>
     <string name="title_activity_add_friend">Add Friend</string>
     <string name="search_hint">Enter a Name or Email Address</string>
-    <string name="title_activity_search_friends">SearchFriends</string>
+    <string name="title_activity_search_friends">Add a Friend</string>
     <string name="prompt_name">Name</string>
     <string name="title_activity_add_listing">Add Listing</string>
     <string name="title_activity_listing_details">Listing Details</string>
     <string name="search">Search</string>
-    <string name="title_activity_deal_report">DealReport</string>
+    <string name="title_activity_deal_report">Add Deal</string>
     <string name="add_deal">Add Deal</string>
     <string name="title_activity_deal_details">DealDetails</string>
     <string name="title_activity_main">MainActivity</string>

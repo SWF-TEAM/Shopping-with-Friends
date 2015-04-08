@@ -75,12 +75,6 @@ public class FriendList extends ActionBarActivity {
         // Opens the friends menu if the user presses the 'friends' button
         // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
         switch (item.getItemId()) {
-            case R.id.friend_menu:
-                openAddFriends();
-                //arrayAdapter.clear();
-                //arrayAdapter.addAll(User.loggedIn.getFriends());
-                arrayAdapter.notifyDataSetChanged();
-                return true;
             case R.id.search_friend:
                 openSearchFriends();
                 //arrayAdapter.clear();
@@ -103,11 +97,6 @@ public class FriendList extends ActionBarActivity {
         Intent intent = new Intent(this, SearchFriends.class);
         startActivity(intent);
         return true;
-    }
-
-    void openAddFriends() {
-        Intent intent = new Intent(this, AddFriend.class);
-        startActivity(intent);
     }
 
     void openSearchFriends() {

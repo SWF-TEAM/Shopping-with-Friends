@@ -62,8 +62,8 @@ public class AddFriendTask extends UserTask {
         String response = "";
 
         try {
-            String link = server_url + "/getuser.php?name=" + encode(friend.getUsername())
-                                     + "&email=" + encode(friend.getEmail());
+            String link = server_url + "/getuser.php?"+
+                    "email=" + encode(friend.getEmail()); //passing the username is useless
             response = fetchHTTPResponseAsStr(TAG, link);
         }catch(Exception e){ //checks for encoding exception
             Log.e(TAG, "EXCEPTION>>>>", e);

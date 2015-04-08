@@ -3,7 +3,7 @@
 
     <!-- Strings related to the Homepage -->
     <string name="friend_menu">Friends</string>
-    <string name="friends_listings">Friends Listings</string>
+    <string name="friends_listings">View Friends\' Listings</string>
 
 
 </resources>

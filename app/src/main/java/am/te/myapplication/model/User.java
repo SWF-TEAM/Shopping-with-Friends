@@ -43,6 +43,7 @@ public class User extends Agent {
 
     public User(String name, String email){
         super.setName(name);
+        super.setUsername(name);
         super.setEmail(email);
         description = "";
         friendList = null;

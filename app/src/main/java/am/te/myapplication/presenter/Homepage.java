@@ -95,6 +95,9 @@ public class Homepage extends ActionBarActivity {
             case R.id.add_listing:
                 addListing();
                 return true;
+            case R.id.search_friend:
+                openSearchFriends();
+                return true;
             case R.id.friends_listings:
                 openFriendsListings();
                 return true;
@@ -116,6 +119,11 @@ public class Homepage extends ActionBarActivity {
 
     void openFriends() {
         Intent intent = new Intent(this, FriendList.class);
+        startActivity(intent);
+    }
+
+    void openSearchFriends() {
+        Intent intent = new Intent(this, SearchFriends.class);
         startActivity(intent);
     }
 
