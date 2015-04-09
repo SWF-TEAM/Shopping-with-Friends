@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add Friend Hints -->
+    <string name="prompt_friend_name">Friend Name</string>
+    <string name="prompt_friend_email">Friend Email</string>
+
+    <!-- Add Friend Titles -->
+    <string name="add_friend_title">Add Friend</string>
+    <string name="title_activity_search_friends">Add a Friend</string>
+
+</resources>

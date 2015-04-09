@@ -4,22 +4,22 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="am.te.myapplication.AddListing">
+    tools:context="am.te.myapplication.presenter.AddListing">
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/add_product_name"
-        android:hint="@string/add_product_name_hint"
+        android:id="@+id/add_listing_name"
+        android:hint="@string/add_listing_name_hint"
         android:maxLines="1"
         android:singleLine="true"
         android:imeOptions="actionNext"
-        android:layout_below="@+id/add_product_title"
+        android:layout_below="@+id/add_listing_title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="33dp"
-        android:layout_alignRight="@+id/add_product_additionalInfo"
-        android:layout_alignEnd="@+id/add_product_additionalInfo"
+        android:layout_alignRight="@+id/add_listing_additionalInfo"
+        android:layout_alignEnd="@+id/add_listing_additionalInfo"
         />
 
     <EditText
@@ -27,10 +27,9 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/add_product_price"
-        android:numeric="decimal"
-        android:hint="@string/add_product_price_hint"
-        android:layout_below="@+id/add_product_name"
+        android:id="@+id/add_listing_price"
+        android:hint="@string/add_listing_price_hint"
+        android:layout_below="@+id/add_listing_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="34dp"
@@ -44,41 +43,43 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/add_product_additionalInfo"
+        android:id="@+id/add_listing_additionalInfo"
+
         android:background="@drawable/rectangle"
-        android:layout_below="@+id/add_product_price"
+        android:layout_below="@+id/add_listing_price"
         android:layout_marginTop="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="@string/add_product_additionalInfo_hint"
-        android:layout_above="@+id/add_product_button"
+        android:hint="@string/add_listing_additionalInfo_hint"
+        android:layout_above="@+id/add_listing_button"
         android:gravity="top"
         android:paddingTop="1dp"
         android:paddingLeft="1dp"
         android:paddingRight="1dp"
         android:paddingBottom="1dp"
-        android:padding="4dp" />
+        android:padding="4dp"
+        android:editable="false" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Product"
-        android:id="@+id/add_product_button"
+        android:text="@string/add_listing"
+        android:id="@+id/add_listing_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="addProduct" />
+        android:onClick="addListing" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/add_product_title"
-        android:id="@+id/add_product_title"
+        android:text="@string/add_listing_title"
+        android:id="@+id/add_listing_title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

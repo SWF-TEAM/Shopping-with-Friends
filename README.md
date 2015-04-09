@@ -32,7 +32,7 @@ Clearly an application like this would need a server and a database to become a 
 ####Types of Users
 User = this represents a regular person using the applicaiton [*sic*]. They are either a friend who has seen a deal and is posting it, or they are a person looking for deals. A person logged in as a user has no access to any Admin features.
 
-Admin = the admin can unlock accounts, permaneantly ban users, and remove any inappropriate posts that might be stored on the system. While logged in as admin, you cannot access any normal user features (like posting sales, etc).
+Admin = the admin can unlock accounts, permaneantly [*sic*] ban users, and remove any inappropriate posts that might be stored on the system. While logged in as admin, you cannot access any normal user features (like posting sales, etc).
 
 This means that if a person wants to use the system normally and be an admin, they would need either two separate accounts, or some way to tell the system at login which user type they will be for the session. The way you enforce this is up to your design.
 
@@ -57,7 +57,7 @@ A user can go into the system and register items that they are interested in buy
 ####Friends
 A user can designate one or more other people as their friends. To make a friend you just have to know their username. Unlike facebook, the system does not need to confirm you want someone as a friend. Upon designation by either user, the two users are automatically mutual friends. Adding confirmation a la facebook would be extra credit.
 
-A user can display thier current list of friends. From this list, they can add new friends or delete friends. The list should show the friends username and their rating (see below). Selecting a friend from the list should bring up a detailed view showing the name, email, rating and number or sales reports they have generated for you.
+A user can display thier [*sic*] current list of friends. From this list, they can add new friends or delete friends. The list should show the friends username and their rating (see below). Selecting a friend from the list should bring up a detailed view showing the name, email, rating and number or sales reports they have generated for you.
 
 ####Ratings
 Friends can rate each other (1-5 stars) for how helpful they are. Friends with no stars means that they have never received feedback (either because they have never reported a sale to anyone, or their friends never bothered to rate them).

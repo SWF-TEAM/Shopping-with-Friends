@@ -1,33 +1,47 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:gravity="center_horizontal"
     android:orientation="vertical" android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" tools:context="am.te.myapplication.SearchFriends"
+    android:paddingTop="@dimen/activity_vertical_margin" tools:context="am.te.myapplication.presenter.SearchFriends"
     >
 
-        <LinearLayout android:id="@+id/friend_search_form" android:layout_width="match_parent"
+        <RelativeLayout android:id="@+id/friend_search_form" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/add_friend_title"
+                android:id="@+id/add_friend_title"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
             <EditText android:id="@+id/name" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:hint="@string/prompt_name"
+                android:layout_height="wrap_content" android:hint="@string/prompt_friend_name"
                 android:inputType="textEmailAddress" android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:layout_below="@+id/add_friend_title"/>
 
             <EditText android:id="@+id/email" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:hint="@string/prompt_email"
+                android:layout_height="wrap_content" android:hint="@string/prompt_friend_email"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:inputType="textEmailAddress"
                 android:imeOptions="actionUnspecified"
-                android:maxLines="1" android:singleLine="true" />
+                android:maxLines="1" android:singleLine="true"
+                android:layout_below="@+id/name"/>
+
 
             <Button android:id="@+id/search_button" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" android:text="@string/search"
                 android:textStyle="bold"
-                android:onClick="search" />
+                android:onClick="search"
+                android:layout_below="@+id/email"/>
 
-        </LinearLayout>
 
-</LinearLayout>
+        </RelativeLayout>
+
+</RelativeLayout>

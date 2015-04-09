@@ -5,26 +5,24 @@
     <string name="login_button">Login</string>
     <string name="register_button">Register</string>
     <string name="action_settings">Action Settings</string>
-    <string name="title_activity_friend_list">Friend List</string>
-    <string name="title_activity_register">Register</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_register_short">Register</string>
+    <string name="enter_pass_again">Enter Password Again</string>
+
     <string name="prompt_username">Username</string>
-    <string name="title_activity_add_friend">Add Friend</string>
-    <string name="search_hint">Enter a Name or Email Address</string>
-    <string name="title_activity_search_friends">SearchFriends</string>
     <string name="prompt_name">Name</string>
-    <string name="title_activity_add_product">Add Product</string>
-    <string name="title_activity_product_details">Product Details</string>
+    <string name="search_hint">Enter a Name or Email Address</string>
+
     <string name="search">Search</string>
-    <string name="state">database</string>
-    <string name="server_url">http://artineer.com/sandbox</string>
-    <string name="title_activity_deal_report">DealReport</string>
     <string name="add_deal">Add Deal</string>
-    <string name="add_deal_title">Add New Deal</string>
-    <string name="title_activity_show_deal">ShowDeal</string>
-    <string name="title_activity_deal_details">DealDetails</string>
-    <string name="price_hint">Price</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="add_listing">Add Listing</string>
+
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_homepage">My Wishlist</string>
+    <string name="title_activity_add_friend">Add Friend</string>
+    <string name="title_activity_friend_list">Friend List</string>
+    <string name="title_activity_listing_details">Listing Details</string>
+    <string name="title_activity_deal_details">Deal Details</string>
+    <string name="title_activity_main">Main Activity</string>
+
 
 </resources>

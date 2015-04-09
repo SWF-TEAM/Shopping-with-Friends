@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="del_friend">Delete Friend</string>
+    <string name="ent_price">Enter Price</string>
+    <string name="get_location">Get Location</string>
+    <string name="submit">Submit</string>
+</resources>

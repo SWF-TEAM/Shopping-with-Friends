@@ -1,4 +1,4 @@
-package am.te.myapplication.Model;
+package am.te.myapplication.model;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

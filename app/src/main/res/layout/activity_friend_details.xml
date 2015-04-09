@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:id="@+id/homepage">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/homepage">
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="@string/placeHolder"
         android:id="@+id/Username"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -21,19 +21,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="@string/placeHolder"
         android:id="@+id/Email"
         android:layout_below="@+id/Username"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textColor="#ff000000" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="@string/placeHolder"
         android:id="@+id/Rating"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:layout_below="@+id/Email"
         />
 
@@ -41,9 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="@string/placeHolder"
         android:id="@+id/salesReports"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:layout_below="@+id/Rating"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -51,7 +51,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete Friend"
+        android:text="@string/del_friend"
         android:id="@+id/button4"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
