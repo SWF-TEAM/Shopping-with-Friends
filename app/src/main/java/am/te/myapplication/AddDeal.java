@@ -32,7 +32,6 @@ public class AddDeal extends Activity {
         lngText.setText(String.valueOf(0.0));
 
         this.listingName = getIntent().getExtras().getString("listing");
-        g
     }
 
     public void submitDeal(View view) {
