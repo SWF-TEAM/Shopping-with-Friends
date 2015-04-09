@@ -45,8 +45,6 @@ public abstract class Agent {
 
     public String getName() { return name;}
 
-    void setName() { this.name = name;}
-
     void setUsername(String username) {
         this.username = username;
     }

@@ -81,7 +81,7 @@ public class AddDeal extends Activity {
 
     public void openMap(View v) {
 
-        log.log(Level.INFO, "Openning map from view " + v.toString());
+        log.log(Level.INFO, "Opening map from view " + v.toString());
 
         Intent intent = new Intent(this, Map.class);
         startActivityForResult(intent, 1);

@@ -3,10 +3,11 @@
     <!-- Add Listing Hints -->
     <string name="add_listing_name_hint">Enter Listing Name</string>
     <string name="add_listing_price_hint">Enter Desired Price</string>
-    <string name="add_listing_additionalInfo_hint">add any additional details about the sale here (optional)</string>
+    <string name="add_listing_additionalInfo_hint">Add any additional details about the item and deals you want here (optional)</string>
 
     <!-- Add Listing Titles -->
     <string name="add_listing_title">Add New Listing</string>
+    <string name="title_activity_add_listing">Add Listing</string>
 
     <!-- Add Listing Errors -->
     <string name="error_invalid_price">Please enter a valid price</string>

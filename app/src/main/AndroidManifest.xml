@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="am.te.myapplication"
-    android:supportsRtl="true" >
+    package="am.te.myapplication" >
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -24,6 +23,7 @@
         android:required="true" />
 
     <application
+        android:supportsRtl="true"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -55,7 +55,7 @@
         </activity>
         <activity
             android:name=".presenter.Homepage"
-            android:label="My Wishlist"
+            android:label="@string/title_activity_homepage"
             android:launchMode="singleTask" >
         </activity>
         <activity

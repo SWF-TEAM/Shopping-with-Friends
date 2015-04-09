@@ -17,13 +17,14 @@ import am.te.myapplication.presenter.Register;
  */
 public class LoginTask extends UserTask {
 
-    private final View mProgressView;
-    private final View mLoginFormView;
     private final String mUsername;
     private final String mPassword;
-    private final Activity mActivity;
     private final EditText mPasswordView;
+    //private final Activity mActivity;
+    //private final View mProgressView;
+    //private final View mLoginFormView;
 
+    /*
     public LoginTask(String username, String password, Activity act,
                 View loginFormView, View progressView, EditText mPasswordView) {
         this.mUsername = username;
@@ -31,6 +32,13 @@ public class LoginTask extends UserTask {
         this.mActivity = act;
         this.mLoginFormView = loginFormView;
         this.mProgressView = progressView;
+        this.mPasswordView = mPasswordView;
+
+    }
+*/
+    public LoginTask(String username, String password, EditText mPasswordView) {
+        this.mUsername = username;
+        this.mPassword = password;
         this.mPasswordView = mPasswordView;
 
     }

@@ -82,7 +82,6 @@ public class AddListing extends Activity {
         if (!cancel) {
             UserTask task = new RegisterListingTask(newListing, this);
             task.execute();
-            task = null;
             Intent listingData = new Intent();
             listingData.putExtra("Name", name);
             listingData.putExtra("Price", price);

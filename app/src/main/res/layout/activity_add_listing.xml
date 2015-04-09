@@ -44,6 +44,7 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/add_listing_additionalInfo"
+
         android:background="@drawable/rectangle"
         android:layout_below="@+id/add_listing_price"
         android:layout_marginTop="30dp"
@@ -58,7 +59,8 @@
         android:paddingLeft="1dp"
         android:paddingRight="1dp"
         android:paddingBottom="1dp"
-        android:padding="4dp" />
+        android:padding="4dp"
+        android:editable="false" />
 
     <Button
         android:layout_width="wrap_content"

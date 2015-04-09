@@ -4,6 +4,19 @@
                 android:layout_height="match_parent"
                 android:id="@+id/homepage">
 
+    <Button
+        style="?android:textAppearanceSmall"
+        android:layout_width="353dp"
+        android:layout_height="wrap_content"
+        android:text="Add A Listing"
+        android:id="@+id/add_listing_button"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:onClick="addListing"
+        />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,5 +24,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:divider="#E6E6E6"
-        android:dividerHeight="0px"/>
+        android:dividerHeight="0px"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/add_listing_button" />
 </RelativeLayout>

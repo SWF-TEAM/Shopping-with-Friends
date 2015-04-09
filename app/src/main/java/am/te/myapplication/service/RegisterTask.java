@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
-import am.te.myapplication.R;
 import am.te.myapplication.model.User;
 import am.te.myapplication.presenter.Register;
 

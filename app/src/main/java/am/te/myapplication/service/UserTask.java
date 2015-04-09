@@ -76,4 +76,5 @@ public abstract class UserTask extends AsyncTask<Void, Void, Boolean> {
 
         return parsedResponse;
     }
+
 }

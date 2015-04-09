@@ -3,6 +3,8 @@ package am.te.myapplication.presenter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -104,9 +106,52 @@ public class FriendListings extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_friend_listings, menu);
+        return true;
+    }
+
+    @Override
     public void onResume() {
         arrayAdapter.notifyDataSetChanged();
         super.onResume();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar
+        // Opens the friends menu if the user presses the 'friends' button
+        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
+        switch (item.getItemId()) {
+            case R.id.search_friend:
+                openSearchFriends();
+                arrayAdapter.notifyDataSetChanged();
+                return true;
+            case R.id.friends_listings:
+                openFriendsListings();
+                return true;
+            case R.id.homepage:
+                openHomepage();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    void openSearchFriends() {
+        Intent intent = new Intent(this, SearchFriends.class);
+        startActivity(intent);
+    }
+
+    void openFriendsListings() {
+        Intent intent = new Intent(this, FriendListings.class);
+        startActivity(intent);
+    }
+
+    void openHomepage(){
+        Intent intent = new Intent(this, Homepage.class);
+        startActivity(intent);
     }
 
     static Listing getSelectedFriendListing() {

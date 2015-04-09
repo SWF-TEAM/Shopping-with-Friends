@@ -2,10 +2,8 @@ package am.te.myapplication.service;
 
 import android.app.Activity;
 import android.util.Log;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
-import am.te.myapplication.R;
 import am.te.myapplication.model.Agent;
 import am.te.myapplication.model.User;
 import am.te.myapplication.presenter.Register;

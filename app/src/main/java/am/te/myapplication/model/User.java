@@ -53,12 +53,13 @@ public class User extends Agent {
         return friendList;
     }
 
-    public List<Listing> getItemList() {
-        return itemList;
-    }
-
     public int getRating() {
         return rating;
+    }
+
+    /*
+    public List<Listing> getItemList() {
+        return itemList;
     }
 
     public boolean hasFriends() {
@@ -104,7 +105,7 @@ public class User extends Agent {
         }
         return null;
     }
-
+*/
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof User)) {

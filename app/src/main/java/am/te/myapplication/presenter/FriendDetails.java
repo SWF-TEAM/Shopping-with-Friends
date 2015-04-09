@@ -61,6 +61,5 @@ public class FriendDetails extends Activity {
         UserTask mRemoveFriendTask =
                             new RemoveFriendTask(currentUser.getId(), this);
         mRemoveFriendTask.execute();
-        mRemoveFriendTask = null;
     }
 }

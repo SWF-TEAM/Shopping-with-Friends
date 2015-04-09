@@ -51,7 +51,6 @@ public class SearchFriends extends Activity {
         UserTask addFriendTask = new AddFriendTask(newFriend, this, emailView);
 
         addFriendTask.execute();
-        addFriendTask = null;
     }
 
     @Override

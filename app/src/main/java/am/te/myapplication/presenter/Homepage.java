@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -42,6 +43,14 @@ public class Homepage extends ActionBarActivity {
         setContentView(R.layout.homepage);
         arrayAdapter = new AlertListingAdapter(
                 this, listings);
+
+        Button mAddListingButton = (Button) findViewById(R.id.add_listing_button);
+        mAddListingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addListing();
+            }
+        });
     }
 
     @Override
@@ -95,9 +104,9 @@ public class Homepage extends ActionBarActivity {
             case R.id.add_listing:
                 addListing();
                 return true;
-            case R.id.search_friend:
-                openSearchFriends();
-                return true;
+            //case R.id.search_friend:
+            //    openSearchFriends();
+            //    return true;
             case R.id.friends_listings:
                 openFriendsListings();
                 return true;
@@ -122,10 +131,10 @@ public class Homepage extends ActionBarActivity {
         startActivity(intent);
     }
 
-    void openSearchFriends() {
-        Intent intent = new Intent(this, SearchFriends.class);
-        startActivity(intent);
-    }
+    //void openSearchFriends() {
+    //    Intent intent = new Intent(this, SearchFriends.class);
+    //    startActivity(intent);
+    //}
 
     void addListing() {
         Intent intent = new Intent(this, AddListing.class);

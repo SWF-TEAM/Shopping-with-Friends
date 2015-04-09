@@ -69,15 +69,16 @@ public class PopulateListingsTask extends UserTask {
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage());
                 }
-                if (newListing != null) {
+                /*if (newListing != null) {
                     try {
-                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
+                        //JSONObject lineOfArray = jsonArray.getJSONObject(i);
                         //String seen = lineOfArray.getString("hasSeenDeals");
 
                     } catch (JSONException e) {
                         Log.e(TAG, e.getMessage());
                     }
                 }
+                */
             }
 
             listings.clear();
