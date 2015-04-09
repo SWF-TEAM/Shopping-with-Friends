@@ -5,7 +5,6 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -19,8 +18,8 @@ import android.widget.TextView;
 import java.util.concurrent.ExecutionException;
 
 import am.te.myapplication.R;
-import am.te.myapplication.service.UserTask;
 import am.te.myapplication.service.LoginTask;
+import am.te.myapplication.service.UserTask;
 
 
 /**

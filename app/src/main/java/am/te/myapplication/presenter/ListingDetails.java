@@ -11,9 +11,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.R;
 import am.te.myapplication.model.Deal;
 import am.te.myapplication.model.Listing;
-import am.te.myapplication.R;
 import am.te.myapplication.service.PopulateAssociatedDealsTask;
 import am.te.myapplication.service.UserTask;
 import am.te.myapplication.util.AlertDealAdapter;

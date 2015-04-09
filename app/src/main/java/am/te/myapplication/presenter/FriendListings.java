@@ -14,13 +14,14 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
+import am.te.myapplication.R;
 import am.te.myapplication.model.Listing;
 import am.te.myapplication.model.User;
-import am.te.myapplication.R;
 import am.te.myapplication.service.PopulateFriendsTask;
 import am.te.myapplication.service.PopulateListingsTask;
 import am.te.myapplication.service.UserTask;
 import am.te.myapplication.util.AlertListingAdapter;
+import am.te.myapplication.util.NavigationHandler;
 
 /**
  * list of friend's listings
@@ -35,12 +36,14 @@ public class FriendListings extends ActionBarActivity {
     private final List<Listing> friendListings = new ArrayList<>();
     private final List<User> friends = new ArrayList<>();
     private static final Logger log = Logger.getLogger("FriendListings");
+    private NavigationHandler nav;
 
     public static Listing selectedFriendListing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_listings);
+        nav = new NavigationHandler(this,arrayAdapter);
     }
 
     @Override
@@ -126,36 +129,9 @@ public class FriendListings extends ActionBarActivity {
         // Handle presses on the action bar
         // Opens the friends menu if the user presses the 'friends' button
         // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
-        switch (item.getItemId()) {
-            case R.id.search_friend:
-                openSearchFriends();
-                arrayAdapter.notifyDataSetChanged();
-                return true;
-            case R.id.friends_listings:
-                openFriendsListings();
-                return true;
-            case R.id.homepage:
-                openHomepage();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return nav.openMenuItem(item);
     }
 
-    void openSearchFriends() {
-        Intent intent = new Intent(this, SearchFriends.class);
-        startActivity(intent);
-    }
-
-    void openFriendsListings() {
-        Intent intent = new Intent(this, FriendListings.class);
-        startActivity(intent);
-    }
-
-    void openHomepage(){
-        Intent intent = new Intent(this, Homepage.class);
-        startActivity(intent);
-    }
 
     static Listing getSelectedFriendListing() {
         return selectedFriendListing;

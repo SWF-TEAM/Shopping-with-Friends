@@ -10,9 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import am.te.myapplication.R;
+import am.te.myapplication.model.Deal;
 import am.te.myapplication.service.RegisterDealTask;
 import am.te.myapplication.service.UserTask;
-import am.te.myapplication.model.Deal;
 
 public class AddDeal extends Activity {
 

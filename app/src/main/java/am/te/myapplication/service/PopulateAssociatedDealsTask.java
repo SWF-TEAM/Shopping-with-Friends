@@ -2,6 +2,7 @@ package am.te.myapplication.service;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.BaseAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +26,11 @@ public class PopulateAssociatedDealsTask extends UserTask {
 
     private final List<Deal> deals;
     private final Listing listing;
-    private final AlertDealAdapter arrayAdapter;
+    private final BaseAdapter arrayAdapter;
     private final Activity activity;
 
     public PopulateAssociatedDealsTask(List<Deal> deals, Listing listing,
-                                       AlertDealAdapter arrayAdapter, Activity activity) {
+                                       BaseAdapter arrayAdapter, Activity activity) {
         this.deals = deals;
         this.listing = listing;
         this.arrayAdapter = arrayAdapter;

@@ -1,15 +1,12 @@
 package am.te.myapplication.presenter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,11 +14,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import am.te.myapplication.model.User;
 import am.te.myapplication.R;
+import am.te.myapplication.model.User;
+import am.te.myapplication.service.PopulateFriendsTask;
 import am.te.myapplication.service.UserTask;
 import am.te.myapplication.util.ListFriendsAdapter;
-import am.te.myapplication.service.PopulateFriendsTask;
+import am.te.myapplication.util.NavigationHandler;
 
 public class FriendList extends ActionBarActivity {
 
@@ -29,17 +27,19 @@ public class FriendList extends ActionBarActivity {
     private BaseAdapter arrayAdapter;
     private final List<User> friends = new ArrayList<>();
     static User selectedFriend;
+    private NavigationHandler nav;
 
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_friend_list);
+        nav = new NavigationHandler(this,arrayAdapter);
 
         Button mAddFriendButton = (Button) findViewById(R.id.add_friend_button);
         mAddFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSearchFriends();
+                nav.launchActivity(SearchFriends.class, arrayAdapter);
             }
         });
     }
@@ -83,20 +83,7 @@ public class FriendList extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar
-        // Opens the friends menu if the user presses the 'friends' button
-        // see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
-        switch (item.getItemId()) {
-            case R.id.search_friend:
-                openSearchFriends();
-                arrayAdapter.notifyDataSetChanged();
-                return true;
-            case R.id.friends_listings:
-                openFriendsListings();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return nav.openMenuItem(item);
     }
 
     @Override
@@ -112,13 +99,4 @@ public class FriendList extends ActionBarActivity {
         return true;
     }
 
-    void openSearchFriends() {
-        Intent intent = new Intent(this, SearchFriends.class);
-        startActivity(intent);
-    }
-
-    void openFriendsListings() {
-        Intent intent = new Intent(this, FriendListings.class);
-        startActivity(intent);
-    }
 }

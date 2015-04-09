@@ -28,4 +28,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/add_listing_button" />
+
+    <TextView
+        android:id="@+id/empty_wishlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:text="@string/empty_wishlist"
+        android:layout_below="@+id/add_listing_button" />
+    android:visibility="gone" />
 </RelativeLayout>

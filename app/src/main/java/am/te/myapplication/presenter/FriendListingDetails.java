@@ -9,8 +9,8 @@ import android.widget.TextView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import am.te.myapplication.model.Listing;
 import am.te.myapplication.R;
+import am.te.myapplication.model.Listing;
 
 /**
  * This displays the details of your friend that you clicked on

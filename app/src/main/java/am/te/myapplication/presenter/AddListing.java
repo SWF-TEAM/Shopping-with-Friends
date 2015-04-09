@@ -8,12 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import am.te.myapplication.model.Listing;
 import am.te.myapplication.R;
+import am.te.myapplication.model.Listing;
 import am.te.myapplication.service.RegisterListingTask;
 import am.te.myapplication.service.UserTask;
 
