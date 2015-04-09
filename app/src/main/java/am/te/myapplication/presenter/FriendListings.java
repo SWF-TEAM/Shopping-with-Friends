@@ -49,8 +49,11 @@ public class FriendListings extends ActionBarActivity {
         ListView lv = (ListView) findViewById(
                                        R.id.activity_friends_listings_listView);
 
+        lv.setEmptyView(findViewById(R.id.empty_friend_listings));
+
         //local
         arrayAdapter = new AlertListingAdapter(this, friendListings);
+
         /* get friends from database */
         UserTask mPopulateFriendsTask = new PopulateFriendsTask(friends);
         mPopulateFriendsTask.execute();
@@ -68,7 +71,7 @@ public class FriendListings extends ActionBarActivity {
         for (User friend: friends) {
             String friendID = friend.getId();
             List<Listing> currFriendListings = new ArrayList<>();
-            PopulateListingsTask mListingsTask = new PopulateListingsTask(
+            UserTask mListingsTask = new PopulateListingsTask(
                                                              currFriendListings,
                                                                    arrayAdapter,
                                                                            this,

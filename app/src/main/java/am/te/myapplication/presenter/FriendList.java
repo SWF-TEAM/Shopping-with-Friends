@@ -50,6 +50,8 @@ public class FriendList extends ActionBarActivity {
         }
         ListView lv = (ListView) findViewById(R.id.add_friend_listView);
 
+        lv.setEmptyView(findViewById(R.id.empty_friend_list));
+
         //local
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
