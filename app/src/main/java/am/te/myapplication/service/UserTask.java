@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
  */
 public abstract class UserTask extends AsyncTask<Void, Void, Boolean> {
 
-    static final String server_url = "http://artineer.com/sandbox";
+    static final String server_url = "http://128.61.104.220/swf";
 
     /**
      * Encodes a String, so that it may be used in a URL.
