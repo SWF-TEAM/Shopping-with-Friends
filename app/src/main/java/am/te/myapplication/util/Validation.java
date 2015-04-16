@@ -17,6 +17,10 @@ public class Validation {
     public static boolean isEmailValid(String email) {
         if (email != null) {
             int dot = email.lastIndexOf('.');
+            if (dot < 0) {
+                //no dot in email address
+                return false;
+            }
             String dom = email.substring(dot);
             return email.matches("[a-zA-Z]++@[a-zA-Z]++.[a-zA-Z]++")
                    && (dom.equals(".com") || dom.equals(".net")
