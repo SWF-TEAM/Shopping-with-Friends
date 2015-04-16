@@ -2,6 +2,7 @@ package am.te.myapplication.service;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.BaseAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,12 +26,12 @@ import am.te.myapplication.util.AlertListingAdapter;
 public class PopulateListingsTask extends UserTask {
 
     private final List<Listing> listings;
-    private final AlertListingAdapter arrayAdapter;
+    private final BaseAdapter arrayAdapter;
     private final Activity activity;
     private final String id;
 
     public PopulateListingsTask(List<Listing> listings,
-               AlertListingAdapter arrayAdapter, Activity activity, String id) {
+               BaseAdapter arrayAdapter, Activity activity, String id) {
         this.listings = listings;
         this.arrayAdapter = arrayAdapter;
         this.activity = activity;
@@ -69,15 +70,16 @@ public class PopulateListingsTask extends UserTask {
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage());
                 }
-                if (newListing != null) {
+                /*if (newListing != null) {
                     try {
-                        JSONObject lineOfArray = jsonArray.getJSONObject(i);
+                        //JSONObject lineOfArray = jsonArray.getJSONObject(i);
                         //String seen = lineOfArray.getString("hasSeenDeals");
 
                     } catch (JSONException e) {
                         Log.e(TAG, e.getMessage());
                     }
                 }
+                */
             }
 
             listings.clear();

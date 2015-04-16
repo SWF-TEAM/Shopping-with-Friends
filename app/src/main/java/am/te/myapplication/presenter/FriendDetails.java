@@ -8,9 +8,8 @@ import android.widget.TextView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import am.te.myapplication.model.User;
-
 import am.te.myapplication.R;
+import am.te.myapplication.model.User;
 import am.te.myapplication.service.RemoveFriendTask;
 import am.te.myapplication.service.UserTask;
 
@@ -61,6 +60,5 @@ public class FriendDetails extends Activity {
         UserTask mRemoveFriendTask =
                             new RemoveFriendTask(currentUser.getId(), this);
         mRemoveFriendTask.execute();
-        mRemoveFriendTask = null;
     }
 }

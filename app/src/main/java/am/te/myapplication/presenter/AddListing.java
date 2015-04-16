@@ -8,12 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import am.te.myapplication.model.Listing;
 import am.te.myapplication.R;
+import am.te.myapplication.model.Listing;
 import am.te.myapplication.service.RegisterListingTask;
 import am.te.myapplication.service.UserTask;
 
@@ -65,6 +64,7 @@ public class AddListing extends Activity {
         boolean cancel = false; /* If an error occurs, cancel the operation */
         String name = nameView.getText().toString();
         Double price = 0.0;
+        String description = additionalInfoView.getText().toString();
 
         try {
             price = Double.valueOf(priceView.getText().toString());
@@ -76,17 +76,15 @@ public class AddListing extends Activity {
             cancel = true;
         }
 
-        String additionalInfo = additionalInfoView.getText().toString();
-        Listing newListing = new Listing(name, price, additionalInfo);
+        Listing newListing = new Listing(name, price, description);
+
         if (!cancel) {
-            UserTask mRegisterListingTask = new RegisterListingTask(name,
-                    price, additionalInfo, this);
-            mRegisterListingTask.execute();
-            mRegisterListingTask = null;
+            UserTask task = new RegisterListingTask(newListing, this);
+            task.execute();
             Intent listingData = new Intent();
             listingData.putExtra("Name", name);
             listingData.putExtra("Price", price);
-            listingData.putExtra("Additional", newListing.getAdditionalInfo());
+            listingData.putExtra("Additional", description);
             setResult(1, listingData);
             finish();
         }

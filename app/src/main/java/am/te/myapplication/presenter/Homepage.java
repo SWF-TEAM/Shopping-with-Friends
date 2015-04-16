@@ -8,17 +8,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import am.te.myapplication.R;
 import am.te.myapplication.model.Listing;
 import am.te.myapplication.model.User;
-import am.te.myapplication.R;
 import am.te.myapplication.service.PopulateListingsTask;
 import am.te.myapplication.service.UserTask;
 import am.te.myapplication.util.AlertListingAdapter;
+import am.te.myapplication.util.NavigationHandler;
 
 /**
  * The homepage class acts as a springboard to other areas of the app.
@@ -32,9 +35,9 @@ public class Homepage extends ActionBarActivity {
 
     private ListView lv;
     private final List<Listing> listings = new ArrayList<>();
-    private AlertListingAdapter arrayAdapter;
-
+    private BaseAdapter arrayAdapter;
     static Listing selectedListing;
+    private NavigationHandler nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,23 @@ public class Homepage extends ActionBarActivity {
         setContentView(R.layout.homepage);
         arrayAdapter = new AlertListingAdapter(
                 this, listings);
+        nav = new NavigationHandler(this,arrayAdapter);
+
+        Button mAddListingButton = (Button) findViewById(R.id.add_listing_button);
+        mAddListingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nav.launchActivity(AddListing.class);
+            }
+        });
     }
 
     @Override
     public void onStart() {
 
         lv = (ListView) findViewById(R.id.listing_listView);
+        lv.setEmptyView(findViewById(R.id.empty_wishlist));
+
 
         /* Get products from the database. */
         UserTask mPopulateProductsTask = new PopulateListingsTask(listings,
@@ -85,22 +99,7 @@ public class Homepage extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //Handle presses on the action bar
-        //Opens the friends menu if the user presses the 'friends' button
-        //see http://developer.android.com/guide/topics/ui/actionbar.html#Adding
-        switch (item.getItemId()) {
-            case R.id.friend_menu:
-                openFriends();
-                return true;
-            case R.id.add_listing:
-                addListing();
-                return true;
-            case R.id.friends_listings:
-                openFriendsListings();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return nav.openMenuItem(item);
     }
 
     @Override
@@ -109,21 +108,7 @@ public class Homepage extends ActionBarActivity {
         arrayAdapter.notifyDataSetChanged();
         lv.requestLayout();
     }
-    void openFriendsListings() {
-        Intent intent = new Intent(this, FriendListings.class);
-        startActivity(intent);
-    }
 
-    void openFriends() {
-        Intent intent = new Intent(this, FriendList.class);
-        startActivity(intent);
-    }
-
-    void addListing() {
-        Intent intent = new Intent(this, AddListing.class);
-        startActivityForResult(intent, 1);
-        arrayAdapter.notifyDataSetChanged();
-    }
 
     @Override
     protected void onActivityResult( int aRequestCode, int aResultCode,

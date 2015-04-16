@@ -5,37 +5,32 @@ import android.util.Log;
 import android.widget.EditText;
 
 import am.te.myapplication.model.Agent;
+import am.te.myapplication.model.User;
 import am.te.myapplication.presenter.Register;
 
 /**
  * The task used to add a friend.
  *
- * //TODO: does this search for friends, or add them?
  *
- * @author Mitchell Manguno, Mike Adkison
+ * @author Mitchell Manguno, Mike Adkison, Veronica Leblanc
  * @version 1.0
  * @since 2015 March 22
  */
 public class AddFriendTask extends UserTask {
-
-    private final String mName;
-    private final String mEmail;
-    private final EditText mEmailView;
-    private final Activity mActivity;
+    private final User friend;
+    private final Activity activity;
+    private final EditText emailView;
 
     /**
      * Constructs the initial AddFriendTask.
      *
-     * @param name the name of the initial friend to add
-     * @param email the email of the initial friend to add
-     * @param act the activity that called this task
+     * @param friend the friend that is going to be adde
+     * @param activity the activity that called this task
      */
-    public AddFriendTask(String name, String email, EditText mEmailView,
-                                                                 Activity act) {
-        this.mName = name;
-        this.mEmail = email;
-        this.mActivity = act;
-        this.mEmailView = mEmailView;
+    public AddFriendTask(User friend, Activity activity, EditText emailView) {
+        this.friend = friend;
+        this.activity = activity;
+        this.emailView = emailView;
     }
 
     @Override
@@ -65,8 +60,8 @@ public class AddFriendTask extends UserTask {
         String response = "";
 
         try {
-            String link = server_url + "/getuser.php?name=" + encode(mName)
-                                     + "&email=" + encode(mEmail);
+            String link = server_url + "/getuser.php?"+
+                    "email=" + encode(friend.getEmail()); //passing the username is useless
             response = fetchHTTPResponseAsStr(TAG, link);
         }catch(Exception e){ //checks for encoding exception
             Log.e(TAG, "EXCEPTION>>>>", e);
@@ -77,9 +72,10 @@ public class AddFriendTask extends UserTask {
     @Override
     protected void onPostExecute(final Boolean success) {
         if (success) {
-            mActivity.finish();
+            activity.finish();
         } else {
-            mEmailView.setError("try a different user");
+            emailView.setError("Try a different username or email");
+            emailView.requestFocus();
         }
     }
 

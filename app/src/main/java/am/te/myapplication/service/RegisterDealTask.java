@@ -14,7 +14,7 @@ import am.te.myapplication.model.Deal;
  * connection is unnecessary, as there will never be any need to register two
  * deals at the same time, nor should it be possible.
  *
- * @author Mitchell Manguno, Mike Adkison
+ * @author Mitchell Manguno, Mike Adkison, Veronica LeBlanc
  * @version 2.0
  * @since 2015 March 22
  */
@@ -28,8 +28,8 @@ public class RegisterDealTask extends UserTask {
      * @param deal the deal which is to be added to the db
      */
     public RegisterDealTask(Deal deal, Activity activity) {
-        this.activity = activity;
         this.deal = deal;
+        this.activity = activity;
     }
 
     @Override
@@ -60,8 +60,8 @@ public class RegisterDealTask extends UserTask {
 
         try {
             String response = fetchHTTPResponseAsStr(TAG, link);
-            Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-                                                          + ">>>>>>>>>>>>>>>>");
+            Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>" +
+                    ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Log.d(TAG, "RESPONSE TO REGISTER DEAL: " + response);
             return !response.contains("fail");
         }catch(Exception e){

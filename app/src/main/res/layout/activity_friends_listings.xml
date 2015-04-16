@@ -10,4 +10,13 @@
         android:id="@+id/activity_friends_listings_listView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/empty_friend_listings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:text="@string/empty_friend_listings"
+        android:visibility="gone" />
 </RelativeLayout>

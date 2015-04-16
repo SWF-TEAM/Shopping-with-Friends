@@ -19,21 +19,23 @@ public class Listing implements Comparable<Listing>{
     private List<Deal> associatedDeals;
     private final String name;
     private final double desiredPrice;
-    private final String additionalInfo;
+    private final String description;
     public String id;
 
-    public Listing(String name, double desiredPrice, String additionalInfo, String id) {
+    public Listing(String name, double desiredPrice, String description, String id) {
         this.name = name;
         this.desiredPrice = desiredPrice;
-        this.additionalInfo = additionalInfo;
+        this.description = description;
         this.id = id;
     }
 
-    public Listing(String name, double desiredPrice, String additionalInfo) {
+    public Listing(String name, double desiredPrice, String description) {
         this.name = name;
-        this.additionalInfo = additionalInfo;
+        this.description = description;
         this.desiredPrice = desiredPrice;
     }
+
+    public String getID() { return id; }
 
     public String getName() {
         return name;
@@ -43,8 +45,8 @@ public class Listing implements Comparable<Listing>{
         return desiredPrice;
     }
 
-    public String getAdditionalInfo() {
-        return additionalInfo;
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class Listing implements Comparable<Listing>{
         Listing o = (Listing) other;
 
         return o.name.equals(this.name) && o.desiredPrice == this.desiredPrice
-            && o.additionalInfo.equals(this.additionalInfo);
+            && o.description.equals(this.description);
     }
 
     @Override
@@ -68,7 +70,7 @@ public class Listing implements Comparable<Listing>{
         int hash = 7;
         hash += 31 * hash + name.hashCode();
         hash += 127 * hash + desiredPrice;
-        int adHash = additionalInfo == null ? 0 : additionalInfo.hashCode();
+        int adHash = description == null ? 0 : description.hashCode();
         hash += 8191 * hash + adHash;
         return hash;
     }
@@ -76,7 +78,7 @@ public class Listing implements Comparable<Listing>{
     @Override
     public String toString() {
         return "Name: " + name + ", Price: " + desiredPrice
-            + ", Additional Info: " + additionalInfo;
+            + ", Additional Info: " + description;
     }
 
     public static Listing getListingFromIntent(Intent intent) {
@@ -86,7 +88,7 @@ public class Listing implements Comparable<Listing>{
 
     @Override
     public int compareTo(@NonNull Listing another) {
-        return this.name.compareTo(another.name);
+        return this.id.compareTo(another.getID());
     }
 
  }

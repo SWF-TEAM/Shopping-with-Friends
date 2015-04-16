@@ -34,24 +34,33 @@ public class User extends Agent {
         super.setPassword(password);
         super.setEmail(email);
         super.setId(id);
+        super.setName(name);
         this.description = description;
         super.setName(name);
         friendList = new ArrayList<>();
         itemList = new ArrayList<>();
     }
 
+    public User(String name, String email){
+        super.setName(name);
+        super.setUsername(name);
+        super.setEmail(email);
+        description = "";
+        friendList = null;
+        itemList = null;
+    }
     public List<User> getFriends() {
         return friendList;
-    }
-
-    public List<Listing> getItemList() {
-        return itemList;
     }
 
     public int getRating() {
         return rating;
     }
 
+    /*
+    public List<Listing> getItemList() {
+        return itemList;
+    }
 
     public boolean hasFriends() {
         return !friendList.isEmpty();
@@ -96,7 +105,7 @@ public class User extends Agent {
         }
         return null;
     }
-
+*/
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof User)) {

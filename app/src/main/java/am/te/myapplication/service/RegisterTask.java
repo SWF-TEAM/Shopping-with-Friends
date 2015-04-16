@@ -4,32 +4,25 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
+import am.te.myapplication.model.User;
 import am.te.myapplication.presenter.Register;
 
 /**
  * The task used to register a new user.
  *
- * @author Mitchell Manguno
+ * @author Mitchell Manguno, Veronica LeBlanc
  * @version 1.0
  * @since 2015 March 22
  */
 public class RegisterTask extends UserTask {
+    private final User user;
+    private final Activity activity;
+    private final AutoCompleteTextView emailView;
 
-    private final String mEmail;
-    private final String mPassword;
-    private final String mUsername;
-    private final String mName;
-    private final AutoCompleteTextView mEmailView;
-    private final Activity mActivity;
-
-    public RegisterTask(String username, String name, String email,
-                String password, Activity act, AutoCompleteTextView emailView) {
-        mUsername = username;
-        mName = name;
-        mEmail = email;
-        mPassword = password;
-        mActivity = act;
-        mEmailView = emailView;
+    public RegisterTask(User user, Activity activity, AutoCompleteTextView emailView) {
+        this.activity = activity;
+        this.emailView = emailView;
+        this.user = user;
     }
 
     @Override
@@ -46,10 +39,10 @@ public class RegisterTask extends UserTask {
         String TAG = Register.class.getSimpleName();
 
         try {
-            String link = server_url + "/adduser.php?username=" + mUsername
-                                     +"&password=" + mPassword
-                                     + "&email=" + mEmail
-                                     +"&name=" + encode(mName);
+            String link = server_url + "/adduser.php?username=" + encode(user.getUsername())
+                                     +"&password=" + encode(user.getPassword())
+                                     + "&email=" + encode(user.getEmail())
+                                     +"&name=" + encode(user.getName());
 
             String response = fetchHTTPResponseAsStr(TAG, link);
 
@@ -64,11 +57,11 @@ public class RegisterTask extends UserTask {
     @Override
     protected void onPostExecute(final Boolean success) {
         if (success){
-            mActivity.finish();
+            activity.finish();
         } else {
             //database says this username already exists
-            mEmailView.setError("Try a different username or email");
-            mEmailView.requestFocus();
+            emailView.setError("Try a different username or email");
+            emailView.requestFocus();
         }
     }
 }

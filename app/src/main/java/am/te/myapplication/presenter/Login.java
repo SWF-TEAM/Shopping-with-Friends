@@ -5,7 +5,6 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -20,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 import am.te.myapplication.R;
 import am.te.myapplication.service.LoginTask;
+import am.te.myapplication.service.UserTask;
 
 
 /**
@@ -27,7 +27,7 @@ import am.te.myapplication.service.LoginTask;
  */
 public class Login extends Activity implements LoaderCallbacks<Cursor> {
 
-    private LoginTask mAuthTask = null;
+    private UserTask mAuthTask = null;
 
     // UI references.
     private EditText mUsernameView;
@@ -110,8 +110,9 @@ public class Login extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            mAuthTask = new LoginTask(username, password, this,
-                                  mLoginFormView, mProgressView, mPasswordView);
+            //mAuthTask = new LoginTask(username, password, this,
+            //                      mLoginFormView, mProgressView, mPasswordView);
+            mAuthTask = new LoginTask(username,password,mPasswordView);
             mAuthTask.execute((Void) null);
             boolean loggedIn = false;
             try {

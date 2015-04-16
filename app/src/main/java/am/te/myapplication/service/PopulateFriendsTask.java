@@ -3,6 +3,7 @@ package am.te.myapplication.service;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,14 +18,14 @@ import am.te.myapplication.model.User;
 public class PopulateFriendsTask extends UserTask {
 
     private final List<User> toPopulate;
-    private ArrayAdapter adapter;
+    private BaseAdapter adapter;
     private Activity activity;
 
     public PopulateFriendsTask(List<User> toPopulate) {
         this.toPopulate = toPopulate;
     }
 
-    public PopulateFriendsTask(List<User> toPopulate, ArrayAdapter adapter,
+    public PopulateFriendsTask(List<User> toPopulate, BaseAdapter adapter,
                                Activity activity) {
         this.toPopulate = toPopulate;
         this.adapter = adapter;
