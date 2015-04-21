@@ -27,7 +27,7 @@ Not many of us have time to look at all the sale ads in the paper. Most people d
 Projects in this class are open-ended and encourage you to be creative about possible solutions. Anything not specifically outlined in this description means you are free to design it however you like. For M11, we will be exchanging applications, and you will be able to see how user-friendly your choices really were.
 
 ####Networks and Databases
-Clearly an application like this would need a server and a database to become a commercial reality. Since these advanced courses are not pre-reqs for 2340, we are going to make a simple stand-alone application that mimics the core features, but would not be commercially viable. Adding in a web server and database would be extra credit opportunities for the project.
+User data is stored in a remote database behind a webserver.
 
 ####Types of Users
 User = this represents a regular person using the applicaiton [*sic*]. They are either a friend who has seen a deal and is posting it, or they are a person looking for deals. A person logged in as a user has no access to any Admin features.
